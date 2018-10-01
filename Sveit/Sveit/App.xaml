@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.App">
+    <Application.Resources>
+
+        <ResourceDictionary>
+
+            <!--Colors-->
+            <Color x:Key="AccentColor">#303F9F</Color>
+            <Color x:Key="BackgroundColor">#212121</Color>
+            <Color x:Key="AppBarColor">#303030</Color>
+            <Color x:Key="CardColor">#303030</Color>
+
+            <Color x:Key="PrimaryText">#FFFFFF</Color>
+            <Color x:Key="SecondaryText">#B3FFFFFF</Color>
+            <Color x:Key="DisabledText">#80FFFFFF</Color>
+
+            <!--Styles-->
+            <Style x:Key="SearchBarStyle" TargetType="SearchBar">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="CancelButtonColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="Opacity" Value="0.7" />
+            </Style>
+            <Style x:Key="PickerStyle" TargetType="Picker">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+                <Setter Property="Opacity" Value="0.7" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

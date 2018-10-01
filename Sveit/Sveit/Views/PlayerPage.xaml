@@ -1,0 +1,280 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:converter="clr-namespace:Sveit.Helpers"
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:dltag="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.TagEntryView"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Sveit.Views.PlayerPage"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{i18n:Translate CreateTeam}" Order="Secondary" Command="{Binding AddTeamCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:RelativeDateTimeConverter x:Key="RelativeDateTimeConverter" />
+            <converter:ContactsToStringConverter x:Key="contactsToString"/>
+            <Style x:Key="TabHeader" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="TextColor" Value="{StaticResource SecondaryText}"/>
+            </Style>
+
+            <!--Profile Tab Animations-->
+            <xamanimation:StoryBoard 
+                x:Key="ProfileAnimation"    
+                Target="{x:Reference ProfilePanel}">
+                <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateX="300" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateX="0" Easing="SpringOut" Duration="200" />
+            </xamanimation:StoryBoard>
+
+            <!--Teams Tab Animations-->
+            <xamanimation:StoryBoard 
+                x:Key="TeamsAnimation"    
+                Target="{x:Reference TeamsPanel}">
+                <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateX="300" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateX="0" Easing="SpringOut" Duration="200" />
+            </xamanimation:StoryBoard>
+
+            <!--Comments Tab Animations-->
+            <xamanimation:StoryBoard 
+                x:Key="CommentsAnimation"    
+                Target="{x:Reference CommentsPanel}">
+                <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateX="300" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateX="0" Easing="SpringOut" Duration="200" />
+            </xamanimation:StoryBoard>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.3*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <forms:CachedImage Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Aspect="AspectFill" Source="https://www.kitsuga.com/wp-content/uploads/2017/02/ESPORTS.jpg">
+                <forms:CachedImage.Transformations>
+                    <transformations:BlurredTransformation Radius="180" />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <forms:CachedImage Source="{Binding Player.AvatarSource}" HeightRequest="92" >
+                    <forms:CachedImage.Transformations>
+                        <transformations:RoundedTransformation Radius="240" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+                <Label Text="{Binding Player.Nickname}" 
+                       TextColor="{StaticResource PrimaryText}" 
+                       FontSize="Large"
+                       HorizontalOptions="Center"/>
+                <Label Text="{Binding Player.Gender.Name}"
+                       TextColor="{StaticResource SecondaryText}" 
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <!--Tabs-->
+
+            <!--Profile Tab-->
+            <Grid Grid.Row="1"
+                      Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                           Text="{i18n:Translate Profile}" 
+                           Style="{StaticResource TabHeader}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Profile}" Value="True">
+                            <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <BoxView Grid.Row="1">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding Profile}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"/>
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ProfileCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <!--Profile Content-->
+            <StackLayout x:Name="ProfilePanel" Grid.Row="2" 
+                             Grid.Column="0" 
+                             Grid.ColumnSpan="3" 
+                             Margin="10" 
+                             Spacing="8"
+                             IsVisible="{Binding Profile}">
+                <StackLayout Margin="10">
+                    <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                    <Label Text="{Binding Player.Contacts, Converter={StaticResource contactsToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                </StackLayout>
+                <StackLayout Margin="10">
+                    <Label Text="{i18n:Translate Skills}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                    <dltag:TagEntryView TagItems="{Binding Skills}" Margin="-4, 4">
+                        <dltag:TagEntryView.TagItemTemplate>
+                            <DataTemplate>
+                                <StackLayout BackgroundColor="{StaticResource AccentColor}"  Padding="8">
+                                    <Label Text="{Binding Name}" TextColor="{StaticResource SecondaryText}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </dltag:TagEntryView.TagItemTemplate>
+                    </dltag:TagEntryView>
+                </StackLayout>
+                <StackLayout.Triggers>
+                    <Trigger TargetType="StackLayout" Property="StackLayout.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                                Animation="{StaticResource ProfileAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </StackLayout.Triggers>
+            </StackLayout>
+
+            <!--Teams Tab-->
+            <Grid Grid.Row="1" 
+                      Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                           Text="{i18n:Translate Teams}" 
+                           Style="{StaticResource TabHeader}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Team}" Value="True">
+                            <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <BoxView Grid.Row="1">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding Team}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"/>
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TeamCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <!--Teams Content-->
+            <Grid x:Name="TeamsPanel" 
+                  Grid.Row="2" 
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  IsVisible="{Binding Team}">
+                <ListView ItemsSource="{Binding Teams}" 
+                      Margin="6" 
+                      HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="6"
+                                       OutlineColor="Transparent"
+                                       BackgroundColor="Transparent">
+                                    <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
+                                        <Image Source="{Binding IconSource}" WidthRequest="64" HeightRequest="64"/>
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                                <Label Text="{Binding GamePlatform.Platform.Name}" TextColor="{StaticResource DisabledText}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid.Triggers>
+                    <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                                Animation="{StaticResource TeamsAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Grid.Triggers>
+            </Grid>
+
+            <!--Comments Tab-->
+            <Grid Grid.Row="1" 
+                  Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                           Text="{i18n:Translate Comments}" 
+                           Style="{StaticResource TabHeader}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Comment}" Value="True">
+                            <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <BoxView Grid.Row="1">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Binding="{Binding Comment}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"/>
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CommentCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <!--Comments Content-->
+            <Grid x:Name="CommentsPanel" 
+                  Grid.Row="2" 
+                  Grid.Column="0" 
+                  Grid.ColumnSpan="3" 
+                  IsVisible="{Binding Comment}" >
+                <ListView ItemsSource="{Binding Comments}" 
+                          HasUnevenRows="True" 
+                          Margin="0, 0, 0, 10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="10, 10, 10, 0" 
+                                       OutlineColor="Transparent"
+                                       BackgroundColor="Transparent">
+                                    <StackLayout Orientation="Vertical" Padding="10" BackgroundColor="{StaticResource CardColor}">
+                                        <Label Text="{Binding FromPlayer.Nickname}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Text}" TextColor="{StaticResource SecondaryText}" LineBreakMode="WordWrap" Margin="4"/>
+                                        <Label Text="{Binding CreatedAt, Converter={StaticResource RelativeDateTimeConverter}}" TextColor="{StaticResource DisabledText}" HorizontalOptions="End"/>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid.Triggers>
+                    <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                                Animation="{StaticResource CommentsAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Grid.Triggers>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

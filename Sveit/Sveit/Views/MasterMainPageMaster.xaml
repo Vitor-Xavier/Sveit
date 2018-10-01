@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.Views.MasterMainPageMaster"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Menu">
+    <StackLayout>
+        <StackLayout BackgroundColor="{StaticResource AppBarColor}">
+            <StackLayout Orientation="Horizontal" Margin="20" Spacing="15">
+                <Image Source="https://i.pinimg.com/originals/c8/0a/09/c80a0933df51f9f5be92d033c6db65b2.jpg" HeightRequest="120"/>
+                <StackLayout Spacing="10">
+                    <Label Text="Vitorxs" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
+                    <Label Text="Vitor Xavier de Souza" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="20" TextColor="{StaticResource SecondaryText}"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <ListView x:Name="MenuItemsListView"
+                HasUnevenRows="True"
+                ItemsSource="{Binding MenuItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="8">
+                            <Image Source="{Binding Icon}" Margin="6"/>
+                            <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Large"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

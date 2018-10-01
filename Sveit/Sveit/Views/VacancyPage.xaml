@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             x:Class="Sveit.Views.VacancyPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="Vaga suporte">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <i18n:AgeToStringConverter x:Key="ageToString"/>
+            <i18n:SkillsToStringConverter x:Key="skillsToString"/>
+            <i18n:GendersToStringConverter x:Key="gendersToString"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0" Source="{Binding Vacancy.Team.GamePlatform.Game.ImageSource}"/>
+                <StackLayout BackgroundColor="#80000000" Grid.Row="0" Grid.Column="0">
+                    <Label Text="{Binding Vacancy.Team.Name}" FontSize="Large" FontAttributes="Bold" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Grid>
+            <Image Margin="0, -45, 0, 0" Aspect="AspectFit" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="80" Source="{Binding Vacancy.Team.IconSource}"/>
+
+            <ScrollView>
+                <StackLayout Margin="10" 
+                         Spacing="8">
+                    <StackLayout Margin="10">
+                        <Label Text="{Binding Vacancy.Title}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                        <Label Text="{Binding Vacancy.Description}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                    </StackLayout>
+                    <StackLayout Margin="10">
+                        <Label Text="{i18n:Translate Age}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                        <Label Text="{Binding Vacancy, Converter={StaticResource ageToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                    </StackLayout>
+                    <StackLayout Margin="10">
+                        <Label Text="{i18n:Translate Gender}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                        <Label Text="{Binding Vacancy.Genders, Converter={StaticResource gendersToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                    </StackLayout>
+                    <StackLayout Margin="10">
+                        <Label Text="{i18n:Translate Requirements}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                        <Label Text="{Binding Vacancy.Skills, Converter={StaticResource skillsToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout VerticalOptions="End">
+                <flex:FlexButton Text="{i18n:Translate Apply}" ClickedCommand="{Binding ApplyCommand}" HeightRequest="60" Margin="14" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="#FFFFFF" CornerRadius="8"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="Sveit.Views.PopupPickerPage"
+                 Padding="30"
+                 CloseWhenBackgroundIsClicked="True">
+    <popup:PopupPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" Margin="12, 12, 0, 0"/>
+            <ListView ItemsSource="{Binding Items}" 
+                      HasUnevenRows="True"
+                      Margin="16"
+                      SelectedItem="{Binding Item}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="8" Orientation="Horizontal" Spacing="8">
+                                <Image Source="{Binding IconSource}" HeightRequest="42"/>
+                                <Label Text="{Binding Name}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button BackgroundColor="Transparent" Text="CANCEL" Command="{Binding CancelCommand}" HorizontalOptions="End"/>
+        </StackLayout>
+    </popup:PopupPage.Content>
+</popup:PopupPage>

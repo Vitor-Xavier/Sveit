@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
+             xmlns:behaviors="clr-namespace:Sveit.Behaviors"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Sveit.Views.TeamRegisterPage"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.5*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="5.7*"/>
+            </Grid.RowDefinitions>
+            <forms:CachedImage Grid.Row="0"
+                               Grid.RowSpan="2" 
+                               Grid.Column="0"
+                               Aspect="AspectFill" 
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Source="{Binding Game.ImageSource}">
+                <forms:CachedImage.Transformations>
+                    <transformations:BlurredTransformation Radius="180" />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="{Binding IconSource}" HeightRequest="100">
+                    <forms:CachedImage.Transformations>
+                        <transformations:RoundedTransformation Radius="240" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+                <Label Text="{i18n:Translate SelectImage}" TextColor="{StaticResource PrimaryText}" FontAttributes="Bold" Margin="8">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ImageCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
+                <StackLayout Padding="16" Spacing="10" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CardColor}">
+                    <StackLayout>
+                        <Label Text="{i18n:Translate TeamName}" TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomEntry Placeholder="{i18n:Translate TeamName}" Text="{Binding Name}" TextColor="{StaticResource SecondaryText}" PlaceholderColor="{StaticResource DisabledText}" LineColor="Accent">
+                            <controls:CustomEntry.Behaviors>
+                                <behaviors:TextLenghtValidationBehavior MinLength="4"/>
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+                    <!--<StackLayout>
+                        <Label Text="{i18n:Translate Game}" TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomPicker Title="{i18n:Translate Game}" TextColor="{StaticResource SecondaryText}" ItemsSource="{Binding Games}" SelectedItem="{Binding Game}">
+                            <controls:CustomPicker.Behaviors>
+                                <behaviors:PickerSelectedBehavior/>
+                            </controls:CustomPicker.Behaviors>
+                        </controls:CustomPicker>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Platform}" TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomPicker Title="{i18n:Translate Platform}" TextColor="{StaticResource SecondaryText}" ItemsSource="{Binding Platforms}" SelectedItem="{Binding Platform}" IsEnabled="{Binding HasPlatforms}">
+                            <controls:CustomPicker.Behaviors>
+                                <behaviors:PickerSelectedBehavior/>
+                            </controls:CustomPicker.Behaviors>
+                        </controls:CustomPicker>
+                    </StackLayout>-->
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Game}" TextColor="{StaticResource SecondaryText}"/>
+                        <StackLayout Orientation="Horizontal" Spacing="10" Margin="8">
+                            <Image HeightRequest="24" Source="{Binding Game.IconSource}"/>
+                            <Label Text="{Binding Game.Name}" 
+                                   TextColor="{StaticResource SecondaryText}" 
+                                   FontSize="Medium"
+                                   HorizontalOptions="FillAndExpand">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GameCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Platform}" TextColor="{StaticResource SecondaryText}"/>
+                        <StackLayout Orientation="Horizontal" Spacing="10" Margin="8">
+                            <Image HeightRequest="24" Source="{Binding Platform.IconSource}" VerticalOptions="Center"/>
+                            <Label Text="{Binding Platform.Name}" 
+                                   TextColor="{StaticResource SecondaryText}" 
+                                   FontSize="Medium"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PlatformCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <!--<StackLayout>
+                        <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Picker Title="Tipo" TextColor="{StaticResource SecondaryText}">
+                                <Picker.Items>
+                                    <x:String>Whatsapp</x:String>
+                                    <x:String>Discord</x:String>
+                                    <x:String>Email</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            <Entry Placeholder="{i18n:Translate Contacts}" HorizontalOptions="FillAndExpand"/>
+                            <flex:FlexButton Text="+" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="20"/>
+                        </StackLayout>
+                        
+                    </StackLayout>-->
+                    <StackLayout VerticalOptions="EndAndExpand">
+                        <flex:FlexButton Text="{i18n:Translate Continue}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

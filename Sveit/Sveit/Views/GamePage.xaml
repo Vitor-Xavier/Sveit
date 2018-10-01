@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="Sveit.Views.GamePage"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.3*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <forms:CachedImage Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Aspect="AspectFill" Source="{Binding Game.BackgroundSource}" Opacity="1">
+                <!--<forms:CachedImage.Transformations>
+                    <transformations:BlurredTransformation Radius="10" />
+                </forms:CachedImage.Transformations>-->
+            </forms:CachedImage>
+            <StackLayout BackgroundColor="#00000000" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Margin="16">
+                    <Label Text="{Binding Game.Name}" FontSize="Large" FontAttributes="Bold" TextColor="#FFFFFF"/>
+                    <Label Text="{Binding Game.GenresStr}" HorizontalTextAlignment="Center" TextColor="{StaticResource SecondaryText}"/>
+                </StackLayout>
+            </StackLayout>
+            <ListView Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Vacancies}" ItemSelected="ListView_ItemSelected" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10, 10, 10, 0" 
+                                   BackgroundColor="Transparent" 
+                                   OutlineColor="Transparent">
+                                <StackLayout Orientation="Horizontal" 
+                                             Padding="10" 
+                                             BackgroundColor="{StaticResource CardColor}">
+                                    <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
+                                        <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding SkillCount}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                            <Label Text="{i18n:Translate SkillsRequired}" TextColor="{StaticResource DisabledText}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

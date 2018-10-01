@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             x:Class="Sveit.Views.SettingsPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{i18n:Translate Settings}">
+    <StackLayout Padding="10">
+        <StackLayout Margin="10">
+            <Label Text="{i18n:Translate Settings}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
+                <Label Text="{i18n:Translate StoreCredencials}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" VerticalOptions="Center"/>
+                <Switch IsToggled="True" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
+                <Label Text="{i18n:Translate Language}" 
+                       TextColor="{StaticResource PrimaryText}" 
+                       FontSize="Medium"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"/>
+                <Picker ItemsSource="{Binding Languages}" 
+                        SelectedItem="{Binding Language}"
+                        TextColor="{StaticResource PrimaryText}" 
+                        FontSize="Medium" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="EndAndExpand" />
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Margin="10">
+            <Label Text="{i18n:Translate About}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
+                <Label Text="{i18n:Translate Version}" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
+                <Label Text="Alpha 0.1" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium" HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
+                <Label Text="Xamarin.Forms 3.0" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
+                <Label Text="Visual Studio 2017" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Margin="10">
+            <Label Text="{i18n:Translate Social}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="20, 12" Spacing="20" HorizontalOptions="CenterAndExpand">
+                <flex:FlexButton
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="8"
+                                Icon="ic_twitter"
+                                Padding="6"
+                                ForegroundColor="#FFFFFF"
+                                HighlightForegroundColor="#04A9F4"
+                                BackgroundColor="#04A9F4"
+                                HighlightBackgroundColor="#FFFFFF"
+                                ClickedCommand="{Binding TwitterCommand}"/>
+                <flex:FlexButton
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="8"
+                                Icon="ic_facebook"
+                                Padding="6"
+                                ForegroundColor="#FFFFFF"
+                                HighlightForegroundColor="#385D98"
+                                BackgroundColor="#385D98"
+                                HighlightBackgroundColor="#FFFFFF"
+                                ClickedCommand="{Binding FacebookCommand}"/>
+                <flex:FlexButton
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="8"
+                                Icon="ic_google"
+                                Padding="6"
+                                ForegroundColor="#FFFFFF"
+                                HighlightForegroundColor="#D6252B"
+                                BackgroundColor="#D6252B"
+                                HighlightBackgroundColor="#FFFFFF"
+                                ClickedCommand="{Binding GoogleCommand}"/>
+                <flex:FlexButton
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="8"
+                                Icon="ic_linkedin"
+                                Padding="6"
+                                ForegroundColor="#FFFFFF"
+                                HighlightForegroundColor="#4B74A0"
+                                BackgroundColor="#4B74A0"
+                                HighlightBackgroundColor="#FFFFFF"
+                                ClickedCommand="{Binding LinkedInCommand}"/>
+                <flex:FlexButton
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="8"
+                                Icon="ic_github"
+                                Padding="6"
+                                ForegroundColor="#FFFFFF"
+                                HighlightForegroundColor="#000000"
+                                BackgroundColor="#000000"
+                                HighlightBackgroundColor="#FFFFFF"
+                                ClickedCommand="{Binding GithubCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

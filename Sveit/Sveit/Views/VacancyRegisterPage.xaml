@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.Views.VacancyRegisterPage"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
+             xmlns:behaviors="clr-namespace:Sveit.Behaviors"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.5*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="5.7*"/>
+            </Grid.RowDefinitions>
+            <forms:CachedImage Grid.Row="0"
+                               Grid.RowSpan="2" 
+                               Grid.Column="0"
+                               Aspect="AspectFill" 
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Source="{Binding Team.GamePlatform.Game.ImageSource}">
+                <forms:CachedImage.Transformations>
+                    <transformations:BlurredTransformation Radius="180" />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="{Binding Team.IconSource}" HeightRequest="100">
+                    <forms:CachedImage.Transformations>
+                        <transformations:RoundedTransformation Radius="240" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+            </StackLayout>
+            <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
+                <StackLayout Padding="16" Spacing="10" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CardColor}">
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Title}" TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomEntry Placeholder="{i18n:Translate Title}" Text="{Binding Title}" TextColor="{StaticResource SecondaryText}" PlaceholderColor="{StaticResource DisabledText}" LineColor="Accent">
+                            <controls:CustomEntry.Behaviors>
+                                <behaviors:TextLenghtValidationBehavior MinLength="4"/>
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Description}" TextColor="{StaticResource SecondaryText}"/>
+                        <Editor Text="{Binding Description}" TextColor="{StaticResource SecondaryText}" MaxLength="300" HeightRequest="100"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Age}" TextColor="{StaticResource SecondaryText}"/>
+                        <StackLayout Orientation="Horizontal" Margin="8">
+                            <Entry Placeholder="{i18n:Translate MinAge}" Text="{Binding MinAge}" TextColor="{StaticResource SecondaryText}" MaxLength="2" Keyboard="Numeric" HorizontalOptions="StartAndExpand"/>
+                            <Entry Placeholder="{i18n:Translate MaxAge}" Text="{Binding MaxAge}" TextColor="{StaticResource SecondaryText}" MaxLength="2" Keyboard="Numeric" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <!--<StackLayout>
+                        <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Picker Title="Tipo" TextColor="{StaticResource SecondaryText}">
+                                <Picker.Items>
+                                    <x:String>Whatsapp</x:String>
+                                    <x:String>Discord</x:String>
+                                    <x:String>Email</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            <Entry Placeholder="{i18n:Translate Contacts}" HorizontalOptions="FillAndExpand"/>
+                            <flex:FlexButton Text="+" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="20"/>
+                        </StackLayout>
+                        
+                    </StackLayout>-->
+                    <StackLayout VerticalOptions="EndAndExpand">
+                        <flex:FlexButton Text="{i18n:Translate Continue}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

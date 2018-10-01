@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.Views.VacanciesPage"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{i18n:Translate Vacancies}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <i18n:SkillsCountToStringConverter x:Key="skillCountToString"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_filter_list_white_24dp" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+
+            <forms:CarouselView ItemsSource="{Binding Games}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Position="{Binding Position}">
+                <forms:CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ffimage:CachedImage Aspect="Fill" 
+                                                 Source="{Binding ImageSource}"
+                                                 HorizontalOptions="FillAndExpand">
+                                <ffimage:CachedImage.Transformations>
+                                    <transformations:BlurredTransformation Radius="180" />
+                                </ffimage:CachedImage.Transformations>
+                            </ffimage:CachedImage>
+                            <StackLayout BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                <ffimage:CachedImage Source="{Binding IconSource}" HeightRequest="92" >
+                                    <ffimage:CachedImage.Transformations>
+                                        <transformations:RoundedTransformation Radius="240" />
+                                    </ffimage:CachedImage.Transformations>
+                                </ffimage:CachedImage>
+                                <Label Text="{Binding Name}" 
+                                   TextColor="{StaticResource PrimaryText}" 
+                                   FontSize="Large" 
+                                   HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </forms:CarouselView.ItemTemplate>
+            </forms:CarouselView>
+            <ListView Grid.Row="1" 
+                      ItemsSource="{Binding Vacancies}" 
+                      ItemSelected="ListView_ItemSelected" 
+                      Margin="0, 5, 0, 5"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10, 5, 10, 5" 
+                                   BackgroundColor="Transparent" 
+                                   OutlineColor="Transparent">
+                                <StackLayout Orientation="Horizontal" 
+                                             Padding="10" 
+                                             BackgroundColor="{StaticResource CardColor}">
+                                    <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
+                                        <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Skills, Converter={StaticResource skillCountToString}}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                    </StackLayout>
+                                    <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
