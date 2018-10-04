@@ -22,14 +22,14 @@
                                Aspect="AspectFill" 
                                HorizontalOptions="FillAndExpand"
                                VerticalOptions="FillAndExpand"
-                               Source="">
+                               Source="https://www.kitsuga.com/wp-content/uploads/2017/02/ESPORTS.jpg">
                 <forms:CachedImage.Transformations>
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
             <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
             <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-                <forms:CachedImage Source="" HeightRequest="100">
+                <forms:CachedImage Source="{Binding PlayerTo.AvatarSource}" HeightRequest="100">
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>

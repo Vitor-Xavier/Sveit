@@ -6,6 +6,7 @@ using Sveit.Services.Requests;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System;
 
 namespace Sveit.ViewModels
 {
@@ -62,6 +63,8 @@ namespace Sveit.ViewModels
         public ICommand TeamCommand => new Command(TeamCommandExecute);
 
         public ICommand CommentCommand => new Command(CommentCommandExecute);
+
+        public ICommand AddCommentCommand => new Command(AddCommentCommandExecute);
 
         public ICommand AddTeamCommand => new Command(AddTeamCommandExecute);
 
@@ -120,6 +123,11 @@ namespace Sveit.ViewModels
         private async void AddTeamCommandExecute()
         {
             await _navigation.PushModalAsync(new TeamRegisterPage());
+        }
+
+        private async void AddCommentCommandExecute()
+        {
+            await _navigation.PushModalAsync(new CommentRegisterPage());
         }
 
         private async void LoadProfile()

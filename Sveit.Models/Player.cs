@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sveit.Models
 {
@@ -6,6 +7,7 @@ namespace Sveit.Models
     {
         public int PlayerId { get; set; }
         public string Name { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public virtual Gender Gender { get; set; }
         public string Nickname { get; set; }
         public string AvatarSource { get; set; }

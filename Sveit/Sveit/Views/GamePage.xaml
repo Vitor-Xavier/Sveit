@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:helpers="clr-namespace:Sveit.Helpers"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="Sveit.Views.GamePage"
              BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:SkillsCountToStringConverter x:Key="SkillsCountToString"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -38,10 +44,7 @@
                                         <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
                                         <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
                                         <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding SkillCount}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
-                                            <Label Text="{i18n:Translate SkillsRequired}" TextColor="{StaticResource DisabledText}"/>
-                                        </StackLayout>
+                                        <Label Text="{Binding Skills, Converter={StaticResource SkillsCountToString}}" TextColor="{StaticResource DisabledText}"/>
                                     </StackLayout>
                                     <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
                                 </StackLayout>

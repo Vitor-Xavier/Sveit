@@ -312,4 +312,10 @@
   <data name="NewHere" xml:space="preserve">
     <value>Novo aqui? </value>
   </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="NoSkillsRequired" xml:space="preserve">
+    <value>Sem requerimento específico de habilidade</value>
+  </data>
 </root>

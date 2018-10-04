@@ -2,16 +2,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.MasterMainPageMaster"
+             xmlns:helpers="clr-namespace:Sveit.Helpers"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="Menu">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:DateOfBirthToAgeConverter x:Key="DateOfBirthToAge"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout>
-        <StackLayout BackgroundColor="{StaticResource AppBarColor}">
-            <StackLayout Orientation="Horizontal" Margin="20" Spacing="15">
-                <Image Source="https://i.pinimg.com/originals/c8/0a/09/c80a0933df51f9f5be92d033c6db65b2.jpg" HeightRequest="120"/>
-                <StackLayout Spacing="10">
-                    <Label Text="Vitorxs" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
-                    <Label Text="Vitor Xavier de Souza" TextColor="{StaticResource SecondaryText}"/>
-                    <Label Text="20" TextColor="{StaticResource SecondaryText}"/>
+        <StackLayout Padding="20, 20, 20, 45" BackgroundColor="{StaticResource AppBarColor}">
+            <StackLayout Orientation="Horizontal"  Spacing="15">
+                <forms:CachedImage Source="{Binding LoggedPlayer.AvatarSource}" CacheDuration="2" HeightRequest="72" >
+                    <forms:CachedImage.Transformations>
+                        <transformations:RoundedTransformation Radius="240" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+                <StackLayout Spacing="4">
+                    <Label Text="{Binding LoggedPlayer.Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
+                    <Label Text="{Binding LoggedPlayer.Name}" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" TextColor="{StaticResource SecondaryText}"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

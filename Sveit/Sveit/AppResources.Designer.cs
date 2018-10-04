@@ -365,7 +365,18 @@ namespace Sveit {
                 return ResourceManager.GetString("NoRequirements", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to NoSkillsRequired.
+        /// </summary>
+        internal static string NoSkillsRequired
+        {
+            get
+            {
+                return ResourceManager.GetString("NoSkillsRequired", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to 1 day ago.
         /// </summary>
@@ -608,7 +619,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        internal static string Text
+        {
+            get
+            {
+                return ResourceManager.GetString("Text", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Vacancies.
         /// </summary>

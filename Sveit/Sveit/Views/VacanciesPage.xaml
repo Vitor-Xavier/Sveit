@@ -10,7 +10,7 @@
              Title="{i18n:Translate Vacancies}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <i18n:SkillsCountToStringConverter x:Key="skillCountToString"/>
+            <i18n:SkillsCountToStringConverter x:Key="SkillCountToString"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -74,7 +74,7 @@
                                         <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
                                         <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
                                         <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Skills, Converter={StaticResource skillCountToString}}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                        <Label Text="{Binding Skills, Converter={StaticResource SkillCountToString}}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
                                     </StackLayout>
                                     <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
                                 </StackLayout>
