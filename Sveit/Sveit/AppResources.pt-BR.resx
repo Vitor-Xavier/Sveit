@@ -318,4 +318,7 @@
   <data name="NoSkillsRequired" xml:space="preserve">
     <value>Sem requerimento específico de habilidade</value>
   </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Data de nascimento</value>
+  </data>
 </root>

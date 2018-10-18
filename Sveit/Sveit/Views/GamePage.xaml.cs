@@ -12,15 +12,17 @@ namespace Sveit.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class GamePage : ContentPage
 	{
-		public GamePage ()
+        public GamePage(Models.Game game)
 		{
 			InitializeComponent();
-            BindingContext = new Sveit.ViewModels.GameViewModel();
+            BindingContext = new Sveit.ViewModels.GameViewModel(Navigation, game);
 		}
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            App.Current.MainPage.Navigation.PushModalAsync(new VacancyPage());
+            var item = ((ListView)sender).SelectedItem as Models.Vacancy;
+            if (item == null) return;
+            (BindingContext as ViewModels.GameViewModel).VacancySelectedCommandExecute(item);
             ((ListView)sender).SelectedItem = null;
         }
     }

@@ -76,7 +76,7 @@ namespace Sveit.ViewModels
             Teams = new ObservableCollection<Team>();
             Comments = new ObservableCollection<Comment>();
 
-            if (App.IsUsingApi)
+            if (AppSettings.ApiStatus)
             {
                 _playerService = new PlayerService(requestService);
                 _commentService = new CommentService(requestService);

@@ -7,8 +7,10 @@ namespace Sveit.Services.Login
 {
     public interface ILoginService
     {
+        Task<Models.Player> CheckLogIn();
+
         Task<Models.Player> LogIn(string email, string password);
 
-        Task<bool> LogOut();
+        bool LogOut();
     }
 }

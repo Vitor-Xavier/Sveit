@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <helpers:SkillsCountToStringConverter x:Key="SkillsCountToString"/>
+            <helpers:GenresToStringConverter x:Key="GenresToString"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -27,7 +28,7 @@
             <StackLayout BackgroundColor="#00000000" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Margin="16">
                     <Label Text="{Binding Game.Name}" FontSize="Large" FontAttributes="Bold" TextColor="#FFFFFF"/>
-                    <Label Text="{Binding Game.GenresStr}" HorizontalTextAlignment="Center" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding Game.Genres, Converter={StaticResource GenresToString}}" HorizontalTextAlignment="Center" TextColor="{StaticResource SecondaryText}"/>
                 </StackLayout>
             </StackLayout>
             <ListView Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Vacancies}" ItemSelected="ListView_ItemSelected" HasUnevenRows="True">

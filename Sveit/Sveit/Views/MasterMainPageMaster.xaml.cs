@@ -1,5 +1,7 @@
 ﻿
 using Sveit.Models;
+using Sveit.Services.Login;
+using Sveit.Services.Requests;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -22,15 +24,32 @@ namespace Sveit.Views
             ListView = MenuItemsListView;
         }
 
-        class MasterMainPageMasterViewModel : INotifyPropertyChanged
+        public class MasterMainPageMasterViewModel : INotifyPropertyChanged
         {
+            private ILoginService _loginService;
+
             public ObservableCollection<MasterMenuItem> MenuItems { get; set; }
 
-            public Player LoggedPlayer { get; set; }
+            private Player loggedPlayer;
+
+            public Player LoggedPlayer
+            {
+                get { return loggedPlayer; }
+                set { loggedPlayer = value; OnPropertyChanged(); }
+            }
 
             public MasterMainPageMasterViewModel()
             {
-                LoggedPlayer = App.LoggedPlayer;
+                if (AppSettings.ApiStatus)
+                    _loginService = new LoginService(new RequestService());
+                else
+                    _loginService = new FakeLoginService();
+                LoadItems();
+            }
+
+            private async void LoadItems()
+            {
+                LoggedPlayer = await _loginService.CheckLogIn();
 
                 if (LoggedPlayer == null)
                 {
@@ -53,9 +72,9 @@ namespace Sveit.Views
                         new MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 6, Title = AppResources.Teams, Icon = "baseline_group_white_24", TargetType = typeof(TeamPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsPage) },
+                        new MasterMenuItem { Id = 7, Title = "Exit", Icon = "baseline_settings_white_24" }
                     });
                 }
-
             }
 
             #region INotifyPropertyChanged Implementation

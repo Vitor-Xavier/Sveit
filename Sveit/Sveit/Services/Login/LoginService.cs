@@ -13,6 +13,22 @@ namespace Sveit.Services.Login
             _requestService = requestService;
         }
 
+        public async Task<Models.Player> CheckLogIn()
+        {
+            var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
+            var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
+            var storagedToken = await SecureStorage.GetAsync("Sveit-OAuthToken");
+
+            if (storagedEmail != null && storagedPassword != null && storagedToken != null)
+            {
+                var player = new Models.Player { };
+                App.LoggedPlayer = player;
+                return player;
+            }
+            else
+                return null;
+        }
+
         public async Task<Models.Player> LogIn(string email, string password)
         {
             var player = new Models.Player { };
@@ -31,18 +47,18 @@ namespace Sveit.Services.Login
             }
         }
 
-        public Task<bool> LogOut()
+        public bool LogOut()
         {
             try
             {
                 var email = SecureStorage.Remove("Sveit-Email");
                 var password = SecureStorage.Remove("Sveit-Password");
                 var oauthToken = SecureStorage.Remove("Sveit-OAuthToken");
-                return Task.FromResult(email && password && oauthToken);
+                return email && password && oauthToken;
             }
             catch
             {
-                return Task.FromResult(false);
+                return false;
             }
         }
     }

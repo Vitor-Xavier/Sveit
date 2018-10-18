@@ -8,9 +8,6 @@
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{i18n:Translate Games}">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="ic_filter_list_white_24dp" Order="Primary"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <i18n:GenresToStringConverter x:Key="genresToString"/>

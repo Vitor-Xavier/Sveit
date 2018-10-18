@@ -1,6 +1,7 @@
 ﻿using Sveit.Models;
 using Sveit.Services.Gender;
 using Sveit.Services.Requests;
+using System;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
@@ -54,13 +55,30 @@ namespace Sveit.ViewModels
             set { nickname = value; OnPropertyChanged(); }
         }
 
+        private DateTime dateOfBirth;
+
+        public DateTime DateOfBirth
+        {
+            get { return dateOfBirth; }
+            set { dateOfBirth = value; OnPropertyChanged(); }
+        }
+
         public ObservableCollection<Gender> Genders { get; set; }
 
         public PlayerRegisterViewModel(INavigation navigation)
         {
+            AvatarSource = "https://www.yourfirstpatient.com/assets/default-user-avatar-thumbnail@2x-ad6390912469759cda3106088905fa5bfbadc41532fbaa28237209b1aa976fc9.png";
             _navigation = navigation;
-            _requestService = new RequestService();
-            _genderService = new GenderService(_requestService);
+            if (AppSettings.ApiStatus)
+            {
+                _requestService = new RequestService();
+                _genderService = new GenderService(_requestService);
+            }
+            else
+            {
+                _genderService = new FakeGenderService();
+            }
+            
             Genders = new ObservableCollection<Gender>();
             LoadGenders();
         }

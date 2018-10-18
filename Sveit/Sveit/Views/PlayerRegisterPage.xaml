@@ -59,6 +59,10 @@
                         </controls:CustomEntry>
                     </StackLayout>
                     <StackLayout>
+                        <Label Text="{i18n:Translate DateOfBirth}" TextColor="{StaticResource SecondaryText}"/>
+                        <DatePicker MinimumDate="01/01/1900" MaximumDate="10/18/2018" Date="{Binding DateOfBirth}" TextColor="{StaticResource SecondaryText}"/>
+                    </StackLayout>
+                    <StackLayout>
                         <Label Text="{i18n:Translate Gender}" TextColor="{StaticResource SecondaryText}"/>
                         <controls:CustomPicker Title="{i18n:Translate Gender}" TextColor="{StaticResource SecondaryText}" ItemsSource="{Binding Genders}" SelectedItem="{Binding Gender}">
                             <controls:CustomPicker.Behaviors>

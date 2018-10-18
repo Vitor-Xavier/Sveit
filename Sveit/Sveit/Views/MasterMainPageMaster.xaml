@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.MasterMainPageMaster"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
              xmlns:helpers="clr-namespace:Sveit.Helpers"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -21,9 +22,9 @@
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <StackLayout Spacing="4">
-                    <Label Text="{Binding LoggedPlayer.Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
-                    <Label Text="{Binding LoggedPlayer.Name}" TextColor="{StaticResource SecondaryText}"/>
-                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.Nickname, TargetNullValue={i18n:Translate Nickname}}" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
+                    <Label Text="{Binding LoggedPlayer.Name, TargetNullValue={i18n:Translate Name}}" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}, TargetNullValue={i18n:Translate DateOfBirth}}" TextColor="{StaticResource SecondaryText}"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

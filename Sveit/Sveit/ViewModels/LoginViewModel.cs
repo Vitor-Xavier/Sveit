@@ -35,7 +35,10 @@ namespace Sveit.ViewModels
 
         public LoginViewModel(IRequestService requestService)
         {
-            _loginService = new LoginService(requestService);
+            if (AppSettings.ApiStatus)
+                _loginService = new LoginService(requestService);
+            else
+                _loginService = new FakeLoginService();
         }
 
         private void SignUpCommandExecute()
@@ -55,7 +58,7 @@ namespace Sveit.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Sveit", "Logged", "Ok");
+                App.Current.MainPage = new Views.MasterMainPage();
             }
         }
 

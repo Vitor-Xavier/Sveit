@@ -16,12 +16,15 @@ namespace Sveit.Views
         public GamesPage()
         {
             InitializeComponent();
-            BindingContext = new GamesViewModel();
+            BindingContext = new GamesViewModel(Navigation);
         }
 
-        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushAsync(new GamePage());
+            var item = ((ListView)sender).SelectedItem as Models.Game;
+            if (item == null) return;
+            (BindingContext as ViewModels.GamesViewModel).GameSelectedCommandExecute(item);
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

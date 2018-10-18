@@ -13,10 +13,10 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VacancyPage : ContentPage
     {
-        public VacancyPage()
+        public VacancyPage(Models.Vacancy vacancy)
         {
             InitializeComponent();
-            BindingContext = new VacancyViewModel(Navigation);
+            BindingContext = new VacancyViewModel(Navigation, vacancy);
         }
     }
 }

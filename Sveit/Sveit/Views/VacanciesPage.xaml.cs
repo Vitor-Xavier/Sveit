@@ -9,14 +9,14 @@ namespace Sveit.Views
         public VacanciesPage()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.VacanciesViewModel();
+            BindingContext = new ViewModels.VacanciesViewModel(Navigation);
         }
 
-        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem == null) return;
-            await Navigation.PushAsync(new VacancyPage());
-
+            var item = ((ListView)sender).SelectedItem as Models.Vacancy;
+            if (item == null) return;
+            (BindingContext as ViewModels.VacanciesViewModel).VacancySelectedCommandExecute(item);
             ((ListView)sender).SelectedItem = null;
         }
     }

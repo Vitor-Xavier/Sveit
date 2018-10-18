@@ -13,9 +13,6 @@
             <i18n:SkillsCountToStringConverter x:Key="SkillCountToString"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="ic_filter_list_white_24dp" Order="Primary"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -48,9 +45,9 @@
                                     </ffimage:CachedImage.Transformations>
                                 </ffimage:CachedImage>
                                 <Label Text="{Binding Name}" 
-                                   TextColor="{StaticResource PrimaryText}" 
-                                   FontSize="Large" 
-                                   HorizontalOptions="Center"/>
+                                       TextColor="{StaticResource PrimaryText}" 
+                                       FontSize="Large" 
+                                       HorizontalOptions="Center"/>
                             </StackLayout>
                         </Grid>
                     </DataTemplate>
