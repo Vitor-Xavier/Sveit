@@ -37,7 +37,7 @@ namespace Sveit.API.Controllers
         /// <param name="playerId">Identificação do jogador</param>
         /// <returns>Lista de aplicações</returns>
         [HttpGet]
-        [Route("Apply")]
+        [Route("Apply/Player/{playerId:int}")]
         public IEnumerable<Apply> GetByPlayer(int playerId)
         {
             return (from a in _context.Applies

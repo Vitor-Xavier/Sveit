@@ -321,4 +321,28 @@
   <data name="DateOfBirth" xml:space="preserve">
     <value>Data de nascimento</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Outros</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Papéis</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Aceitar</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Rejeitar</value>
+  </data>
+  <data name="Applies" xml:space="preserve">
+    <value>Aplicações</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Jogador</value>
+  </data>
 </root>

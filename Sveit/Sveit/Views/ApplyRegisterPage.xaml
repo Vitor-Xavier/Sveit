@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.Views.ApplyRegisterPage"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3.5*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="5.7*"/>
+            </Grid.RowDefinitions>
+            <forms:CachedImage Grid.Row="0"
+                               Grid.RowSpan="2" 
+                               Grid.Column="0"
+                               Aspect="AspectFill" 
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Source="{Binding Vacancy.Team.GamePlatform.Game.ImageSource}">
+                <forms:CachedImage.Transformations>
+                    <transformations:BlurredTransformation Radius="180" />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="{Binding Vacancy.Team.IconSource}" HeightRequest="100">
+                    <forms:CachedImage.Transformations>
+                        <transformations:RoundedTransformation Radius="240" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+                <Label Text="{Binding Vacancy.Title}" 
+                       TextColor="{StaticResource PrimaryText}" 
+                       FontSize="Large"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+            <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
+                <StackLayout Padding="16" Spacing="10" BackgroundColor="{StaticResource CardColor}">
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Text}" TextColor="{StaticResource SecondaryText}"/>
+                        <Editor Text="{Binding Text}" TextColor="{StaticResource SecondaryText}" MaxLength="300" HeightRequest="100"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Roles}" TextColor="{StaticResource SecondaryText}"/>
+                        <ListView ItemsSource="{Binding RoleTypes}"
+                                  HasUnevenRows="True"
+                                  IsGroupingEnabled="True"
+                                  SeparatorVisibility="None"
+                                  Margin="4, 0"
+                                  HeightRequest="180"
+                                  GroupDisplayBinding="{Binding Key}"
+                                  lv:MultiSelect.Enable="True">
+                            <ListView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout>
+                                            <Label Text="{Binding Key.Name}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.GroupHeaderTemplate>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <lv:SelectableCell x:Name="SelectableCell">
+                                        <lv:SelectableCell.CheckView>
+                                            <Image Source="selected.png" WidthRequest="18" HeightRequest="18"/>
+                                        </lv:SelectableCell.CheckView>
+                                        <lv:SelectableCell.DataView>
+                                            <StackLayout>
+                                                <Label Text="{Binding Name}" TextColor="{StaticResource SecondaryText}"/>
+                                            </StackLayout>
+                                        </lv:SelectableCell.DataView>
+                                    </lv:SelectableCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <StackLayout>
+                        <flex:FlexButton Text="{i18n:Translate Apply}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ApplyCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

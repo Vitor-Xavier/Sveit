@@ -1,15 +1,8 @@
 ﻿using Sveit.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 using Sveit.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Sveit.Services.Vacancy;
-using Sveit.Services.Requests;
+using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
@@ -37,7 +30,7 @@ namespace Sveit.ViewModels
 
         public async void ExecuteApplyCommand()
         {
-            await _navigation.PushModalAsync(new VacancyRegisterPage());
+            await _navigation.PushModalAsync(new ApplyRegisterPage(Vacancy));
         }
     }
 }

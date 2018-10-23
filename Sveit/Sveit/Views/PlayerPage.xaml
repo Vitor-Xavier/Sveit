@@ -11,11 +11,13 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{i18n:Translate CreateTeam}" Order="Secondary" Command="{Binding AddTeamCommand}"/>
         <ToolbarItem Text="Add comment" Order="Secondary" Command="{Binding AddCommentCommand}"/>
+        <ToolbarItem Text="{i18n:Translate Applies}" Order="Secondary" Command="{Binding AppliesCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:RelativeDateTimeConverter x:Key="RelativeDateTimeConverter" />
             <converter:ContactsToStringConverter x:Key="contactsToString"/>
+            <converter:GenderTransalteConverter x:Key="GenderTransalte"/>
             <Style x:Key="TabHeader" TargetType="Label">
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
@@ -81,7 +83,7 @@
                        TextColor="{StaticResource PrimaryText}" 
                        FontSize="Large"
                        HorizontalOptions="Center"/>
-                <Label Text="{Binding Player.Gender.Name}"
+                <Label Text="{Binding Player.Gender.Name, Converter={StaticResource GenderTransalte}}"
                        TextColor="{StaticResource SecondaryText}" 
                        HorizontalOptions="Center"/>
             </StackLayout>

@@ -34,7 +34,8 @@ namespace Sveit.Services.Vacancy
             };
             yield return new Models.Vacancy
             {
-                Title = "Vaga suporte",
+                Title = "Vaga suporte, papeis",
+                Roles = new List<Models.Role> { new Models.Role { Name = "Agressivo", RoleType = new Models.RoleType { RoleTypeId = 1, Name = "Papel primário" } }, new Models.Role { Name = "DPS", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } }, new Models.Role { Name = "Tank", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } } },
                 Skills = new List<Models.Skill> { new Models.Skill { Name = "skill1" }, new Models.Skill { Name = "skill1" }, new Models.Skill { Name = "skill1" } },
                 Team = new Models.Team { Name = "Commander eSports", GamePlatform = gamePlatform, IconSource = "https://static-cdn.jtvnw.net/jtv_user_pictures/flawedbot-profile_image-815076ff68773420-300x300.jpeg" },
                 VacancyId = 1,

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.Views.VacancyPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
-             x:Class="Sveit.Views.VacancyPage"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
              BackgroundColor="{StaticResource BackgroundColor}"

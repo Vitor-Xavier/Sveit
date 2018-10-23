@@ -68,6 +68,8 @@ namespace Sveit.ViewModels
 
         public ICommand AddTeamCommand => new Command(AddTeamCommandExecute);
 
+        public ICommand AppliesCommand => new Command(AppliesCommandExecute);
+
         public PlayerViewModel(INavigation navigation)
         {
             _navigation = navigation;
@@ -128,6 +130,13 @@ namespace Sveit.ViewModels
         private async void AddCommentCommandExecute()
         {
             await _navigation.PushModalAsync(new CommentRegisterPage());
+        }
+
+        private async void AppliesCommandExecute()
+        {
+            var fakeApplyService = new Services.Apply.FakeApplyService();
+            var apply = await fakeApplyService.GetApply(1);
+            await _navigation.PushModalAsync(new ApplyPage(apply));
         }
 
         private async void LoadProfile()

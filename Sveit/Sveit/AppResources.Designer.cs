@@ -194,7 +194,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Email", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        internal static string Female
+        {
+            get
+            {
+                return ResourceManager.GetString("Female", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Game.
         /// </summary>
@@ -257,7 +268,18 @@ namespace Sveit {
                 return ResourceManager.GetString("LogIn", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        internal static string Male
+        {
+            get
+            {
+                return ResourceManager.GetString("Male", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Maximum Age.
         /// </summary>
@@ -374,6 +396,17 @@ namespace Sveit {
             get
             {
                 return ResourceManager.GetString("NoSkillsRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        internal static string Others
+        {
+            get
+            {
+                return ResourceManager.GetString("Others", resourceCulture);
             }
         }
 

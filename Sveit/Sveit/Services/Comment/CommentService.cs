@@ -9,7 +9,7 @@ using Sveit.Services.Requests;
 
 namespace Sveit.Services.Comment
 {
-    class CommentService : ICommentService
+    public class CommentService : ICommentService
     {
         private readonly IRequestService _requestService;
 
