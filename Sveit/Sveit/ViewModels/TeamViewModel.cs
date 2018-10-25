@@ -1,6 +1,7 @@
 ﻿using Sveit.Models;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -9,6 +10,8 @@ namespace Sveit.ViewModels
 {
     public class TeamViewModel : BindableObject
     {
+        public readonly INavigation _navigation;
+
         private readonly ITeamService _teamService;
 
         private readonly int _teamId;
@@ -26,6 +29,8 @@ namespace Sveit.ViewModels
         public ICommand DescriptionCommand => new Command(DescriptionCommandExecute);
 
         public ICommand MembersCommand => new Command(MembersCommandExecute);
+
+        public ICommand VacanciesCommand => new Command(VacanciesCommandExecute);
 
         private bool tabMembers;
 
@@ -51,8 +56,9 @@ namespace Sveit.ViewModels
             }
         }
 
-        public TeamViewModel()
+        public TeamViewModel(INavigation navigation)
         {
+            _navigation = navigation;
             _teamId = 1;
             if (AppSettings.ApiStatus)
                 _teamService = new TeamService(new RequestService());
@@ -75,6 +81,13 @@ namespace Sveit.ViewModels
             Description = false;
             TabMembers = true;
             LoadMembers();
+        }
+
+        private async void VacanciesCommandExecute()
+        {
+            var fakeVacancyService = new Services.Vacancy.FakeVacancyService();
+            var vacancy = await fakeVacancyService.GetVacancyAsync(1);
+            await _navigation.PushAsync(new Views.AppliesTeamPage(vacancy));
         }
 
         private async void LoadProfile()

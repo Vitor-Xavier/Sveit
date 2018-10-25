@@ -30,6 +30,7 @@ namespace Sveit.Services.Apply
                 {
                     Name = "Jogador 1",
                     Nickname = "PlayerOne",
+                    DateOfBirth = new System.DateTime(1999, 12, 10),
                     Gender = new Models.Gender { Name = "Masculino" },
                     AvatarSource = "https://pbs.twimg.com/profile_images/949941380259991552/C4b4NckD_400x400.jpg",
                     Deleted = false,

@@ -15,7 +15,7 @@ namespace Sveit.Views
 		public TeamPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new ViewModels.TeamViewModel();
+            BindingContext = new ViewModels.TeamViewModel(Navigation);
 		}
 	}
 }

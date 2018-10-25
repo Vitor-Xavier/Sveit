@@ -94,11 +94,33 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="End" Margin="14">
-                        <flex:FlexButton Text="{i18n:Translate Accept}" ClickedCommand="{Binding AcceptCommand}" HeightRequest="60" BackgroundColor="#00E676" ForegroundColor="#FFFFFF" CornerRadius="8"/>
-                        <flex:FlexButton Text="" HeightRequest="60" Margin="-4, 0" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="#FFFFFF"/>
-                        <flex:FlexButton Text="{i18n:Translate Decline}" ClickedCommand="{Binding DeclineCommand}" HeightRequest="60" BackgroundColor="#F44336" ForegroundColor="#FFFFFF" CornerRadius="8"/>
-                    </StackLayout>
+                    <Grid VerticalOptions="End" Margin="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <flex:FlexButton Grid.Column="0" 
+                                         Text="{i18n:Translate Accept}" 
+                                         ClickedCommand="{Binding AcceptCommand}" 
+                                         HeightRequest="60" 
+                                         BackgroundColor="#00E676" 
+                                         ForegroundColor="#FFFFFF" 
+                                         CornerRadius="8" 
+                                         HorizontalOptions="FillAndExpand"/>
+                        <flex:FlexButton Grid.Column="2" 
+                                         Text="{i18n:Translate Decline}" 
+                                         ClickedCommand="{Binding DeclineCommand}" 
+                                         HeightRequest="60" 
+                                         BackgroundColor="#F44336" 
+                                         ForegroundColor="#FFFFFF" 
+                                         CornerRadius="8" 
+                                         HorizontalOptions="FillAndExpand"/>
+                        <BoxView Grid.Column="1" 
+                                 BackgroundColor="{StaticResource AccentColor}" 
+                                 HeightRequest="60" 
+                                 Margin="-14, 0, -14, 0"/>
+                    </Grid>
                 </StackLayout>
             </ScrollView>
         </Grid>

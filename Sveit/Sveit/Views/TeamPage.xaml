@@ -8,6 +8,9 @@
              x:Class="Sveit.Views.TeamPage" 
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{Binding Team.Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{i18n:Translate Vacancies}" Order="Secondary" Command="{Binding VacanciesCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="TabHeader" TargetType="Label">

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sveit.Views.AppliesPlayerPage"
+             xmlns:i18n="clr-namespace:Sveit.Helpers"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{i18n:Translate Applies}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource AccentColor}"/>
+            <ListView Grid.Row="1" 
+                      ItemsSource="{Binding Applies}" 
+                      ItemSelected="ListView_ItemSelected" 
+                      Margin="0, 5, 0, 5"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10, 5, 10, 5" 
+                                   BackgroundColor="Transparent" 
+                                   OutlineColor="Transparent">
+                                <StackLayout Orientation="Horizontal" 
+                                             Padding="10" 
+                                             BackgroundColor="{StaticResource CardColor}">
+                                    <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
+                                        <Label Text="{Binding Vacancy.Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Vacancy.Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Vacancy.Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Vacancy.Team.Name}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                    </StackLayout>
+                                    <Image Source="{Binding Vacancy.Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

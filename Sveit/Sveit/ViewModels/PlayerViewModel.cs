@@ -134,9 +134,7 @@ namespace Sveit.ViewModels
 
         private async void AppliesCommandExecute()
         {
-            var fakeApplyService = new Services.Apply.FakeApplyService();
-            var apply = await fakeApplyService.GetApply(1);
-            await _navigation.PushModalAsync(new ApplyPage(apply));
+            await _navigation.PushAsync(new AppliesPlayerPage(_playerId));
         }
 
         private async void LoadProfile()
