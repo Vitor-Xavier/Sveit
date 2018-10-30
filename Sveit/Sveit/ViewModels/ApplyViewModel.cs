@@ -19,6 +19,15 @@ namespace Sveit.ViewModels
 
         private readonly INavigation _navigation;
 
+        private bool isEvaluation;
+
+        public bool IsEvaluation
+        {
+            get { return isEvaluation; }
+            set { isEvaluation = value; }
+        }
+
+
         private Apply apply;
 
         public Apply Apply
@@ -35,8 +44,9 @@ namespace Sveit.ViewModels
 
         public ICommand DeclineCommand => new Command(DeclineCommandExecute);
 
-        public ApplyViewModel(INavigation navigation, Apply apply)
+        public ApplyViewModel(INavigation navigation, Apply apply, bool isEvaluation)
         {
+            IsEvaluation = isEvaluation;
             _navigation = navigation;
             Apply = apply;
             if (AppSettings.ApiStatus)

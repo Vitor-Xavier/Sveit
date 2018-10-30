@@ -12,5 +12,13 @@ namespace Sveit.Views
             InitializeComponent();
             BindingContext = new ViewModels.PlayerViewModel(Navigation);
         }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = ((ListView)sender).SelectedItem as Models.Team;
+            if (item == null) return;
+            (BindingContext as ViewModels.PlayerViewModel).TeamSelectedCommandExecute(item);
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

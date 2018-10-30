@@ -70,9 +70,8 @@ namespace Sveit.Views
                         new MasterMenuItem { Id = 2, Title = AppResources.Profile, Icon = "baseline_account_box_white_24", TargetType = typeof(PlayerPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 3, Title = AppResources.Games, Icon = "baseline_gamepad_white_24", TargetType = typeof(GamesPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesPage), TransparentNavBar = true },
-                        new MasterMenuItem { Id = 6, Title = AppResources.Teams, Icon = "baseline_group_white_24", TargetType = typeof(TeamPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsPage) },
-                        new MasterMenuItem { Id = 7, Title = "Exit", Icon = "baseline_settings_white_24" }
+                        new MasterMenuItem { Id = 6, Title = "Exit", Icon = "baseline_settings_white_24" }
                     });
                 }
             }

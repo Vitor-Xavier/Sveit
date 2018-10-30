@@ -20,6 +20,15 @@ namespace Sveit.ViewModels
 
         private readonly int _playerId;
 
+        private bool isCurrentPlayer;
+
+        public bool IsCurrentPlayer
+        {
+            get { return isCurrentPlayer; }
+            set { isCurrentPlayer = value; }
+        }
+
+
         private bool profile;
 
         public bool Profile
@@ -69,6 +78,8 @@ namespace Sveit.ViewModels
         public ICommand AddTeamCommand => new Command(AddTeamCommandExecute);
 
         public ICommand AppliesCommand => new Command(AppliesCommandExecute);
+
+        public ICommand TeamSelectedCommand => new Command<Team>(TeamSelectedCommandExecute);
 
         public PlayerViewModel(INavigation navigation)
         {
@@ -135,6 +146,11 @@ namespace Sveit.ViewModels
         private async void AppliesCommandExecute()
         {
             await _navigation.PushAsync(new AppliesPlayerPage(_playerId));
+        }
+
+        public async void TeamSelectedCommandExecute(Team team)
+        {
+            await _navigation.PushAsync(new TeamPage());
         }
 
         private async void LoadProfile()

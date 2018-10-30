@@ -184,8 +184,9 @@
                   Grid.ColumnSpan="3"
                   IsVisible="{Binding Team}">
                 <ListView ItemsSource="{Binding Teams}" 
-                      Margin="6" 
-                      HasUnevenRows="True">
+                          ItemSelected="ListView_ItemSelected"
+                          Margin="6" 
+                          HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

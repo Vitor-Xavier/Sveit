@@ -94,7 +94,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackLayout>
-                    <Grid VerticalOptions="End" Margin="14">
+                    <Grid IsVisible="{Binding IsEvaluation}" VerticalOptions="End" Margin="14">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2.5*"/>
                             <ColumnDefinition Width="*"/>

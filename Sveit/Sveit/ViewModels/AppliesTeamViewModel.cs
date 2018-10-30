@@ -49,7 +49,7 @@ namespace Sveit.ViewModels
 
         public async void ApplySelectedCommandExecute(Models.Apply apply)
         {
-            await _navigation.PushModalAsync(new Views.ApplyPage(apply));
+            await _navigation.PushModalAsync(new Views.ApplyPage(apply, true));
         }
     }
 }

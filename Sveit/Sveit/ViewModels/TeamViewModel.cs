@@ -65,7 +65,8 @@ namespace Sveit.ViewModels
             else
                 _teamService = new FakeTeamService();
             Members = new ObservableCollection<Player>();
-            Description = TabMembers = true; //TODO: Fix IsVisible update bug
+            DescriptionCommandExecute(); MembersCommandExecute();
+            Description = true; TabMembers = true; //TODO: Fix IsVisible update bug
             //DescriptionCommandExecute();
         }
 
@@ -85,9 +86,7 @@ namespace Sveit.ViewModels
 
         private async void VacanciesCommandExecute()
         {
-            var fakeVacancyService = new Services.Vacancy.FakeVacancyService();
-            var vacancy = await fakeVacancyService.GetVacancyAsync(1);
-            await _navigation.PushAsync(new Views.AppliesTeamPage(vacancy));
+            await _navigation.PushAsync(new Views.VacanciesTeamPage(_teamId));
         }
 
         private async void LoadProfile()
