@@ -70,22 +70,8 @@
                             </controls:CustomPicker.Behaviors>
                         </controls:CustomPicker>
                     </StackLayout>
-                    <!--<StackLayout>
-                        <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}"/>
-                        <StackLayout Orientation="Horizontal">
-                            <Picker Title="Tipo" TextColor="{StaticResource SecondaryText}">
-                                <Picker.Items>
-                                    <x:String>Whatsapp</x:String>
-                                    <x:String>Discord</x:String>
-                                    <x:String>Email</x:String>
-                                </Picker.Items>
-                            </Picker>
-                            <Entry Placeholder="{i18n:Translate Contacts}" HorizontalOptions="FillAndExpand"/>
-                            <flex:FlexButton Text="+" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="20"/>
-                        </StackLayout>
-                    </StackLayout>-->
                     <StackLayout VerticalOptions="EndAndExpand">
-                        <flex:FlexButton Text="{i18n:Translate Continue}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
+                        <flex:FlexButton Text="{i18n:Translate CreateAccount}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

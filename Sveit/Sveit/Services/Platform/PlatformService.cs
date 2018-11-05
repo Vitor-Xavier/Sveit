@@ -51,11 +51,11 @@ namespace Sveit.Services.Platform
             return _requestService.GetAsync<IEnumerable<Models.Platform>>(uri);
         }
 
-        public Task<bool> AddPlatformAsync(Models.Platform platform)
+        public Task<Models.Platform> AddPlatformAsync(Models.Platform platform)
         {
             string uri = AppSettings.PlatformsEndpoint;
 
-            return _requestService.PostAsync<Models.Platform, bool>(uri, platform);
+            return _requestService.PostAsync<Models.Platform, Models.Platform>(uri, platform);
         }
 
         public Task<bool> RemovePlatformAsync(int platformId)

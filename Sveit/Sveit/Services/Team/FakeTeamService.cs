@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Sveit.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Sveit.Models;
 
 namespace Sveit.Services.Team
 {
@@ -104,5 +102,51 @@ namespace Sveit.Services.Team
         {
             return Task.FromResult(false);
         }
+
+        public Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact)
+        {
+            return Task.FromResult(new Models.Contact
+            {
+                ContactId = 1,
+                Text = "user_discord",
+                ContactTypeId = 1,
+                ContactType = new Models.ContactType
+                {
+                    ContactTypeId = 1,
+                    Name = "Discord"
+                }
+            });
+        }
+
+        public Task<IEnumerable<Models.Contact>> GetTeamContacts(int teamId)
+        {
+            IEnumerable<Models.Contact> contacts = new List<Models.Contact>()
+            {
+                new Models.Contact
+                {
+                    ContactId = 1,
+                    Text = "user_discord",
+                    ContactTypeId = 1,
+                    ContactType = new Models.ContactType
+                    {
+                        ContactTypeId = 1,
+                        Name = "Discord"
+                    }
+                },
+                new Models.Contact
+                {
+                    ContactId = 2,
+                    Text = "user_skype",
+                    ContactTypeId = 1,
+                    ContactType = new Models.ContactType
+                    {
+                        ContactTypeId = 2,
+                        Name = "Skype"
+                    }
+                }
+            };
+            return Task.FromResult(contacts);
+        }
+
     }
 }

@@ -4,6 +4,7 @@
     {
         public int ContactTypeId { get; set; }
         public string Name { get; set; }
+        public string IconSource { get; set; }
 
         public override bool Equals(object obj) => obj is ContactType contactType && 
             contactType.ContactTypeId == ContactTypeId;

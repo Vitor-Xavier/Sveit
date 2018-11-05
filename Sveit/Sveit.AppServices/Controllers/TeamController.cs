@@ -144,6 +144,22 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
+        /// Retorna contatos registrados para a equipe especificada.
+        /// </summary>
+        /// <param name="teamId">Identificação da equipe</param>
+        /// <returns>Lista de Contatos</returns>
+        [HttpGet]
+        [Route("Team/Contacts/{teamId:int}")]
+        public IEnumerable<Contact> GetTeamContacts(int teamId)
+        {
+            var team = (from t in _context.Teams
+                        where t.TeamId == teamId &&
+                        t.Deleted == false
+                        select t).FirstOrDefault();
+            return team?.Contacts;
+        }
+
+        /// <summary>
         /// Associa jogador a equipe.
         /// </summary>
         /// <param name="teamPlayer">Identificação do jogador e equipe</param>
@@ -158,6 +174,34 @@ namespace Sveit.API.Controllers
                 _context.SaveChanges();
 
                 return Created("Ok", teamPlayer);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Adiciona contato a equipe.
+        /// </summary>
+        /// <param name="teamId">Identificação da equipe</param>
+        /// <param name="contact">Dados do contato</param>
+        /// <returns>Sucesso da operação</returns>
+        [HttpPost]
+        [Route("Team/Contact/{teamId:int}")]
+        public IHttpActionResult PostTeamContact(int teamId, [FromBody] Contact contact)
+        {
+            try
+            {
+                var team = (from t in _context.Teams
+                            where t.TeamId == teamId &&
+                            t.Deleted == false
+                            select t).SingleOrDefault();
+                team.Contacts.Add(contact);
+                _context.Teams.AddOrUpdate(team);
+                _context.SaveChanges();
+
+                return Created("Ok", contact);
             }
             catch (Exception)
             {

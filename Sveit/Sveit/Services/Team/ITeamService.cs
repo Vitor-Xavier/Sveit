@@ -21,6 +21,10 @@ namespace Sveit.Services.Team
 
         Task<IEnumerable<Models.Team>> GetByPlayer(int playerId);
 
+        Task<IEnumerable<Models.Contact>> GetTeamContacts(int teamId);
+
+        Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact);
+
         Task<bool> PostTeamPlayer(Models.TeamPlayer teamPlayer);
 
         Task<Models.Team> PostTeam(Models.Team team);

@@ -37,6 +37,9 @@
     <Compile Update="Views\AppliesPlayerPage.xaml.cs">
       <DependentUpon>AppliesPlayerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ContactsTeamRegisterPage.xaml.cs">
+      <DependentUpon>ContactsTeamRegisterPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +57,12 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\CommentRegisterPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ContactsPlayerRegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ContactsTeamRegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\GamePage.xaml">
       <Generator>MSBuild:Compile</Generator>

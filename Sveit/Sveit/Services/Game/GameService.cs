@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Sveit.Extensions;
+using Sveit.Services.Requests;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Sveit.Extensions;
-using Sveit.Models;
-using Sveit.Services.Requests;
 
 namespace Sveit.Services.Game
 {
@@ -31,7 +30,7 @@ namespace Sveit.Services.Game
 
             return _requestService.GetAsync<IEnumerable<Models.Game>>(uri);
         }
-        
+
         public Task<IEnumerable<Models.Game>> GetGamesAsync(string name)
         {
             UriBuilder builder = new UriBuilder(AppSettings.GamesEndpoint);

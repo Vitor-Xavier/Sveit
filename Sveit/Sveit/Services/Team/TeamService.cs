@@ -7,7 +7,7 @@ using Sveit.Services.Requests;
 
 namespace Sveit.Services.Team
 {
-    class TeamService : ITeamService
+    public class TeamService : ITeamService
     {
         private readonly IRequestService _requestService;
 
@@ -79,6 +79,16 @@ namespace Sveit.Services.Team
             return _requestService.GetAsync<IEnumerable<Models.Player>>(uri);
         }
 
+        public Task<IEnumerable<Models.Contact>> GetTeamContacts(int teamId)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
+            builder.AppendToPath("Contacts");
+            builder.AppendToPath(teamId.ToString());
+            string uri = builder.ToString();
+
+            return _requestService.GetAsync<IEnumerable<Models.Contact>>(uri);
+        }
+
         public Task<bool> PostTeamPlayer(TeamPlayer teamPlayer)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
@@ -86,6 +96,16 @@ namespace Sveit.Services.Team
             string uri = builder.ToString();
 
             return _requestService.PostAsync<Models.TeamPlayer, bool>(uri, teamPlayer);
+        }
+
+        public Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
+            builder.AppendToPath("Contact");
+            builder.AppendToPath(teamId.ToString());
+            string uri = builder.ToString();
+
+            return _requestService.PostAsync<Models.Contact, Models.Contact>(uri, contact);
         }
 
         public Task<Models.Team> PostTeam(Models.Team team)

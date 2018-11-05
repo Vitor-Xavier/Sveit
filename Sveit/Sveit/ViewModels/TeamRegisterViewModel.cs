@@ -10,6 +10,7 @@ using Sveit.Services.Platform;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
 using Xamarin.Forms;
+using Sveit.Views;
 
 namespace Sveit.ViewModels
 {
@@ -83,10 +84,19 @@ namespace Sveit.ViewModels
         public TeamRegisterViewModel(INavigation navigation)
         {
             _navigation = navigation;
-            IRequestService requestService = new RequestService();
-            _gameService = new GameService(requestService);
-            _platformService = new PlatformService(requestService);
-            _teamService = new TeamService(requestService);
+            if (AppSettings.ApiStatus)
+            {
+                IRequestService requestService = new RequestService();
+                _gameService = new GameService(requestService);
+                _platformService = new PlatformService(requestService);
+                _teamService = new TeamService(requestService);
+            }
+            else
+            {
+                _gameService = new FakeGameService();
+                _platformService = new FakePlatformService();
+                _teamService = new FakeTeamService();
+            }
             Games = new ObservableCollection<Game>();
             Platforms = new ObservableCollection<Platform>();
             LoadGames();
@@ -108,26 +118,9 @@ namespace Sveit.ViewModels
             await _navigation.PopAllPopupAsync();
         }
 
-        //private async void LoadGames()
-        //{
-        //    var games = await _gameService.GetGamesAsync();
-
-        //    Games.Clear();
-        //    foreach (Game game in games)
-        //        Games.Add(game);
-        //    if (Games.Count > 0)
-        //        Game = Games[0];
-        //}
-
-        private void LoadGames()
+        private async void LoadGames()
         {
-            var games = new List<Game>
-            {
-                new Game { Name = "Overwatch", IconSource = "https://pre00.deviantart.net/29ff/th/pre/f/2017/024/6/c/overwatch_logo_by_stefanthepribic-dawlopl.png", ImageSource = "https://cdnb.artstation.com/p/assets/images/images/011/306/573/large/kevin-kjormo-ana-new-highlight.jpg?1528905182" },
-                new Game { Name = "Counter Strike" },
-                new Game { Name = "Black Ops 4" },
-                new Game { Name = "Battlefield V" }
-            };
+            var games = await _gameService.GetGamesAsync();
 
             Games.Clear();
             foreach (Game game in games)
@@ -136,34 +129,13 @@ namespace Sveit.ViewModels
                 Game = Games[0];
         }
 
-        //private async void LoadPlatforms(int gameId)
-        //{
-        //    var platforms = await _platformService.GetPlatformsByGameAsync(gameId);
-
-        //    Platforms.Clear();
-        //    foreach (Platform platform in platforms)
-        //        Platforms.Add(platform);
-        //    HasPlatforms = Platforms.Count > 0;
-        //}
-
-        private void LoadPlatforms(int gameId)
+        private async void LoadPlatforms(int gameId)
         {
-            var platforms = new List<Platform>
-            {
-                new Platform { Name = "Xbox ONE",
-                    IconSource = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1024px-Xbox_one_logo.svg.png" },
-                new Platform { Name = "Playstation 4",
-                    IconSource = "https://logodownload.org/wp-content/uploads/2017/05/playstation-4-logo-ps4-6.png" },
-                new Platform { Name = "PC",
-                    IconSource = "https://pre00.deviantart.net/10db/th/pre/i/2017/235/5/4/pc_master_race_by_kingvego-d9r6gtn.png" },
-                new Platform { Name = "Switch" }
-            };
+            var platforms = await _platformService.GetPlatformsByGameAsync(gameId);
 
             Platforms.Clear();
             foreach (Platform platform in platforms)
                 Platforms.Add(platform);
-            if (Platforms.Count > 0)
-                Platform = Platforms[0];
             HasPlatforms = Platforms.Count > 0;
         }
 
@@ -182,14 +154,17 @@ namespace Sveit.ViewModels
 
             var created = await _teamService.PostTeam(team);
             if (created != null)
-                await App.Current.MainPage.DisplayAlert("Created", "Id: " + created.TeamId, "Ok");
-            await App.Current.MainPage.Navigation.PopModalAsync();
+            {
+                await _navigation.PushModalAsync(new ContactsTeamRegisterPage(created));
+            }
+            else
+                await _navigation.PopModalAsync();
 
         }
 
         private async void GameCommandExecute()
         {
-            var popupPlatform = new Views.PopupPickerPage
+            var popupPlatform = new PopupPickerPage
             {
                 BindingContext = new PopupPickerViewModel<Game>(_navigation, Games)
             };

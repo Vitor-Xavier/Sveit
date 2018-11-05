@@ -15,7 +15,7 @@ namespace Sveit.Services.Platform
 
         Task<IEnumerable<Models.Platform>> GetPlatformsByGameAsync(int gameId);
 
-        Task<bool> AddPlatformAsync(Models.Platform platform);
+        Task<Models.Platform> AddPlatformAsync(Models.Platform platform);
 
         Task<bool> RemovePlatformAsync(int platformId);
     }

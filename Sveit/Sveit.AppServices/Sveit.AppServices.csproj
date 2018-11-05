@@ -150,6 +150,7 @@
     <Compile Include="Context\DatabaseInitializer.cs" />
     <Compile Include="Controllers\AppliesController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\ContactTypeController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\GameController.cs" />

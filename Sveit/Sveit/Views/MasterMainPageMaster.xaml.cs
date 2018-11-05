@@ -71,9 +71,10 @@ namespace Sveit.Views
                         new MasterMenuItem { Id = 3, Title = AppResources.Games, Icon = "baseline_gamepad_white_24", TargetType = typeof(GamesPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesPage), TransparentNavBar = true },
                         new MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsPage) },
-                        new MasterMenuItem { Id = 6, Title = "Exit", Icon = "baseline_settings_white_24" }
-                    });
+                        new MasterMenuItem { Id = 6, Title = "Exit", Icon = "baseline_settings_white_24" },
+                });
                 }
+                
             }
 
             #region INotifyPropertyChanged Implementation

@@ -98,6 +98,22 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
+        /// Retorna contatos registrados para o jogador especificada.
+        /// </summary>
+        /// <param name="playerId">Identificação do jogador</param>
+        /// <returns>Lista de Contatos</returns>
+        [HttpGet]
+        [Route("Player/Contacts/{teamId:int}")]
+        public IEnumerable<Contact> GetPlayerContacts(int playerId)
+        {
+            var player = (from t in _context.Players
+                            where t.PlayerId == playerId &&
+                            t.Deleted == false
+                            select t).FirstOrDefault();
+            return player?.Contacts ?? null;
+        }
+
+        /// <summary>
         /// Associa habilidade a jogador.
         /// </summary>
         /// <param name="playerId">Identificação do jogador</param>
@@ -118,6 +134,34 @@ namespace Sveit.API.Controllers
                 _context.SaveChanges();
 
                 return Created("Ok", playerSkill);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Adiciona contato a jogador.
+        /// </summary>
+        /// <param name="playerId">Identificação da equipe</param>
+        /// <param name="contact">Dados do contato</param>
+        /// <returns>Sucesso da operação</returns>
+        [HttpPost]
+        [Route("Player/Contact/{playerId:int}")]
+        public IHttpActionResult PostPlayerContact(int playerId, [FromBody] Contact contact)
+        {
+            try
+            {
+                var player = (from t in _context.Players
+                            where t.PlayerId == playerId &&
+                            t.Deleted == false
+                            select t).SingleOrDefault();
+                player.Contacts.Add(contact);
+                _context.Players.AddOrUpdate(player);
+                _context.SaveChanges();
+
+                return Created("Ok", contact);
             }
             catch (Exception)
             {

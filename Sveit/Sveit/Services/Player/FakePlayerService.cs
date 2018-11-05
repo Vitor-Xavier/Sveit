@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Sveit.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Sveit.Models;
 
 namespace Sveit.Services.Player
 {
     public class FakePlayerService : IPlayerService
-    { 
+    {
         private GamePlatform gamePlatform = new GamePlatform
         {
             Game = new Models.Game { Name = "Overwatch" },
@@ -89,14 +87,59 @@ namespace Sveit.Services.Player
             return Task.FromResult(GetFakeSkills());
         }
 
-        public Task<bool> PostPlayerAsync(Models.Player player)
+        public Task<Models.Player> PostPlayerAsync(Models.Player player)
         {
-            return Task.FromResult(false);
+            return Task.FromResult(player);
         }
 
         public Task<bool> PostPlayerSkill(PlayerSkill playerSkill)
         {
             return Task.FromResult(false);
+        }
+
+        public Task<Models.Contact> PostPlayerContact(int playerId, Models.Contact contact)
+        {
+            return Task.FromResult(new Models.Contact
+            {
+                ContactId = 1,
+                Text = "user_discord",
+                ContactTypeId = 1,
+                ContactType = new Models.ContactType
+                {
+                    ContactTypeId = 1,
+                    Name = "Discord"
+                }
+            });
+        }
+
+        public Task<IEnumerable<Models.Contact>> GetPlayerContacts(int playerId)
+        {
+            IEnumerable<Models.Contact> contacts = new List<Models.Contact>()
+            {
+                new Models.Contact
+                {
+                    ContactId = 1,
+                    Text = "user_discord",
+                    ContactTypeId = 1,
+                    ContactType = new Models.ContactType
+                    {
+                        ContactTypeId = 1,
+                        Name = "Discord"
+                    }
+                },
+                new Models.Contact
+                {
+                    ContactId = 2,
+                    Text = "user_skype",
+                    ContactTypeId = 1,
+                    ContactType = new Models.ContactType
+                    {
+                        ContactTypeId = 2,
+                        Name = "Skype"
+                    }
+                }
+            };
+            return Task.FromResult(contacts);
         }
     }
 }
