@@ -1,8 +1,11 @@
-﻿namespace Sveit.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Sveit.Models
 {
     public class ContactType : EntityBase
     {
         public int ContactTypeId { get; set; }
+        [StringLength(15)]
         public string Name { get; set; }
         public string IconSource { get; set; }
 

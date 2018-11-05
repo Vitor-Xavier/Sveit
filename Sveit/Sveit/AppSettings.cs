@@ -9,7 +9,7 @@ namespace Sveit
     public static class AppSettings
     {
         private const string DefaultAuthEndpoint = "";
-        private const string DefaultBaseEndpoint = "http://192.168.31.27:45455/";
+        private const string DefaultBaseEndpoint = "http://192.168.31.27:45459/";
         private const string DefaultAppliesEndpoint = "Apply";
         private const string DefaultCharactersEndpoint = "Character";
         private const string DefaultCharacterTypesEndpoint = "CharacterType";
@@ -26,6 +26,7 @@ namespace Sveit
         private const string DefaultSkillsEndpoint = "Skill";
         private const string DefaultTagsEndpoint = "Tag";
         private const string DefaultTeamsEndpoint = "Team";
+        private const string DefaultTokenEndpoint = "Token";
         private const string DefaultVacanciesEndpoint = "Vacancy";
         private const bool DefaultApiStatus = false;
 
@@ -144,6 +145,13 @@ namespace Sveit
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(TeamsEndpoint), DefaultTeamsEndpoint);
             set => Settings.AddOrUpdateValue(nameof(TeamsEndpoint), value);
         }
+        
+        public static string TokenEndpoint
+        {
+            get => BaseEndpoint + Settings.GetValueOrDefault(nameof(TokenEndpoint), DefaultTokenEndpoint);
+            set => Settings.AddOrUpdateValue(nameof(TokenEndpoint), value);
+        }
+
 
         public static string VacanciesEndpoint
         {

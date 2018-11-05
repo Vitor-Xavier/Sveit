@@ -86,6 +86,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="platform">Dados da plataforma</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Platform")]
         public IHttpActionResult PostPlatform([FromBody] Platform platform)
@@ -108,6 +109,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="platformId">Identificação da plataforma</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Platform/{platformId:int}")]
         public IHttpActionResult DeletePlatform(int platformId)

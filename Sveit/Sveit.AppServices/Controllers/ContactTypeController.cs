@@ -71,6 +71,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="contactType">Dados do tipo de contato</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("ContactType")]
         public IHttpActionResult PostContactType([FromBody] ContactType contactType)
@@ -93,6 +94,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="contactTypeId">Identificação do tipo de contato</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("ContactType/{contactTypeId:int}")]
         public IHttpActionResult DeleteContactType(int contactTypeId)

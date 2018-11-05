@@ -71,6 +71,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="genre">Dados do estilo de jogo</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Genre")]
         public IHttpActionResult PostGenre([FromBody] Genre genre)
@@ -93,6 +94,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="genreId">Identificação do estilo de jogo</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Genre/{genreId:int}")]
         public IHttpActionResult DeleteGenre(int genreId)

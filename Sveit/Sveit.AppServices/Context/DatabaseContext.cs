@@ -58,6 +58,7 @@ namespace Sveit.API.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<Player>().HasIndex(p => p.Email).IsUnique();
             //Database.SetInitializer<DatabaseContext>(null);
             // Realiza o DROP no banco de dados caso o modelo sofra alterações.
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseContext>());

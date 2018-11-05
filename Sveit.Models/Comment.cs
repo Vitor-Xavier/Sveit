@@ -1,8 +1,11 @@
-﻿namespace Sveit.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Sveit.Models
 {
     public class Comment : EntityBase
     {
         public int CommentId { get; set; }
+        [StringLength(300)]
         public string Text { get; set; }
         public int FromPlayerId { get; set; }
         public virtual Player FromPlayer { get; set; }

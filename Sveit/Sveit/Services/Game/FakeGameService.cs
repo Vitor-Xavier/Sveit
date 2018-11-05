@@ -25,7 +25,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 1,
                 Name = "Rainbow Six Siege",
-                Description = "FPS mapas, estratégia...",
                 Genres = new List<Models.Genre> { genreFPS },
                 IconSource = "https://i.redd.it/iznunq2m8vgy.png",
                 ImageSource = "https://www.torcedores.com/content/uploads/2018/02/erwmqs3hzvkfqudfutqdyh_tb7c.jpg"
@@ -34,7 +33,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 2,
                 Name = "Overwatch",
-                Description = "FPS, objetivo, 5 membros",
                 Genres = new List<Models.Genre> { genreFPS },
                 IconSource = "https://i.imgur.com/0RIw2RB.png",
                 ImageSource = "http://www.base2.com.br/wp-content/uploads/2017/04/overwatch1280jpg-6daa73_1280w.jpg"
@@ -43,7 +41,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 3,
                 Name = "Destiny 2",
-                Description = "FPS ",
                 Genres = new List<Models.Genre> { genreFPS },
                 IconSource = "http://i44.servimg.com/u/f44/13/94/19/07/destin10.png",
                 ImageSource = "https://www.pcguia.pt/wp-content/uploads/2018/02/Destiny-2-900x445.jpg"
@@ -52,7 +49,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 4,
                 Name = "Playerunkow's Battlegrounds",
-                Description = "Battleroyale",
                 Genres = new List<Models.Genre> { genreSurvival, genreFPS },
                 IconSource = "https://orig06.deviantart.net/31c8/f/2017/087/1/5/playerunknown_s_battlegrounds_icon_by_troublem4ker-db3tnhy.png",
                 ImageSource = "https://www.windowscentral.com/sites/wpcentral.com/files/styles/xlarge/public/field/image/2017/12/pubg-press-2.jpg?itok=hEREwXIC"
@@ -61,7 +57,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 6,
                 Name = "Dead by Daylight",
-                Description = "Horror",
                 Genres = new List<Models.Genre> { genreSurvivalHorror },
                 IconSource = "https://www.deadbydaylight.com/manual/img/journal/dbd-journal-hook.png",
                 ImageSource = "http://maroonersrock.com/wp-content/uploads/2017/10/Dead-by-Daylight-Freddy-DLC-810x400.jpg"
@@ -70,7 +65,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 5,
                 Name = "Fortnite",
-                Description = "Battleroyale",
                 Genres = new List<Models.Genre> { genreSurvival, genreFPS },
                 IconSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyUWh_P9xq4o3Rja1PZsHA7ydEMUZXBJyYuSlxD8UIXBdBjzt_",
                 ImageSource = "https://cdn2.unrealengine.com/Fortnite%2Fbattle-royale%2Ffortnite-sniper-1920x1080-f072fcef414cbe680e369a16a8d059d8a01c7636.jpg"
@@ -84,7 +78,6 @@ namespace Sveit.Services.Game
             {
                 GameId = 1,
                 Name = "Rainbow Six Siege",
-                Description = "FPS mapas, estratégia...",
                 Genres = new List<Models.Genre> { genreFPS },
                 IconSource = "https://i.redd.it/iznunq2m8vgy.png",
                 ImageSource = "https://www.torcedores.com/content/uploads/2018/02/erwmqs3hzvkfqudfutqdyh_tb7c.jpg"

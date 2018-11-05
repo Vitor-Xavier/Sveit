@@ -13,6 +13,19 @@ namespace Sveit.API.Context
         /// <param name="context">Contexto do banco de dados</param>
         protected override void Seed(DatabaseContext context)
         {
+            context.Players.Add(
+            new Player
+            {
+                PlayerId = 1,
+                Email = "admin",
+                Password = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+                AvatarSource = "https://i.pinimg.com/originals/c8/0a/09/c80a0933df51f9f5be92d033c6db65b2.jpg",
+                Nickname = "Vitorxs",
+                Name = "Vitor Xavier de Souza",
+                DateOfBirth = new System.DateTime(1997, 01, 06)
+            });
+            
+
             context.ContactTypes.Add(new ContactType { ContactTypeId = 1, Name = "Email" });
             context.ContactTypes.Add(new ContactType { ContactTypeId = 2, Name = "Telefone" });
             context.ContactTypes.Add(new ContactType { ContactTypeId = 3, Name = "Discord" });
@@ -69,20 +82,20 @@ namespace Sveit.API.Context
 
             context.SaveChanges();
 
-            context.Games.Add(new Game { GameId = 01, Name = "Counter Strike: Global Offensive", Description = "", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 02, Name = "Playerunknow's Battlegorunds", Description = "", Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) } });
-            context.Games.Add(new Game { GameId = 03, Name = "League of Legends", Description = "", Genres = new List<Genre> { GetGenre(context, 11) } });
-            context.Games.Add(new Game { GameId = 04, Name = "DOTA 2", Description = "", Genres = new List<Genre> { GetGenre(context, 11) } });
-            context.Games.Add(new Game { GameId = 05, Name = "Overwatch", Description = "", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 06, Name = "Battlefield 1", Description = "", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 07, Name = "Call of Duty: World War 2", Description = "", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 08, Name = "FIFA 18", Description = "", Genres = new List<Genre> { GetGenre(context, 12) } });
-            context.Games.Add(new Game { GameId = 09, Name = "Mortal Kombat X", Description = "", Genres = new List<Genre> { GetGenre(context, 13) } });
-            context.Games.Add(new Game { GameId = 10, Name = "Injustice 2", Description = "", Genres = new List<Genre> { GetGenre(context, 13) } });
-            context.Games.Add(new Game { GameId = 11, Name = "Forza Motorsport 7", Description = "", Genres = new List<Genre> { GetGenre(context, 14) } });
-            context.Games.Add(new Game { GameId = 12, Name = "Gran Turismo", Description = "", Genres = new List<Genre> { GetGenre(context, 14) } });
-            context.Games.Add(new Game { GameId = 13, Name = "Dead by Daylight", Description = "", Genres = new List<Genre> { GetGenre(context, 4) } });
-            context.Games.Add(new Game { GameId = 14, Name = "Grand Theft Auto V", Description = "", Genres = new List<Genre> { GetGenre(context, 7), GetGenre(context, 1), GetGenre(context, 2), GetGenre(context, 14), GetGenre(context, 5) } });
+            context.Games.Add(new Game { GameId = 01, Name = "Counter Strike: Global Offensive",  Genres = new List<Genre> { GetGenre(context, 1) } });
+            context.Games.Add(new Game { GameId = 02, Name = "Playerunknow's Battlegorunds", Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) } });
+            context.Games.Add(new Game { GameId = 03, Name = "League of Legends", Genres = new List<Genre> { GetGenre(context, 11) } });
+            context.Games.Add(new Game { GameId = 04, Name = "DOTA 2", Genres = new List<Genre> { GetGenre(context, 11) } });
+            context.Games.Add(new Game { GameId = 05, Name = "Overwatch", Genres = new List<Genre> { GetGenre(context, 1) } });
+            context.Games.Add(new Game { GameId = 06, Name = "Battlefield 1", Genres = new List<Genre> { GetGenre(context, 1) } });
+            context.Games.Add(new Game { GameId = 07, Name = "Call of Duty: World War 2", Genres = new List<Genre> { GetGenre(context, 1) } });
+            context.Games.Add(new Game { GameId = 08, Name = "FIFA 18", Genres = new List<Genre> { GetGenre(context, 12) } });
+            context.Games.Add(new Game { GameId = 09, Name = "Mortal Kombat X", Genres = new List<Genre> { GetGenre(context, 13) } });
+            context.Games.Add(new Game { GameId = 10, Name = "Injustice 2", Genres = new List<Genre> { GetGenre(context, 13) } });
+            context.Games.Add(new Game { GameId = 11, Name = "Forza Motorsport 7", Genres = new List<Genre> { GetGenre(context, 14) } });
+            context.Games.Add(new Game { GameId = 12, Name = "Gran Turismo", Genres = new List<Genre> { GetGenre(context, 14) } });
+            context.Games.Add(new Game { GameId = 13, Name = "Dead by Daylight", Genres = new List<Genre> { GetGenre(context, 4) } });
+            context.Games.Add(new Game { GameId = 14, Name = "Grand Theft Auto V", Genres = new List<Genre> { GetGenre(context, 7), GetGenre(context, 1), GetGenre(context, 2), GetGenre(context, 14), GetGenre(context, 5) } });
             context.Games.Add(new Game { GameId = 15, Name = "Rainbow Six Siege", Genres = new List<Genre> { GetGenre(context, 1) } });
             context.Games.Add(new Game { GameId = 16, Name = "Fortnite", Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) } });
 

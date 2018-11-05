@@ -164,6 +164,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="teamPlayer">Identificação do jogador e equipe</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Team/Player")]
         public IHttpActionResult PostTeamPlayer([FromBody] TeamPlayer teamPlayer)
@@ -187,6 +188,7 @@ namespace Sveit.API.Controllers
         /// <param name="teamId">Identificação da equipe</param>
         /// <param name="contact">Dados do contato</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Team/Contact/{teamId:int}")]
         public IHttpActionResult PostTeamContact(int teamId, [FromBody] Contact contact)
@@ -214,6 +216,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="team">Dados da equipe</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Team")]
         public IHttpActionResult PostTeam([FromBody] Team team)
@@ -236,6 +239,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="teamId">Identificação da equipe</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Team/{teamId:int}")]
         public IHttpActionResult DeleteTeam(int teamId)

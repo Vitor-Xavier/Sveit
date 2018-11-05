@@ -28,11 +28,6 @@ namespace Sveit.Views
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 
-        private async void LoadUser()
-        {
-            (MasterPage.BindingContext as MasterMainPageMasterViewModel).LoggedPlayer = await _loginService.CheckLogIn();
-        }
-
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MasterMenuItem;

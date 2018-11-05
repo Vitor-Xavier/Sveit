@@ -95,6 +95,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="content">Dados da notícia</param>
         /// <returns>sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Content")]
         public IHttpActionResult PostContent([FromBody] Content content)
@@ -118,6 +119,7 @@ namespace Sveit.API.Controllers
         /// <param name="contentId">Identificação da notícia</param>
         /// <param name="tags">Lista de tags</param>
         /// <returns>sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Content/{contentId:int}")]
         public IHttpActionResult PostContentTags(int contentId, [FromBody] IEnumerable<Tag> tags)
@@ -153,6 +155,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="contentId">Identificação da notícia</param>
         /// <returns>sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Content/{contentId:int}")]
         public IHttpActionResult DeleteContent(int contentId)

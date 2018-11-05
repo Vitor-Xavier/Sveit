@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sveit.Models
 {
     public class Skill : EntityBase
     {
         public int SkillId { get; set; }
+        [StringLength(30)]
         public string Name { get; set; }
         [JsonIgnore]
         public virtual ICollection<Vacancy> Vacancies { get; set; }

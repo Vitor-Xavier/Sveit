@@ -84,5 +84,18 @@ namespace Sveit.Services.Requests
             if (!string.IsNullOrWhiteSpace(token))
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
+
+        public async Task<string> PostRawAsync(string uri, string data)
+        {
+            HttpClient.DefaultRequestHeaders.Clear();
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+
+            HttpResponseMessage response =
+                await HttpClient.PostAsync(uri, new StringContent(data, Encoding.UTF8, "text/plain"))
+                .ConfigureAwait(false);
+            await HandleResponse(response);
+
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }

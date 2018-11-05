@@ -1,8 +1,11 @@
-﻿namespace Sveit.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Sveit.Models
 {
     public class RoleType : EntityBase
     {
         public int RoleTypeId { get; set; }
+        [StringLength(40)]
         public string Name { get; set; }
         public int GameId { get; set; }
         public virtual Game Game { get; set; }

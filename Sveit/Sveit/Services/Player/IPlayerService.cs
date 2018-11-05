@@ -9,6 +9,8 @@ namespace Sveit.Services.Player
     {
         Task<Models.Player> GetPlayerById(int playerId);
 
+        Task<Models.Player> GetByEmail(string email);
+
         Task<IEnumerable<Models.Player>> GetPlayerByName(string name);
 
         Task<IEnumerable<Models.Team>> GetPlayerTeams(int playerId);

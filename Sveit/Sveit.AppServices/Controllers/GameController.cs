@@ -103,6 +103,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="game">Dados do jogo</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Game")]
         public IHttpActionResult PostGame([FromBody] Game game)
@@ -125,6 +126,7 @@ namespace Sveit.API.Controllers
         /// <param name="gameId">Identificação do jogo</param>
         /// <param name="genreId">Identificação do gênero</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Game/Genre")]
         public IHttpActionResult PostGameGenre(int gameId, int genreId)
@@ -157,6 +159,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="gameId">Identificação do jogo</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Game/{gameId:int}")]
         public IHttpActionResult DeleteGame(int gameId)

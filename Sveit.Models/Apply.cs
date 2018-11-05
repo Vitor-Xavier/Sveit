@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sveit.Models
 {
@@ -9,6 +10,7 @@ namespace Sveit.Models
         public virtual Player Player { get; set; }
         public int VacancyId { get; set; }
         public virtual Vacancy Vacancy { get; set; }
+        [StringLength(300)]
         public string Text { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
         public bool? Approved { get; set; }

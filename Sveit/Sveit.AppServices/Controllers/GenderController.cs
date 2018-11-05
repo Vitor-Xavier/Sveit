@@ -71,6 +71,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="gender">Dados do gênero</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Gender")]
         public IHttpActionResult PostGender([FromBody] Gender gender)
@@ -93,6 +94,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="genderId">Identificação do gênero</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Gender/{genderId:int}")]
         public IHttpActionResult DeleteGender(int genderId)

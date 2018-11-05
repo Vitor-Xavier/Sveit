@@ -71,6 +71,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="tag">Dados da tag</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Tag")]
         public IHttpActionResult PostTag([FromBody] Tag tag)
@@ -93,6 +94,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="tagId">Identificação da tag</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Tag/{tagId:int}")]
         public IHttpActionResult DeleteTag(int tagId)

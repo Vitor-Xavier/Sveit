@@ -68,6 +68,21 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
+        /// Busca pelo jogador identificado pelo email fornecido.
+        /// </summary>
+        /// <param name="email">Email identificar do jogador</param>
+        /// <returns>Jogador</returns>
+        [HttpGet]
+        [Route("Player/Email/{email}")]
+        public Player GetByEmail(string email)
+        {
+            return (from p in _context.Players
+                    where p.Email.ToLower().Contains(email.ToLower()) &&
+                    p.Deleted == false
+                    select p).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Retorna as equipes em que o jogador participa.
         /// </summary>
         /// <param name="playerId">Identificação do jogador</param>
@@ -119,6 +134,7 @@ namespace Sveit.API.Controllers
         /// <param name="playerId">Identificação do jogador</param>
         /// <param name="skillId">Identificação da habilidade</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Player/Skill")]
         public IHttpActionResult PostPlayerSkill(int playerId, int skillId)
@@ -147,6 +163,7 @@ namespace Sveit.API.Controllers
         /// <param name="playerId">Identificação da equipe</param>
         /// <param name="contact">Dados do contato</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Player/Contact/{playerId:int}")]
         public IHttpActionResult PostPlayerContact(int playerId, [FromBody] Contact contact)
@@ -202,6 +219,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="playerId">Identificação do jogador</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Player/{playerId:int}")]
         public IHttpActionResult DeletePlayer(int playerId)

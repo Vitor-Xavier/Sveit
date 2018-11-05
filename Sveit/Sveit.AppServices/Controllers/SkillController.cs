@@ -71,6 +71,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="skill">Dados da habilidade</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Skill")]
         public IHttpActionResult PostSkill([FromBody] Skill skill)
@@ -93,6 +94,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="skillId">Identificação da habilidade</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Skill/{skillId:int}")]
         public IHttpActionResult DeleteSkill(int skillId)

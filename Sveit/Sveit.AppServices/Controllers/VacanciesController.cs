@@ -74,6 +74,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="vacancy">Dados da vaga</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Vacancy")]
         public IHttpActionResult PostVacancy([FromBody] Vacancy vacancy)
@@ -96,6 +97,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="vacancyId">Identificação da vaga</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Vacancy/{vacancyId:int}")]
         public IHttpActionResult DeleteVacancy(int vacancyId)

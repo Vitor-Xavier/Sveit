@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sveit.Models
 {
     public class Tag : EntityBase
     {
         public int TagId { get; set; }
+        [StringLength(20)]
         public string Name { get; set; }
         [JsonIgnore]
         public virtual ICollection<Content> Contents { get; set; }

@@ -50,6 +50,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="role">Dados da função</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Role")]
         public IHttpActionResult PostRole([FromBody] Role role)
@@ -73,6 +74,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="roleId">Identificação da função</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Role/{roleId:int}")]
         public IHttpActionResult DeleteRole(int roleId)

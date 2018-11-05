@@ -98,5 +98,15 @@ namespace Sveit.Services.Player
 
             return _requestService.DeleteAsync(uri, "");
         }
+
+        public Task<Models.Player> GetByEmail(string email)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
+            builder.AppendToPath("Email");
+            builder.AppendToPath(email);
+            string uri = builder.ToString();
+
+            return _requestService.GetAsync<Models.Player>(uri);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Sveit.Services.Requests;
+﻿using Sveit.Services.Player;
+using Sveit.Services.Requests;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -8,9 +10,12 @@ namespace Sveit.Services.Login
     {
         private readonly IRequestService _requestService;
 
+        private readonly IPlayerService _playerService;
+
         public LoginService(IRequestService requestService)
         {
             _requestService = requestService;
+            _playerService = new PlayerService(_requestService);
         }
 
         public async Task<Models.Player> CheckLogIn()
@@ -18,10 +23,13 @@ namespace Sveit.Services.Login
             var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
             var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
             var storagedToken = await SecureStorage.GetAsync("Sveit-OAuthToken");
+            var storagedTokenTime = await SecureStorage.GetAsync("Sveit-DateTime");
 
-            if (storagedEmail != null && storagedPassword != null && storagedToken != null)
+            string tokenRequest = $"username={storagedEmail}&password={storagedPassword}&grant_type=password";
+            string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
+            if (!string.IsNullOrWhiteSpace(oauthToken))
             {
-                var player = new Models.Player { };
+                var player = await _playerService.GetByEmail(storagedEmail);
                 App.LoggedPlayer = player;
                 return player;
             }
@@ -31,18 +39,19 @@ namespace Sveit.Services.Login
 
         public async Task<Models.Player> LogIn(string email, string password)
         {
-            var player = new Models.Player { };
-            var oauthToken = "key";
+            string tokenRequest = $"username=[{email}]&password=[{password}]&grant_type=password";
+            string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
+            var player = await _playerService.GetByEmail(email);
             try
             {
                 await SecureStorage.SetAsync("Sveit-Email", email);
                 await SecureStorage.SetAsync("Sveit-Password", password);
                 await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken);
+                await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
                 return player;
             }
             catch
             {
-                //TODO: LogIn from server
                 return null;
             }
         }

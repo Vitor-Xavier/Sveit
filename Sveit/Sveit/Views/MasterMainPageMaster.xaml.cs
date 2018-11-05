@@ -40,10 +40,10 @@ namespace Sveit.Views
 
             public MasterMainPageMasterViewModel()
             {
-                if (AppSettings.ApiStatus)
+                //if (AppSettings.ApiStatus)
                     _loginService = new LoginService(new RequestService());
-                else
-                    _loginService = new FakeLoginService();
+                //else
+                    //_loginService = new FakeLoginService();
                 LoadItems();
             }
 

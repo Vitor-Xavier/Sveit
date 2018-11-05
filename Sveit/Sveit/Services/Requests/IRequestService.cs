@@ -11,6 +11,8 @@ namespace Sveit.Services.Requests
 
         Task<TResult> PostAsync<TRequest, TResult>(string uri, TRequest data, string token = "");
 
+        Task<string> PostRawAsync(string uri, string data);
+
         Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token);
 
         Task<bool> DeleteAsync(string uri, string token);

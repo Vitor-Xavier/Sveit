@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sveit.Models
 {
     public class Vacancy : EntityBase
     {
         public int VacancyId { get; set; }
+        [StringLength(60)]
         public string Title { get; set; }
+        [StringLength(300)]
         public string Description { get; set; }
         public int MinAge { get; set; }
         public int MaxAge { get; set; }

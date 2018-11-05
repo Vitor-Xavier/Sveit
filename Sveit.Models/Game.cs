@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sveit.Models
 {
     public class Game : EntityBase
     {
         public int GameId { get; set; }
+        [StringLength(30)]
         public string Name { get; set; }
-        public string Description { get; set; }
+        [StringLength(150)]
         public string IconSource { get; set; }
+        [StringLength(150)]
         public string ImageSource { get; set; }
+        [StringLength(150)]
         public string BackgroundSource { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
 

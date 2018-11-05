@@ -41,6 +41,7 @@ namespace Sveit.AppServices.Controllers
         /// </summary>
         /// <param name="contactId">Identificação do contato</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Contact/{contactId:int}")]
         public IHttpActionResult DeleteContact(int contactId)

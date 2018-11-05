@@ -68,6 +68,7 @@ namespace Sveit.API.Controllers
         /// <returns>Sucesso da operação</returns>
         [HttpPost]
         [Route("Apply")]
+        [Authorize]
         public IHttpActionResult PostApply([FromBody] Apply apply)
         {
             try
@@ -90,6 +91,7 @@ namespace Sveit.API.Controllers
         /// <returns>Sucesso da operação</returns>
         [HttpDelete]
         [Route("Apply/{applyId:int}")]
+        [Authorize]
         public IHttpActionResult DeleteApply(int applyId)
         {
             try

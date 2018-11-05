@@ -86,6 +86,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="comment">Dados do comentário</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpPost]
         [Route("Comment")]
         public IHttpActionResult PostComment([FromBody] Comment comment)
@@ -108,6 +109,7 @@ namespace Sveit.API.Controllers
         /// </summary>
         /// <param name="commentId">Identificação do comentário</param>
         /// <returns>Sucesso da operação</returns>
+        [Authorize]
         [HttpDelete]
         [Route("Comment/{commentId:int}")]
         public IHttpActionResult DeleteComment(int commentId)
