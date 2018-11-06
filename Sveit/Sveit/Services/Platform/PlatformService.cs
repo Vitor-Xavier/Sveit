@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sveit.Extensions;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Platform
@@ -10,9 +11,12 @@ namespace Sveit.Services.Platform
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public PlatformService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Platform> GetPlatformAsync(int platformId)
@@ -51,20 +55,22 @@ namespace Sveit.Services.Platform
             return _requestService.GetAsync<IEnumerable<Models.Platform>>(uri);
         }
 
-        public Task<Models.Platform> AddPlatformAsync(Models.Platform platform)
+        public async Task<Models.Platform> AddPlatformAsync(Models.Platform platform)
         {
             string uri = AppSettings.PlatformsEndpoint;
 
-            return _requestService.PostAsync<Models.Platform, Models.Platform>(uri, platform);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Platform, Models.Platform>(uri, platform, token);
         }
 
-        public Task<bool> RemovePlatformAsync(int platformId)
+        public async Task<bool> RemovePlatformAsync(int platformId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlatformsEndpoint);
             builder.AppendToPath(platformId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

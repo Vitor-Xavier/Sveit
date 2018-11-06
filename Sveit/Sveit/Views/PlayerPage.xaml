@@ -197,10 +197,15 @@
                                         <Image Source="{Binding IconSource}" WidthRequest="64" HeightRequest="64"/>
                                         <StackLayout>
                                             <Label Text="{Binding Name}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="{Binding GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                                <Label Text="{Binding GamePlatform.Platform.Name}" TextColor="{StaticResource DisabledText}"/>
-                                            </StackLayout>
+                                            <Label TextColor="{StaticResource SecondaryText}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding GamePlatform.Game.Name}"/>
+                                                        <Span Text=" • "/>
+                                                        <Span Text="{Binding GamePlatform.Platform.Name}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

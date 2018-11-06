@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Skill
@@ -12,9 +13,12 @@ namespace Sveit.Services.Skill
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public SkillService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Skill> GetSkillAsync(int skillId)
@@ -43,20 +47,22 @@ namespace Sveit.Services.Skill
             return _requestService.GetAsync<IEnumerable<Models.Skill>>(uri);
         }
 
-        public Task<bool> PostSkillAsync(Models.Skill skill)
+        public async Task<bool> PostSkillAsync(Models.Skill skill)
         {
             string uri = AppSettings.SkillsEndpoint;
 
-            return _requestService.PostAsync<Models.Skill, bool>(uri, skill);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Skill, bool>(uri, skill, token);
         }
 
-        public Task<bool> DeleteSkillAsync(int skillId)
+        public async Task<bool> DeleteSkillAsync(int skillId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.SkillsEndpoint);
             builder.AppendToPath(skillId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

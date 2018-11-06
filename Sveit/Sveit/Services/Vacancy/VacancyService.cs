@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Vacancy
@@ -12,9 +13,12 @@ namespace Sveit.Services.Vacancy
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public VacancyService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Vacancy> GetVacancyAsync(int vacancyId)
@@ -46,21 +50,23 @@ namespace Sveit.Services.Vacancy
             return _requestService.GetAsync<IEnumerable<Models.Vacancy>>(uri);
         }
 
-        public Task<bool> PostVacancyAsync(Models.Vacancy vacancy)
+        public async Task<bool> PostVacancyAsync(Models.Vacancy vacancy)
         {
             UriBuilder builder = new UriBuilder(AppSettings.VacanciesEndpoint);
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.Vacancy, bool>(uri, vacancy);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Vacancy, bool>(uri, vacancy, token);
         }
 
-        public Task<bool> DeleteVacancyAsync(int vacancyId)
+        public async Task<bool> DeleteVacancyAsync(int vacancyId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.VacanciesEndpoint);
             builder.AppendToPath(vacancyId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

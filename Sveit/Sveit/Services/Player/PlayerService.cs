@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Player
@@ -12,9 +13,12 @@ namespace Sveit.Services.Player
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public PlayerService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Player> GetPlayerById(int playerId)
@@ -63,23 +67,25 @@ namespace Sveit.Services.Player
             return _requestService.GetAsync<IEnumerable<Models.Contact>>(uri);
         }
 
-        public Task<bool> PostPlayerSkill(PlayerSkill playerSkill)
+        public async Task<bool> PostPlayerSkill(PlayerSkill playerSkill)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
             builder.AppendToPath("Skill");
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.PlayerSkill, bool>(uri, playerSkill);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.PlayerSkill, bool>(uri, playerSkill, token);
         }
 
-        public Task<Models.Contact> PostPlayerContact(int playerId, Models.Contact contact)
+        public async Task<Models.Contact> PostPlayerContact(int playerId, Models.Contact contact)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
             builder.AppendToPath("Contact");
             builder.AppendToPath(playerId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.Contact, Models.Contact>(uri, contact);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Contact, Models.Contact>(uri, contact, token);
         }
 
         public Task<Models.Player> PostPlayerAsync(Models.Player player)
@@ -90,23 +96,14 @@ namespace Sveit.Services.Player
             return _requestService.PostAsync<Models.Player, Models.Player>(uri, player);
         }
 
-        public Task<bool> DeletePlayerAsync(int playerId)
+        public async Task<bool> DeletePlayerAsync(int playerId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
             builder.AppendToPath(playerId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
-        }
-
-        public Task<Models.Player> GetByEmail(string email)
-        {
-            UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
-            builder.AppendToPath("Email");
-            builder.AppendToPath(email);
-            string uri = builder.ToString();
-
-            return _requestService.GetAsync<Models.Player>(uri);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

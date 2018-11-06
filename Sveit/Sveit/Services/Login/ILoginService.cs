@@ -11,6 +11,8 @@ namespace Sveit.Services.Login
 
         Task<Models.Player> LogIn(string email, string password);
 
+        Task<string> GetOAuthToken();
+
         bool LogOut();
     }
 }

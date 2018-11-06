@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Comment
@@ -13,9 +14,12 @@ namespace Sveit.Services.Comment
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public CommentService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Comment> GetById(int commentId)
@@ -55,21 +59,23 @@ namespace Sveit.Services.Comment
             return _requestService.GetAsync<IEnumerable<Models.Comment>>(uri);
         }
 
-        public Task<bool> PostComment(Models.Comment comment)
+        public async Task<bool> PostComment(Models.Comment comment)
         {
             UriBuilder builder = new UriBuilder(AppSettings.CommentsEndpoint);
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.Comment, bool>(uri, comment);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Comment, bool>(uri, comment, token);
         }
 
-        public Task<bool> DeleteComment(int commentId)
+        public async Task<bool> DeleteComment(int commentId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.CommentsEndpoint);
             builder.AppendToPath(commentId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

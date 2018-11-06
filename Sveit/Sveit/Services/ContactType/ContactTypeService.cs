@@ -1,4 +1,5 @@
 ﻿using Sveit.Extensions;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace Sveit.Services.ContactType
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public ContactTypeService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<IEnumerable<Models.ContactType>> GetContactTypesAsync()
@@ -31,20 +35,22 @@ namespace Sveit.Services.ContactType
             return _requestService.GetAsync<Models.ContactType>(uri);
         }
 
-        public Task<Models.ContactType> PostContactTypeAsync(Models.ContactType contactType)
+        public async Task<Models.ContactType> PostContactTypeAsync(Models.ContactType contactType)
         {
             string uri = AppSettings.ContactTypesEndpoint;
 
-            return _requestService.PostAsync<Models.ContactType, Models.ContactType>(uri, contactType);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.ContactType, Models.ContactType>(uri, contactType, token);
         }
 
-        public Task<bool> DeleteContactTypeAsync(int contactTypeId)
+        public async Task<bool> DeleteContactTypeAsync(int contactTypeId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.ContactTypesEndpoint);
             builder.AppendToPath(contactTypeId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

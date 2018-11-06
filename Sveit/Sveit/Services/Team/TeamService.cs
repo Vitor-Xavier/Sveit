@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Team
@@ -11,9 +12,12 @@ namespace Sveit.Services.Team
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public TeamService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Team> GetById(int teamId)
@@ -89,40 +93,44 @@ namespace Sveit.Services.Team
             return _requestService.GetAsync<IEnumerable<Models.Contact>>(uri);
         }
 
-        public Task<bool> PostTeamPlayer(TeamPlayer teamPlayer)
+        public async Task<bool> PostTeamPlayer(TeamPlayer teamPlayer)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
             builder.AppendToPath("Player");
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.TeamPlayer, bool>(uri, teamPlayer);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.TeamPlayer, bool>(uri, teamPlayer, token);
         }
 
-        public Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact)
+        public async Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
             builder.AppendToPath("Contact");
             builder.AppendToPath(teamId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.Contact, Models.Contact>(uri, contact);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Contact, Models.Contact>(uri, contact, token);
         }
 
-        public Task<Models.Team> PostTeam(Models.Team team)
+        public async Task<Models.Team> PostTeam(Models.Team team)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.Team, Models.Team>(uri, team);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Team, Models.Team>(uri, team, token);
         }
 
-        public Task<bool> DeleteTeam(int teamId)
+        public async Task<bool> DeleteTeam(int teamId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
             builder.AppendToPath(teamId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

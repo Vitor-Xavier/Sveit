@@ -1,4 +1,5 @@
-﻿using Sveit.Services.Player;
+﻿using Sveit.Extensions;
+using Sveit.Services.Player;
 using Sveit.Services.Requests;
 using System;
 using System.Threading.Tasks;
@@ -10,12 +11,9 @@ namespace Sveit.Services.Login
     {
         private readonly IRequestService _requestService;
 
-        private readonly IPlayerService _playerService;
-
         public LoginService(IRequestService requestService)
         {
             _requestService = requestService;
-            _playerService = new PlayerService(_requestService);
         }
 
         public async Task<Models.Player> CheckLogIn()
@@ -29,7 +27,7 @@ namespace Sveit.Services.Login
             string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
             if (!string.IsNullOrWhiteSpace(oauthToken))
             {
-                var player = await _playerService.GetByEmail(storagedEmail);
+                var player = await GetByEmail(storagedEmail);
                 App.LoggedPlayer = player;
                 return player;
             }
@@ -41,7 +39,7 @@ namespace Sveit.Services.Login
         {
             string tokenRequest = $"username=[{email}]&password=[{password}]&grant_type=password";
             string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
-            var player = await _playerService.GetByEmail(email);
+            var player = await GetByEmail(email);
             try
             {
                 await SecureStorage.SetAsync("Sveit-Email", email);
@@ -69,6 +67,38 @@ namespace Sveit.Services.Login
             {
                 return false;
             }
+        }
+
+        public async Task<string> GetOAuthToken()
+        {
+            var storagedTokenTime = await SecureStorage.GetAsync("Sveit-DateTime");
+            if (DateTime.TryParse(storagedTokenTime, out DateTime tokenTime))
+            {
+                TimeSpan ts = DateTime.Now.Subtract(tokenTime);
+
+                if (ts.TotalMinutes <= 90.0)
+                    return await SecureStorage.GetAsync("Sveit-OAuthToken");
+            }
+            var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
+            var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
+
+            string tokenRequest = $"username=[{storagedEmail}]&password=[{storagedPassword}]&grant_type=password";
+            string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
+
+            await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken);
+            await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
+
+            return oauthToken;
+        }
+
+        public Task<Models.Player> GetByEmail(string email)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
+            builder.AppendToPath("Email");
+            builder.AppendToPath(email);
+            string uri = builder.ToString();
+
+            return _requestService.GetAsync<Models.Player>(uri);
         }
     }
 }

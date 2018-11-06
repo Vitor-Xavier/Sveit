@@ -1,4 +1,5 @@
 ﻿using Sveit.Extensions;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace Sveit.Services.Game
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public GameService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Game> GetGameAsync(int gameId)
@@ -56,20 +60,22 @@ namespace Sveit.Services.Game
             return _requestService.GetAsync<IEnumerable<Models.Game>>(uri);
         }
 
-        public Task<bool> PostGameAsync(Models.Game game)
+        public async Task<bool> PostGameAsync(Models.Game game)
         {
             string uri = AppSettings.GamesEndpoint;
 
-            return _requestService.PostAsync<Models.Game, bool>(uri, game);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Game, bool>(uri, game, token);
         }
 
-        public Task<bool> DeleteGameAsync(int gameId)
+        public async Task<bool> DeleteGameAsync(int gameId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.GamesEndpoint);
             builder.AppendToPath(gameId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

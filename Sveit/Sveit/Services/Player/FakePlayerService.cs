@@ -141,18 +141,5 @@ namespace Sveit.Services.Player
             };
             return Task.FromResult(contacts);
         }
-
-        public Task<Models.Player> GetByEmail(string email)
-        {
-            return Task.FromResult(new Models.Player
-            {
-                Name = "Jogador 2",
-                Nickname = "PlayerTwo",
-                Gender = new Models.Gender { Name = "Masculino" },
-                AvatarSource = "https://pbs.twimg.com/profile_images/949941380259991552/C4b4NckD_400x400.jpg",
-                Deleted = false,
-                PlayerId = 2
-            });
-        }
     }
 }

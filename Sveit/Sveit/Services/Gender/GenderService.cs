@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Gender
@@ -12,9 +13,12 @@ namespace Sveit.Services.Gender
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public GenderService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Gender> GetGenderAsync(int genderId)
@@ -43,20 +47,22 @@ namespace Sveit.Services.Gender
             return _requestService.GetAsync<IEnumerable<Models.Gender>>(uri);
         }
 
-        public Task<bool> AddGenderAsync(Models.Gender gender)
+        public async Task<bool> AddGenderAsync(Models.Gender gender)
         {
             string uri = AppSettings.GendersEndpoint;
 
-            return _requestService.PostAsync<Models.Gender, bool>(uri, gender);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Gender, bool>(uri, gender, token);
         }
 
-        public Task<bool> RemoveGenderAsync(int genderId)
+        public async Task<bool> RemoveGenderAsync(int genderId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.GendersEndpoint);
             builder.AppendToPath(genderId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

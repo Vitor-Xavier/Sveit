@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Genre
@@ -12,9 +13,12 @@ namespace Sveit.Services.Genre
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public GenreService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Genre> GetGenreAsync(int genreId)
@@ -43,20 +47,22 @@ namespace Sveit.Services.Genre
             return _requestService.GetAsync<IEnumerable<Models.Genre>>(uri);
         }
 
-        public Task<bool> AddGenreAsync(Models.Genre genre)
+        public async Task<bool> AddGenreAsync(Models.Genre genre)
         {
             string uri = AppSettings.GenresEndpoint;
 
-            return _requestService.PostAsync<Models.Genre, bool>(uri, genre);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Genre, bool>(uri, genre, token);
         }
 
-        public Task<bool> RemoveGenreAsync(int genreId)
+        public async Task<bool> RemoveGenreAsync(int genreId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.GenresEndpoint);
             builder.AppendToPath(genreId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

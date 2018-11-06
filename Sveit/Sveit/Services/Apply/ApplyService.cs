@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sveit.Extensions;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Apply
@@ -12,9 +13,12 @@ namespace Sveit.Services.Apply
     {
         private readonly IRequestService _requestService;
 
+        private readonly ILoginService _loginService;
+
         public ApplyService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(_requestService);
         }
 
         public Task<Models.Apply> GetApply(int applyId)
@@ -46,21 +50,23 @@ namespace Sveit.Services.Apply
             return _requestService.GetAsync<IEnumerable<Models.Apply>>(uri);
         }
 
-        public Task<Models.Apply> PostApply(Models.Apply apply)
+        public async Task<Models.Apply> PostApply(Models.Apply apply)
         {
             UriBuilder builder = new UriBuilder(AppSettings.AppliesEndpoint);
             string uri = builder.ToString();
 
-            return _requestService.PostAsync<Models.Apply, Models.Apply>(uri, apply);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Apply, Models.Apply>(uri, apply, token);
         }
 
-        public Task<bool> DeleteApply(int applyId)
+        public async Task<bool> DeleteApply(int applyId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.AppliesEndpoint);
             builder.AppendToPath(applyId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

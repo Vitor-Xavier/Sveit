@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using Sveit.Extensions;
+using Sveit.Services.Login;
+using Sveit.Services.Player;
 using Sveit.Services.Requests;
 
 namespace Sveit.Services.Content
@@ -11,9 +13,12 @@ namespace Sveit.Services.Content
     {
         private readonly IRequestService _requestService;
 
+        private ILoginService _loginService;
+
         public ContentService(IRequestService requestService)
         {
             _requestService = requestService;
+            _loginService = new LoginService(requestService);
         }
 
         public Task<IEnumerable<Models.Content>> GetContentsAsync(DateTime? initialDate = null, DateTime? finalDate = null)
@@ -30,20 +35,22 @@ namespace Sveit.Services.Content
             return _requestService.GetAsync<IEnumerable<Models.Content>>(uri);
         }
 
-        public Task<bool> PostContentAsync(Models.Content content)
+        public async Task<bool> PostContentAsync(Models.Content content)
         {
             string uri = AppSettings.ContentsEndpoint;
 
-            return _requestService.PostAsync<Models.Content, bool>(uri, content);
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PostAsync<Models.Content, bool>(uri, content, token);
         }
 
-        public Task<bool> DeleteContentAsync(int contentId)
+        public async Task<bool> DeleteContentAsync(int contentId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.ContentsEndpoint);
             builder.AppendToPath(contentId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.DeleteAsync(uri, "");
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
     }
 }

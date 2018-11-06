@@ -28,6 +28,11 @@ namespace Sveit.Services.Login
                 return null;
         }
 
+        public Task<string> GetOAuthToken()
+        {
+            return Task.FromResult("key");
+        }
+
         public async Task<Models.Player> LogIn(string email, string password)
         {
             if (email.Equals("admin") &&
