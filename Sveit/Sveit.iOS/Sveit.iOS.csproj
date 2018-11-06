@@ -157,6 +157,9 @@
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.1.4.168</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>4.0.1.5</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugins.Settings">
       <Version>3.1.1</Version>
     </PackageReference>

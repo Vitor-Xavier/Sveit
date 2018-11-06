@@ -3,6 +3,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Plugin.Multilingual;
 using Sveit.Models;
+using Sveit.Services.Requests;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

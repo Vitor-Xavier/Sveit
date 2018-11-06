@@ -1,8 +1,13 @@
-﻿using Sveit.Models;
+﻿using Plugin.Media;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using Sveit.Models;
 using Sveit.Services.Gender;
+using Sveit.Services.Image;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -14,6 +19,8 @@ namespace Sveit.ViewModels
         private readonly IRequestService _requestService;
 
         private readonly IGenderService _genderService;
+
+        private readonly IImageService _imageService;
 
         private Player player;
 
@@ -65,6 +72,8 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Gender> Genders { get; set; }
 
+        public ICommand ImageCommand => new Command(ImageCommandExecute);
+
         public PlayerRegisterViewModel(INavigation navigation)
         {
             AvatarSource = "https://www.yourfirstpatient.com/assets/default-user-avatar-thumbnail@2x-ad6390912469759cda3106088905fa5bfbadc41532fbaa28237209b1aa976fc9.png";
@@ -73,10 +82,12 @@ namespace Sveit.ViewModels
             {
                 _requestService = new RequestService();
                 _genderService = new GenderService(_requestService);
+                _imageService = new ImageService(_requestService);
             }
             else
             {
                 _genderService = new FakeGenderService();
+                _imageService = new ImageService(new RequestService());
             }
             
             Genders = new ObservableCollection<Gender>();
@@ -92,5 +103,41 @@ namespace Sveit.ViewModels
                 Genders.Add(g);
         }
 
+        private async void ImageCommandExecute()
+        {
+            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+            if (storageStatus != PermissionStatus.Granted)
+            {
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Storage });
+                storageStatus = results[Permission.Storage];
+            }
+
+            if (storageStatus == PermissionStatus.Granted)
+            {
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await App.Current.MainPage.DisplayAlert("Not supported", "Gallery not supported", "OK");
+                    return;
+                }
+                var file = await CrossMedia.Current.PickPhotoAsync();
+                if (file == null) return;
+                //TODO: Change file name
+                AvatarSource = await _imageService.PostImage("tst", file.Path);
+                //var image = ImageSource.FromStream(() =>
+                //{
+                //    var stream = file.GetStream();
+                //    file.Dispose();
+                //    return stream;
+                //});
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Permissions Denied", "Unable to take photos.", "OK");
+                //On iOS you may want to send your user to the settings screen.
+                //CrossPermissions.Current.OpenAppSettings();
+            }
+        }
     }
 }

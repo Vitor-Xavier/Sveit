@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Plugin.CurrentActivity;
 
 namespace Sveit.Droid
 {
@@ -20,12 +21,18 @@ namespace Sveit.Droid
             base.OnCreate(savedInstanceState);
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
             LoadApplication(new App());
 
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 0, 0, 0));
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        {
+            Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

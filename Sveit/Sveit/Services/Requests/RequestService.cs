@@ -97,5 +97,22 @@ namespace Sveit.Services.Requests
 
             return await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<string> PostMimeAsync(string uri, ByteArrayContent[] byteArrays, string token = "")
+        {
+            HttpClient.DefaultRequestHeaders.Clear();
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+
+            if (!string.IsNullOrWhiteSpace(token))
+                HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            MultipartFormDataContent content = new MultipartFormDataContent();
+
+            foreach(ByteArrayContent byteArray in byteArrays)
+                content.Add(byteArray);
+
+            HttpResponseMessage response = await HttpClient.PostAsync(uri, content).ConfigureAwait(false);
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }

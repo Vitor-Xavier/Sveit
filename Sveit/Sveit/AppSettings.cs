@@ -9,18 +9,19 @@ namespace Sveit
     public static class AppSettings
     {
         private const string DefaultAuthEndpoint = "";
-        private const string DefaultBaseEndpoint = "http://192.168.31.27:45459/";
+        private const string DefaultBaseEndpoint = "http://192.168.31.27:45455/";
         private const string DefaultAppliesEndpoint = "Apply";
         private const string DefaultCharactersEndpoint = "Character";
         private const string DefaultCharacterTypesEndpoint = "CharacterType";
         private const string DefaultCommentsEndpoint = "Comment";
-        private const string DefaultContactsEndpoint = "";
+        private const string DefaultContactsEndpoint = "Contact";
         private const string DefaultContactTypesEndpoint = "ContactType";
         private const string DefaultContentsEndpoint = "Content";
         private const string DefaultEndorsedSkillsEndpoint = "";
         private const string DefaultGamesEndpoint = "Game";
         private const string DefaultGendersEndpoint = "Gender";
         private const string DefaultGenresEndpoint = "Genre";
+        private const string DefaultImagesEndpoint = "Image";
         private const string DefaultPlatformsEndpoint = "Platform";
         private const string DefaultPlayersEndpoint = "Player";
         private const string DefaultSkillsEndpoint = "Skill";
@@ -114,6 +115,12 @@ namespace Sveit
         {
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(GenresEndpoint), DefaultGenresEndpoint);
             set => Settings.AddOrUpdateValue(nameof(GenresEndpoint), value);
+        }
+
+        public static string ImagesEndpoint
+        {
+            get => BaseEndpoint + Settings.GetValueOrDefault(nameof(ImagesEndpoint), DefaultImagesEndpoint);
+            set => Settings.AddOrUpdateValue(nameof(ImagesEndpoint), value);
         }
 
         public static string PlatformsEndpoint
