@@ -20,7 +20,7 @@ namespace Sveit
             
             AppResources.Culture = CrossMultilingual.Current.DeviceCultureInfo;
 
-            MainPage = new Sveit.Views.MasterMainPage();
+            MainPage = new Sveit.Views.MasterMainPage(new RequestService());
         }
 
         protected override void OnStart()

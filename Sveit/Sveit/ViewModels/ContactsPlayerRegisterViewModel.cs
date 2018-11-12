@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class ContactsPlayerRegisterViewModel : BindableObject
+    public class ContactsPlayerRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 

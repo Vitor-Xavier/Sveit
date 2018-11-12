@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    class VacancyRegisterViewModel : BindableObject
+    class VacancyRegisterViewModel : BaseViewModel
     {
         private int minAge;
 

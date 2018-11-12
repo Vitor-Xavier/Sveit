@@ -50,7 +50,7 @@ namespace Sveit.Services.Requests
             await HandleResponse(response);
 
             string content = await response.Content.ReadAsStringAsync();
-            return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(content));
+            return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(content)).ConfigureAwait(false);
         }
 
         public async Task<bool> DeleteAsync(string uri, string token)
@@ -85,7 +85,7 @@ namespace Sveit.Services.Requests
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
-        public async Task<string> PostRawAsync(string uri, string data)
+        public async Task<TResult> PostRawAsync<TResult>(string uri, string data)
         {
             HttpClient.DefaultRequestHeaders.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
@@ -93,9 +93,12 @@ namespace Sveit.Services.Requests
             HttpResponseMessage response =
                 await HttpClient.PostAsync(uri, new StringContent(data, Encoding.UTF8, "text/plain"))
                 .ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+                return default(TResult);
             await HandleResponse(response);
 
-            return await response.Content.ReadAsStringAsync();
+            string content = await response.Content.ReadAsStringAsync();
+            return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(content)).ConfigureAwait(false);
         }
 
         public async Task<string> PostMimeAsync(string uri, ByteArrayContent[] byteArrays, string token = "")

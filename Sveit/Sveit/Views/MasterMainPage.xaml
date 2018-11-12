@@ -3,14 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.MasterMainPage"
              xmlns:pages="clr-namespace:Sveit.Views">
-    <MasterDetailPage.Master>
-        <pages:MasterMainPageMaster x:Name="MasterPage" />
-    </MasterDetailPage.Master>
-    <MasterDetailPage.Detail>
-        <NavigationPage BarBackgroundColor="{StaticResource AccentColor}" BarTextColor="#FFFFFF">
-          <x:Arguments>
-            <pages:HomePage />
-          </x:Arguments>
-        </NavigationPage>
-    </MasterDetailPage.Detail>
+
 </MasterDetailPage>

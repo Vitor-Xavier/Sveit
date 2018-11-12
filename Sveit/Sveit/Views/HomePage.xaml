@@ -15,6 +15,7 @@
         <StackLayout>
             <ListView ItemsSource="{Binding News}" 
                       HasUnevenRows="True" 
+                      RefreshCommand="{Binding RefreshCommand}"
                       Margin="6"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>

@@ -10,7 +10,7 @@ using System;
 
 namespace Sveit.ViewModels
 {
-    public class PlayerViewModel : BindableObject
+    public class PlayerViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 
@@ -25,7 +25,7 @@ namespace Sveit.ViewModels
         public bool IsCurrentPlayer
         {
             get { return isCurrentPlayer; }
-            set { isCurrentPlayer = value; }
+            set { isCurrentPlayer = value; OnPropertyChanged(); }
         }
 
 
@@ -81,10 +81,9 @@ namespace Sveit.ViewModels
 
         public ICommand TeamSelectedCommand => new Command<Team>(TeamSelectedCommandExecute);
 
-        public PlayerViewModel(INavigation navigation)
+        public PlayerViewModel(INavigation navigation, IRequestService requestService)
         {
             _navigation = navigation;
-            IRequestService requestService = new RequestService();
             Skills = new ObservableCollection<Skill>();
             Teams = new ObservableCollection<Team>();
             Comments = new ObservableCollection<Comment>();
@@ -99,11 +98,12 @@ namespace Sveit.ViewModels
                 _playerService = new FakePlayerService();
                 _commentService = new FakeCommentService();
             }
-            _playerId = 1;
-            LoadProfile(); LoadTeams(); LoadComments();
-            ProfileCommandExecute();
+            _playerId = App.LoggedPlayer.PlayerId;
+            //_playerId = 1;
+            //LoadProfile(); LoadTeams(); LoadComments();
+            //ProfileCommandExecute(); TeamCommandExecute(); CommentCommandExecute();
             Comment = Team = Profile = true; //TODO: Fix IsVisible update bug
-            //ProfileCommandExecute();
+            ProfileCommandExecute();
         }
 
         private void ProfileCommandExecute()
@@ -156,6 +156,7 @@ namespace Sveit.ViewModels
         private async void LoadProfile()
         {
             Player = await _playerService.GetPlayerById(_playerId);
+
             var skills = await _playerService.GetSkills(_playerId);
 
             Skills.Clear();

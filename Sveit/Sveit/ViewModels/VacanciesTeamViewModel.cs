@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class VacanciesTeamViewModel : BindableObject
+    public class VacanciesTeamViewModel : BaseViewModel
     {
         private readonly int _teamId;
 

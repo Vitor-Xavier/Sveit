@@ -9,9 +9,13 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class LoginViewModel : BindableObject
+    public class LoginViewModel : BaseViewModel
     {
+        private readonly INavigation _navigation;
+
         private readonly ILoginService _loginService;
+
+        private readonly IRequestService _requestService;
 
         private string password;
 
@@ -33,17 +37,19 @@ namespace Sveit.ViewModels
 
         public ICommand LogInCommand => new Command(LogInCommandExecute);
 
-        public LoginViewModel(IRequestService requestService)
+        public LoginViewModel(INavigation navigation, IRequestService requestService)
         {
+            _navigation = navigation;
+            _requestService = requestService;
             if (AppSettings.ApiStatus)
                 _loginService = new LoginService(requestService);
             else
                 _loginService = new FakeLoginService();
         }
 
-        private void SignUpCommandExecute()
+        private async void SignUpCommandExecute()
         {
-            App.Current.MainPage = new Views.PlayerRegisterPage();
+            await _navigation.PushModalAsync(new Views.PlayerRegisterPage());
         }
 
         private async void LogInCommandExecute()
@@ -58,7 +64,7 @@ namespace Sveit.ViewModels
             }
             else
             {
-                App.Current.MainPage = new Views.MasterMainPage();
+                App.Current.MainPage = new Views.MasterMainPage(_requestService);
             }
         }
 

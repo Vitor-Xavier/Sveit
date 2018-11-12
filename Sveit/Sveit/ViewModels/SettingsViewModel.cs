@@ -1,4 +1,5 @@
 ﻿using Plugin.Multilingual;
+using Sveit.Services.Requests;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    class SettingsViewModel :  BindableObject
+    class SettingsViewModel : BaseViewModel
     {
         public ICommand TwitterCommand => new Command(TwitterCommandExecute);
 
@@ -32,7 +33,7 @@ namespace Sveit.ViewModels
         }
 
 
-        public SettingsViewModel()
+        public SettingsViewModel(IRequestService requestService)
         {
             Languages = new ObservableCollection<string>
             {

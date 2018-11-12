@@ -17,15 +17,23 @@ namespace Sveit.Views
     {
         private ILoginService _loginService;
 
-        public MasterMainPage()
+        private IRequestService _requestService;
+
+        public MasterMainPage(IRequestService requestService)
         {
             InitializeComponent();
+            _requestService = requestService;
             if (AppSettings.ApiStatus)
-                _loginService = new LoginService(new RequestService());
+                _loginService = new LoginService(requestService);
             else
                 _loginService = new FakeLoginService();
-            
-            MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+            Master = new MasterMainPageMaster(_requestService);
+            Detail = new NavigationPage(new HomePage(_requestService))
+            {
+                BarBackgroundColor = (Color)App.Current.Resources["AccentColor"],
+                BarTextColor = (Color)App.Current.Resources["PrimaryText"]
+            };
+            (Master as MasterMainPageMaster).ListView.ItemSelected += ListView_ItemSelected;
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -34,14 +42,18 @@ namespace Sveit.Views
             if (item == null)
                 return;
 
-            if (item.Title == "Exit")
+            if (item.TargetType == null)
             {
                 
                 if (_loginService.LogOut())
-                    App.Current.MainPage = new Sveit.Views.MasterMainPage();
+                {
+                    App.Current.MainPage = new Sveit.Views.MasterMainPage(_requestService);
+                    return;
+                }
+
             }
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+            var page = (Page)Activator.CreateInstance(item.TargetType, _requestService);
             //page.Title = item.Title;
             
             Detail = new NavigationPage(page)
@@ -52,7 +64,7 @@ namespace Sveit.Views
             
             IsPresented = false;
 
-            MasterPage.ListView.SelectedItem = null;
+            (Master as MasterMainPageMaster).ListView.SelectedItem = null;
         }
     }
 }

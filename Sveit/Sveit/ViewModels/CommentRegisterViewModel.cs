@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class CommentRegisterViewModel : BindableObject
+    public class CommentRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 

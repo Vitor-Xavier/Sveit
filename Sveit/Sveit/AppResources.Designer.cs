@@ -196,6 +196,17 @@ namespace Sveit {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string Exit
+        {
+            get
+            {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         internal static string Female

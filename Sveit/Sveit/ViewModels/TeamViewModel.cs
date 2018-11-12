@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class TeamViewModel : BindableObject
+    public class TeamViewModel : BaseViewModel
     {
         public readonly INavigation _navigation;
 

@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class AppliesPlayerViewModel : BindableObject
+    public class AppliesPlayerViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 
@@ -33,11 +33,15 @@ namespace Sveit.ViewModels
 
         private async void LoadApplies()
         {
+            if (IsLoading) return;
+            IsLoading = true;
+
             var applies = await _applyService.GetAppliesByPlayer(_playerId);
 
             Applies.Clear();
             foreach (Apply a in applies)
                 Applies.Add(a);
+            IsLoading = false;
         }
 
         public async void ApplySelectedCommandExecute(Apply apply)

@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class VacancyViewModel : BindableObject
+    public class VacancyViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 

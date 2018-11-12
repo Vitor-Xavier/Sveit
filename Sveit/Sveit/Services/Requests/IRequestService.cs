@@ -12,7 +12,7 @@ namespace Sveit.Services.Requests
 
         Task<TResult> PostAsync<TRequest, TResult>(string uri, TRequest data, string token = "");
 
-        Task<string> PostRawAsync(string uri, string data);
+        Task<TResult> PostRawAsync<TResult>(string uri, string data);
 
         Task<string> PostMimeAsync(string uri, ByteArrayContent[] byteArrays, string token = "");
 

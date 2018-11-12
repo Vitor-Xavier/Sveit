@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class ApplyRegisterViewModel : BindableObject
+    public class ApplyRegisterViewModel : BaseViewModel
     {
         private readonly IApplyService _applyService;
 

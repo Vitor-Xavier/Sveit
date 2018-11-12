@@ -6,7 +6,7 @@ namespace Sveit.Models
     public class Content : EntityBase
     {
         public int ContentId { get; set; }
-        [StringLength(30)]
+        [StringLength(120)]
         public string Title { get; set; }
         public virtual Game Game { get; set; }
         [StringLength(300)]
@@ -15,7 +15,7 @@ namespace Sveit.Models
         public string Source { get; set; }
         [StringLength(300)]
         public string ImageSource { get; set; }
-        [StringLength(255)]
+        [StringLength(300)]
         public string ContentUrl { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
 

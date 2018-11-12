@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Newtonsoft.Json.Linq;
+using Sveit.Extensions;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
 using System;
@@ -24,8 +25,8 @@ namespace Sveit.Services.Login
             var storagedTokenTime = await SecureStorage.GetAsync("Sveit-DateTime");
 
             string tokenRequest = $"username={storagedEmail}&password={storagedPassword}&grant_type=password";
-            string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
-            if (!string.IsNullOrWhiteSpace(oauthToken))
+            Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.TokenEndpoint, tokenRequest);
+            if (oauthToken != null)
             {
                 var player = await GetByEmail(storagedEmail);
                 App.LoggedPlayer = player;
@@ -37,14 +38,16 @@ namespace Sveit.Services.Login
 
         public async Task<Models.Player> LogIn(string email, string password)
         {
-            string tokenRequest = $"username=[{email}]&password=[{password}]&grant_type=password";
-            string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
-            var player = await GetByEmail(email);
+            string tokenRequest = $"username={email}&password={password}&grant_type=password";
             try
             {
+                Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.TokenEndpoint, tokenRequest);
+
+                if (oauthToken == null) return null;
+                var player = await GetByEmail(email);
                 await SecureStorage.SetAsync("Sveit-Email", email);
                 await SecureStorage.SetAsync("Sveit-Password", password);
-                await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken);
+                await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken.Access_token);
                 await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
                 return player;
             }
@@ -83,12 +86,14 @@ namespace Sveit.Services.Login
             var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
 
             string tokenRequest = $"username=[{storagedEmail}]&password=[{storagedPassword}]&grant_type=password";
-            string oauthToken = await _requestService.PostRawAsync(AppSettings.TokenEndpoint, tokenRequest);
+            Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.TokenEndpoint, tokenRequest);
 
-            await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken);
+            if (oauthToken == null) return null;
+
+            await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken.Access_token);
             await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
 
-            return oauthToken;
+            return oauthToken.Access_token;
         }
 
         public Task<Models.Player> GetByEmail(string email)

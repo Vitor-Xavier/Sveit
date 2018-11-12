@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class ApplyViewModel : BindableObject
+    public class ApplyViewModel : BaseViewModel
     {
         private readonly IApplyService _applyService;
 

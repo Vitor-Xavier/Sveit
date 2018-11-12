@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    class PlayerRegisterViewModel : BindableObject
+    class PlayerRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 

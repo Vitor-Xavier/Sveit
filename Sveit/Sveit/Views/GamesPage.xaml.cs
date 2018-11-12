@@ -1,4 +1,5 @@
-﻿using Sveit.ViewModels;
+﻿using Sveit.Services.Requests;
+using Sveit.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GamesPage : ContentPage
     {
-        public GamesPage()
+        public GamesPage(IRequestService requestService)
         {
             InitializeComponent();
-            BindingContext = new GamesViewModel(Navigation);
+            BindingContext = new GamesViewModel(Navigation, requestService);
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

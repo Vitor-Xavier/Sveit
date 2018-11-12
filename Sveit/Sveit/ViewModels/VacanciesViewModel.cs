@@ -12,7 +12,7 @@ using Sveit.Services.Game;
 
 namespace Sveit.ViewModels
 {
-    public class VacanciesViewModel : BindableObject
+    public class VacanciesViewModel : BaseViewModel
     {
         public ObservableCollection<Vacancy> Vacancies { get; set; }
 
@@ -37,12 +37,11 @@ namespace Sveit.ViewModels
             }
         }
 
-        public VacanciesViewModel(INavigation navigation)
+        public VacanciesViewModel(INavigation navigation, IRequestService requestService)
         {
             _navigation = navigation;
             if (AppSettings.ApiStatus)
             {
-                var requestService = new RequestService();
                 _vacancyService = new VacancyService(requestService);
                 _gameService = new GameService(requestService);
             }
@@ -67,6 +66,8 @@ namespace Sveit.ViewModels
 
         private async void LoadGames()
         {
+            if (IsLoading) return;
+            IsLoading = true;
             var games = await _gameService.GetTrendGamesAsync();
 
             Games.Clear();
@@ -75,6 +76,7 @@ namespace Sveit.ViewModels
 
             if (Games.Count > 0)
                 Position = 0;
+            IsLoading = false;
         }
 
         public async void VacancySelectedCommandExecute(Vacancy vacancy)

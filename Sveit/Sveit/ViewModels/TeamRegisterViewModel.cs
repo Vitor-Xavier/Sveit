@@ -18,7 +18,7 @@ using Sveit.Services.Image;
 
 namespace Sveit.ViewModels
 {
-    class TeamRegisterViewModel : BindableObject
+    class TeamRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 

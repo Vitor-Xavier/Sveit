@@ -11,10 +11,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <helpers:DateOfBirthToAgeConverter x:Key="DateOfBirthToAge"/>
+            <helpers:BooleanInverterConverter x:Key="BooleanInverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout>
-        <StackLayout Padding="20, 20, 20, 45" BackgroundColor="{StaticResource AppBarColor}">
+        <StackLayout IsVisible="{Binding IsLogged}" Padding="20, 20, 20, 45" BackgroundColor="{StaticResource AppBarColor}">
             <StackLayout Orientation="Horizontal"  Spacing="15">
                 <forms:CachedImage Source="{Binding LoggedPlayer.AvatarSource}" CacheDuration="2" HeightRequest="72" >
                     <forms:CachedImage.Transformations>
@@ -22,9 +23,21 @@
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <StackLayout Spacing="4">
-                    <Label Text="{Binding LoggedPlayer.Nickname, TargetNullValue={i18n:Translate Nickname}}" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
-                    <Label Text="{Binding LoggedPlayer.Name, TargetNullValue={i18n:Translate Name}}" TextColor="{StaticResource SecondaryText}"/>
-                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}, TargetNullValue={i18n:Translate DateOfBirth}}" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
+                    <Label Text="{Binding LoggedPlayer.Name}" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" TextColor="{StaticResource SecondaryText}"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding IsLogged, Converter={StaticResource BooleanInverter}}" Padding="20, 20, 20, 45" BackgroundColor="{StaticResource AppBarColor}">
+            <StackLayout Orientation="Horizontal"  Spacing="15">
+                <forms:CachedImage Source="icon.png" HeightRequest="72" >
+                    <forms:CachedImage.Transformations>
+                        <transformations:RoundedTransformation Radius="240" />
+                    </forms:CachedImage.Transformations>
+                </forms:CachedImage>
+                <StackLayout Spacing="4">
+                    <Label Text="Project Sveit" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

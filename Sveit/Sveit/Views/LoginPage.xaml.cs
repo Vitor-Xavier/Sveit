@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sveit.Services.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,10 @@ namespace Sveit.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LoginPage : ContentPage
 	{
-		public LoginPage ()
+		public LoginPage (IRequestService requestService)
 		{
 			InitializeComponent ();
-            BindingContext = new ViewModels.LoginViewModel(new Services.Requests.RequestService());
+            BindingContext = new ViewModels.LoginViewModel(Navigation, requestService);
 		}
 	}
 }

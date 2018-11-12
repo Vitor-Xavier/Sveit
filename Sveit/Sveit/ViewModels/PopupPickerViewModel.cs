@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class PopupPickerViewModel<T> : BindableObject
+    public class PopupPickerViewModel<T> : BaseViewModel
     {
         private readonly INavigation _navigation;
 

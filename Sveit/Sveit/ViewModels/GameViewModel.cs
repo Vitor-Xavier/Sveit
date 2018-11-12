@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class GameViewModel
+    public class GameViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
 
@@ -35,11 +35,14 @@ namespace Sveit.ViewModels
 
         private async void LoadVacancies()
         {
+            if (IsLoading) return;
+            IsLoading = true;
             var vacancies = await _vacancyService.GetVacanciesByGameAsync(Game.GameId);
 
             Vacancies.Clear();
             foreach (Vacancy v in vacancies)
                 Vacancies.Add(v);
+            IsLoading = false;
         }
 
         public async void VacancySelectedCommandExecute(Vacancy vacancy)

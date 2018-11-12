@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    public class GamesViewModel
+    public class GamesViewModel : BaseViewModel
     {
         public ObservableCollection<Game> Games { get; set; }
 
@@ -20,11 +20,11 @@ namespace Sveit.ViewModels
 
         private readonly IGameService _gameService;
 
-        public GamesViewModel(INavigation navigation)
+        public GamesViewModel(INavigation navigation, IRequestService requestService)
         {
             _navigation = navigation;
             if (AppSettings.ApiStatus)
-                _gameService = new GameService(new RequestService());
+                _gameService = new GameService(requestService);
             else
                 _gameService = new FakeGameService();
 
@@ -34,11 +34,14 @@ namespace Sveit.ViewModels
 
         private async void LoadData()
         {
+            if (IsLoading) return;
+            IsLoading = true;
             var games = await _gameService.GetGamesAsync();
 
             Games.Clear();
             foreach (Game g in games)
                 Games.Add(g);
+            IsLoading = false;
         }
 
         public async void GameSelectedCommandExecute(Game game)
