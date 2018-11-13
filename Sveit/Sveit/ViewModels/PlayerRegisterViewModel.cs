@@ -1,12 +1,14 @@
 ﻿using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Gender;
 using Sveit.Services.Image;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -72,7 +74,7 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Gender> Genders { get; set; }
 
-        public ICommand ImageCommand => new Command(ImageCommandExecute);
+        public IAsyncCommand ImageCommand => new AsyncCommand(ImageCommandExecute);
 
         public PlayerRegisterViewModel(INavigation navigation)
         {
@@ -91,10 +93,10 @@ namespace Sveit.ViewModels
             }
             
             Genders = new ObservableCollection<Gender>();
-            LoadGenders();
+            Task.Run(() => LoadGenders());
         }
 
-        private async void LoadGenders()
+        private async Task LoadGenders()
         {
             var genders = await _genderService.GetGendersAsync();
 
@@ -103,7 +105,7 @@ namespace Sveit.ViewModels
                 Genders.Add(g);
         }
 
-        private async void ImageCommandExecute()
+        private async Task ImageCommandExecute()
         {
             var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
 
@@ -117,13 +119,13 @@ namespace Sveit.ViewModels
             {
                 if (!CrossMedia.Current.IsPickPhotoSupported)
                 {
-                    await App.Current.MainPage.DisplayAlert("Not supported", "Gallery not supported", "OK");
+                    await App.Current.MainPage.DisplayAlert(AppResources.NotSupported, AppResources.GalleryNotSupported, AppResources.Ok);
                     return;
                 }
                 var file = await CrossMedia.Current.PickPhotoAsync();
                 if (file == null) return;
                 //TODO: Change file name
-                AvatarSource = await _imageService.PostImage("tst", file.Path);
+                //AvatarSource = await _imageService.PostImage("tst", file.Path);
                 //var image = ImageSource.FromStream(() =>
                 //{
                 //    var stream = file.GetStream();
@@ -134,9 +136,8 @@ namespace Sveit.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Permissions Denied", "Unable to take photos.", "OK");
-                //On iOS you may want to send your user to the settings screen.
-                //CrossPermissions.Current.OpenAppSettings();
+                await App.Current.MainPage.DisplayAlert(AppResources.PermissionsDenied, AppResources.CameraDenied, AppResources.Ok);
+                CrossPermissions.Current.OpenAppSettings();
             }
         }
     }

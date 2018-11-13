@@ -1,24 +1,19 @@
-﻿using Sveit.Models;
-using System;
-using System.Collections.Generic;
+﻿using Sveit.Extensions;
+using Sveit.Models;
+using Sveit.Services.Game;
+using Sveit.Services.Requests;
+using Sveit.Services.Vacancy;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Sveit.Services.Vacancy;
-using Sveit.Services.Requests;
-using Sveit.Services.Game;
 
 namespace Sveit.ViewModels
 {
     public class VacanciesViewModel : BaseViewModel
     {
-        public ObservableCollection<Vacancy> Vacancies { get; set; }
-
-        public ObservableCollection<Game> Games { get; set; }
-
         private readonly INavigation _navigation;
+
+        private readonly IRequestService _requestService;
 
         private readonly IVacancyService _vacancyService;
 
@@ -32,14 +27,21 @@ namespace Sveit.ViewModels
             set
             {
                 position = value;
-                LoadByGame(position);
+                Task.Run(() => LoadByGame(position));
                 OnPropertyChanged();
             }
         }
 
+        public ObservableCollection<Vacancy> Vacancies { get; set; }
+
+        public ObservableCollection<Game> Games { get; set; }
+
+        public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
+
         public VacanciesViewModel(INavigation navigation, IRequestService requestService)
         {
             _navigation = navigation;
+            _requestService = requestService;
             if (AppSettings.ApiStatus)
             {
                 _vacancyService = new VacancyService(requestService);
@@ -53,10 +55,10 @@ namespace Sveit.ViewModels
 
             Games = new ObservableCollection<Game>();
             Vacancies = new ObservableCollection<Vacancy>();
-            LoadGames();
+            Task.Run(() => LoadGames());
         }
 
-        private async void LoadByGame(int pos)
+        private async Task LoadByGame(int pos)
         {
             var vacancies = await _vacancyService.GetVacanciesByGameAsync(Games[pos].GameId);
             Vacancies.Clear();
@@ -64,7 +66,7 @@ namespace Sveit.ViewModels
                 Vacancies.Add(vacancy);
         }
 
-        private async void LoadGames()
+        private async Task LoadGames()
         {
             if (IsLoading) return;
             IsLoading = true;
@@ -79,9 +81,9 @@ namespace Sveit.ViewModels
             IsLoading = false;
         }
 
-        public async void VacancySelectedCommandExecute(Vacancy vacancy)
+        public async Task VacancyCommandExecute(Vacancy vacancy)
         {
-            await _navigation.PushModalAsync(new Views.VacancyPage(vacancy));
+            await _navigation.PushModalAsync(new Views.VacancyPage(_requestService, vacancy));
         }
     }
 }

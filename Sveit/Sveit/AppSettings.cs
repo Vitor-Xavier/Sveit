@@ -24,6 +24,7 @@ namespace Sveit
         private const string DefaultImagesEndpoint = "Image";
         private const string DefaultPlatformsEndpoint = "Platform";
         private const string DefaultPlayersEndpoint = "Player";
+        private const string DefaultRolesEndpoint = "Role";
         private const string DefaultSkillsEndpoint = "Skill";
         private const string DefaultTagsEndpoint = "Tag";
         private const string DefaultTeamsEndpoint = "Team";
@@ -133,6 +134,12 @@ namespace Sveit
         {
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(PlayersEndpoint), DefaultPlayersEndpoint);
             set => Settings.AddOrUpdateValue(nameof(PlayersEndpoint), value);
+        }
+        
+        public static string RolesEndpoint
+        {
+            get => BaseEndpoint + Settings.GetValueOrDefault(nameof(RolesEndpoint), DefaultRolesEndpoint);
+            set => Settings.AddOrUpdateValue(nameof(RolesEndpoint), value);
         }
 
         public static string SkillsEndpoint

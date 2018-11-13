@@ -1,10 +1,8 @@
 ﻿using Plugin.Multilingual;
 using Sveit.Services.Requests;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -31,7 +29,6 @@ namespace Sveit.ViewModels
             get { return _language; }
             set { _language = value; ChangeLanguage(_language); OnPropertyChanged(); }
         }
-
 
         public SettingsViewModel(IRequestService requestService)
         {
@@ -62,7 +59,8 @@ namespace Sveit.ViewModels
             try
             {
                 Device.OpenUri(new Uri("twitter://user?user_id=881263290575450112"));
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 Device.OpenUri(new Uri("https://twitter.com/vitorvxs"));
             }
@@ -79,7 +77,7 @@ namespace Sveit.ViewModels
                 Device.OpenUri(new Uri("https://www.facebook.com/vitor.xavier.167"));
             }
         }
-        
+
         private void LinkedInCommandExecute()
         {
             try
@@ -88,14 +86,10 @@ namespace Sveit.ViewModels
             }
             catch (Exception) { }
         }
-        
+
         private void GoogleCommandExecute()
         {
-            try
-            {
-                Device.OpenUri(new Uri("https://plus.google.com/100082514671815234409"));
-            }
-            catch (Exception) { }
+            Device.OpenUri(new Uri("https://plus.google.com/100082514671815234409"));
         }
 
         private void GithubCommandExecute()

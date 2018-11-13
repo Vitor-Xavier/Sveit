@@ -1,8 +1,10 @@
-﻿using Sveit.Models;
+﻿using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.ContactType;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -44,7 +46,7 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<ContactType> ContactTypes { get; }
 
-        public ICommand AddContactCommand => new Command(AddContactCommandExecute);
+        public IAsyncCommand AddContactCommand => new AsyncCommand(AddContactCommandExecute);
 
         public ContactsTeamRegisterViewModel(INavigation navigation, Team team)
         {
@@ -63,11 +65,15 @@ namespace Sveit.ViewModels
             }
             Contacts = new ObservableCollection<Contact>();
             ContactTypes = new ObservableCollection<ContactType>();
-            LoadContacts();
-            LoadContactTypes();
+
+            Task.Run(async () =>
+            {
+                await LoadContacts();
+                await LoadContactTypes();
+            });
         }
 
-        public async void LoadContactTypes()
+        public async Task LoadContactTypes()
         {
             var contactTypes = await _contactTypeService.GetContactTypesAsync();
 
@@ -76,7 +82,7 @@ namespace Sveit.ViewModels
                 ContactTypes.Add(c);
         }
 
-        private async void LoadContacts()
+        private async Task LoadContacts()
         {
             var contacts = await _teamService.GetTeamContacts(Team.TeamId);
 
@@ -85,7 +91,7 @@ namespace Sveit.ViewModels
                 Contacts.Add(c);
         }
 
-        private async void AddContactCommandExecute()
+        private async Task AddContactCommandExecute()
         {
             if (ContactType == null) return;
             var contact = new Models.Contact
@@ -95,7 +101,7 @@ namespace Sveit.ViewModels
             };
 
             await _teamService.PostTeamContact(Team.TeamId, contact);
-            LoadContacts();
+            await LoadContacts();
         }
     }
 }

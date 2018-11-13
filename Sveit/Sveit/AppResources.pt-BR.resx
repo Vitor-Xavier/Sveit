@@ -357,4 +357,19 @@
   <data name="Exit" xml:space="preserve">
     <value>Sair</value>
   </data>
+  <data name="CameraDenied" xml:space="preserve">
+    <value>Não é possível selecionar fotos.</value>
+  </data>
+  <data name="GalleryNotSupported" xml:space="preserve">
+    <value>Galeria de fotos não suportada.</value>
+  </data>
+  <data name="NotSupported" xml:space="preserve">
+    <value>Sem suporte</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="PermissionsDenied" xml:space="preserve">
+    <value>Permissões negadas</value>
+  </data>
 </root>

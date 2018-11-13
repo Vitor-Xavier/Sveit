@@ -16,6 +16,8 @@ namespace Sveit.ViewModels
     {
         private readonly INavigation _navigation;
 
+        private readonly IRequestService _requestService;
+
         private readonly IPlayerService _playerService;
 
         private readonly ICommentService _commentService;
@@ -29,7 +31,6 @@ namespace Sveit.ViewModels
             get { return isCurrentPlayer; }
             set { isCurrentPlayer = value; OnPropertyChanged(); }
         }
-
 
         private bool profile;
 
@@ -75,17 +76,18 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand CommentCommand => new AsyncCommand(CommentCommandExecute);
 
-        public ICommand AddCommentCommand => new Command(AddCommentCommandExecute);
+        public IAsyncCommand AddCommentCommand => new AsyncCommand(AddCommentCommandExecute);
 
-        public ICommand AddTeamCommand => new Command(AddTeamCommandExecute);
+        public IAsyncCommand AddTeamCommand => new AsyncCommand(AddTeamCommandExecute);
 
-        public ICommand AppliesCommand => new Command(AppliesCommandExecute);
+        public IAsyncCommand AppliesCommand => new AsyncCommand(AppliesCommandExecute);
 
-        public ICommand TeamSelectedCommand => new Command<Team>(TeamSelectedCommandExecute);
+        public IAsyncCommand<Team> TeamSelectedCommand => new AsyncCommand<Team>(TeamSelectedCommandExecute);
 
-        public PlayerViewModel(INavigation navigation, IRequestService requestService)
+        public PlayerViewModel(INavigation navigation, IRequestService requestService, int? playerId = null)
         {
             _navigation = navigation;
+            _requestService = requestService;
             Skills = new ObservableCollection<Skill>();
             Teams = new ObservableCollection<Team>();
             Comments = new ObservableCollection<Comment>();
@@ -100,7 +102,9 @@ namespace Sveit.ViewModels
                 _playerService = new FakePlayerService();
                 _commentService = new FakeCommentService();
             }
-            _playerId = App.LoggedPlayer.PlayerId;
+
+            _playerId = playerId ?? App.LoggedPlayer.PlayerId;
+            IsCurrentPlayer = _playerId == App.LoggedPlayer.PlayerId;
             Task.Run(() => ProfileCommandExecute());
         }
 
@@ -131,24 +135,24 @@ namespace Sveit.ViewModels
                 await LoadComments();
         }
 
-        private async void AddTeamCommandExecute()
+        private async Task AddTeamCommandExecute()
         {
             await _navigation.PushModalAsync(new TeamRegisterPage());
         }
 
-        private async void AddCommentCommandExecute()
+        private async Task AddCommentCommandExecute()
         {
             await _navigation.PushModalAsync(new CommentRegisterPage());
         }
 
-        private async void AppliesCommandExecute()
+        private async Task AppliesCommandExecute()
         {
             await _navigation.PushAsync(new AppliesPlayerPage(_playerId));
         }
 
-        public async void TeamSelectedCommandExecute(Team team)
+        public async Task TeamSelectedCommandExecute(Team team)
         {
-            await _navigation.PushAsync(new TeamPage());
+            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));
         }
 
         private async Task LoadProfile()

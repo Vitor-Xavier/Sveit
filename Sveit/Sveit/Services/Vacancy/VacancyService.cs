@@ -50,13 +50,13 @@ namespace Sveit.Services.Vacancy
             return _requestService.GetAsync<IEnumerable<Models.Vacancy>>(uri);
         }
 
-        public async Task<bool> PostVacancyAsync(Models.Vacancy vacancy)
+        public async Task<Models.Vacancy> PostVacancyAsync(Models.Vacancy vacancy)
         {
             UriBuilder builder = new UriBuilder(AppSettings.VacanciesEndpoint);
             string uri = builder.ToString();
 
             var token = await _loginService.GetOAuthToken();
-            return await _requestService.PostAsync<Models.Vacancy, bool>(uri, vacancy, token);
+            return await _requestService.PostAsync<Models.Vacancy, Models.Vacancy>(uri, vacancy, token);
         }
 
         public async Task<bool> DeleteVacancyAsync(int vacancyId)

@@ -1,4 +1,5 @@
-﻿using Sveit.Models;
+﻿using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.Apply;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -24,9 +26,8 @@ namespace Sveit.ViewModels
         public bool IsEvaluation
         {
             get { return isEvaluation; }
-            set { isEvaluation = value; }
+            set { isEvaluation = value; OnPropertyChanged(); }
         }
-
 
         private Apply apply;
 
@@ -40,9 +41,9 @@ namespace Sveit.ViewModels
 
         public List<ObservableGroupCollection<RoleType, Role>> RoleTypes { get; set; }
 
-        public ICommand AcceptCommand => new Command(AcceptCommandExecute);
+        public IAsyncCommand AcceptCommand => new AsyncCommand(AcceptCommandExecute);
 
-        public ICommand DeclineCommand => new Command(DeclineCommandExecute);
+        public IAsyncCommand DeclineCommand => new AsyncCommand(DeclineCommandExecute);
 
         public ApplyViewModel(INavigation navigation, Apply apply, bool isEvaluation)
         {
@@ -63,10 +64,13 @@ namespace Sveit.ViewModels
                .GroupBy(p => p.RoleType)
                .Select(p => new ObservableGroupCollection<RoleType, Role>(p)).ToList();
             Skills = new ObservableCollection<Skill>();
-            LoadData();
+
+            IsEvaluation = App.LoggedPlayer.PlayerId == Apply.Vacancy.Team.OwnerId;
+
+            Task.Run(() => LoadData());
         }
 
-        private async void LoadData()
+        private async Task LoadData()
         {
             var skills = await _playerService.GetSkills(Apply.PlayerId);
 
@@ -75,14 +79,14 @@ namespace Sveit.ViewModels
                 Skills.Add(s);
         }
 
-        private async void AcceptCommandExecute()
+        private async Task AcceptCommandExecute()
         {
             Apply.Approved = true;
             if (null != await _applyService.PostApply(Apply))
                 await _navigation.PopModalAsync();
         }
 
-        private async void DeclineCommandExecute()
+        private async Task DeclineCommandExecute()
         {
             Apply.Approved = false;
             if (null != await _applyService.PostApply(Apply))

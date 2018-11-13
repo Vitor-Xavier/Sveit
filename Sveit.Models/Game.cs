@@ -6,7 +6,7 @@ namespace Sveit.Models
     public class Game : EntityBase
     {
         public int GameId { get; set; }
-        [StringLength(30)]
+        [StringLength(40)]
         public string Name { get; set; }
         [StringLength(150)]
         public string IconSource { get; set; }

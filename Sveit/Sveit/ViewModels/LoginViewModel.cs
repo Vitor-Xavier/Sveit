@@ -1,10 +1,9 @@
-﻿using Sveit.Services.Login;
+﻿using Sveit.Extensions;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
-using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using System.Windows.Input;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -33,9 +32,9 @@ namespace Sveit.ViewModels
             set { email = value; OnPropertyChanged(); }
         }
 
-        public ICommand SignUpCommand => new Command(SignUpCommandExecute);
+        public IAsyncCommand SignUpCommand => new AsyncCommand(SignUpCommandExecute);
 
-        public ICommand LogInCommand => new Command(LogInCommandExecute);
+        public IAsyncCommand LogInCommand => new AsyncCommand(LogInCommandExecute);
 
         public LoginViewModel(INavigation navigation, IRequestService requestService)
         {
@@ -47,12 +46,12 @@ namespace Sveit.ViewModels
                 _loginService = new FakeLoginService();
         }
 
-        private async void SignUpCommandExecute()
+        private async Task SignUpCommandExecute()
         {
             await _navigation.PushModalAsync(new Views.PlayerRegisterPage());
         }
 
-        private async void LogInCommandExecute()
+        private async Task LogInCommandExecute()
         {
             if (!Validate()) return;
             var pass = ComputeSha256Hash(Password);
@@ -77,7 +76,7 @@ namespace Sveit.ViewModels
             return true;
         }
 
-        static string ComputeSha256Hash(string rawData)
+        private static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
             using (SHA256 sha256Hash = SHA256.Create())

@@ -1,9 +1,11 @@
-﻿using Sveit.Models;
+﻿using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.ContactType;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -45,7 +47,7 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<ContactType> ContactTypes { get; }
 
-        public ICommand AddContactCommand => new Command(AddContactCommandExecute);
+        public IAsyncCommand AddContactCommand => new AsyncCommand(AddContactCommandExecute);
 
         public ContactsPlayerRegisterViewModel(INavigation navigation, Player player)
         {
@@ -64,11 +66,15 @@ namespace Sveit.ViewModels
             }
             Contacts = new ObservableCollection<Contact>();
             ContactTypes = new ObservableCollection<ContactType>();
-            LoadContacts();
-            LoadContactTypes();
+
+            Task.Run(async () =>
+            {
+                await LoadContacts();
+                await LoadContactTypes();
+            });
         }
 
-        private async void LoadContacts()
+        private async Task LoadContacts()
         {
             var contacts = await _playerService.GetPlayerContacts(Player.PlayerId);
 
@@ -77,7 +83,7 @@ namespace Sveit.ViewModels
                 Contacts.Add(c);
         }
 
-        public async void LoadContactTypes()
+        public async Task LoadContactTypes()
         {
             var contactTypes = await _contactTypeService.GetContactTypesAsync();
 
@@ -86,17 +92,17 @@ namespace Sveit.ViewModels
                 ContactTypes.Add(c);
         }
 
-        private async void AddContactCommandExecute()
+        private async Task AddContactCommandExecute()
         {
             if (ContactType == null) return;
-            var contact = new Models.Contact
+            var contact = new Contact
             {
                 Text = ContactText,
                 ContactTypeId = ContactType.ContactTypeId
             };
 
             await _playerService.PostPlayerContact(Player.PlayerId, contact);
-            LoadContacts();
+            await LoadContacts();
         }
     }
 }

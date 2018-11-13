@@ -7,8 +7,8 @@ namespace Sveit.Models
         public int RoleTypeId { get; set; }
         [StringLength(40)]
         public string Name { get; set; }
-        public int GameId { get; set; }
-        public virtual Game Game { get; set; }
+        [StringLength(40)]
+        public string IconSource { get; set; }
 
         public override bool Equals(object obj)
         {

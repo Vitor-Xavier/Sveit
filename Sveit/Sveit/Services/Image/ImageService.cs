@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Microsoft.AppCenter.Crashes;
+using Sveit.Extensions;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace Sveit.Services.Image
             }
             catch (Exception e)
             {
+                Crashes.TrackError(e);
                 return Task.FromResult(string.Empty);
             }
         }

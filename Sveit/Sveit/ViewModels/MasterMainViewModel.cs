@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Sveit.ViewModels
 {
@@ -38,10 +39,10 @@ namespace Sveit.ViewModels
             else
                 _loginService = new FakeLoginService();
             MenuItems = new ObservableCollection<Views.MasterMenuItem>();
-            LoadItems();
+            Task.Run(() => LoadItems());
         }
 
-        private async void LoadItems()
+        private async Task LoadItems()
         {
             LoggedPlayer = await _loginService.CheckLogIn();
 

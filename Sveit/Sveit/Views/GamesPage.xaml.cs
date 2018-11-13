@@ -20,11 +20,11 @@ namespace Sveit.Views
             BindingContext = new GamesViewModel(Navigation, requestService);
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = ((ListView)sender).SelectedItem as Models.Game;
             if (item == null) return;
-            (BindingContext as ViewModels.GamesViewModel).GameSelectedCommandExecute(item);
+            await (BindingContext as ViewModels.GamesViewModel).GameCommandExecute(item);
             ((ListView)sender).SelectedItem = null;
         }
     }

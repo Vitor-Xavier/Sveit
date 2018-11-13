@@ -1,8 +1,10 @@
-﻿using Sveit.Models;
+﻿using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -26,11 +28,11 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Player> Members { get; set; }
 
-        public ICommand DescriptionCommand => new Command(DescriptionCommandExecute);
+        public IAsyncCommand DescriptionCommand => new AsyncCommand(DescriptionCommandExecute);
 
-        public ICommand MembersCommand => new Command(MembersCommandExecute);
+        public IAsyncCommand MembersCommand => new AsyncCommand(MembersCommandExecute);
 
-        public ICommand VacanciesCommand => new Command(VacanciesCommandExecute);
+        public IAsyncCommand VacanciesCommand => new AsyncCommand(VacanciesCommandExecute);
 
         private bool tabMembers;
 
@@ -56,43 +58,44 @@ namespace Sveit.ViewModels
             }
         }
 
-        public TeamViewModel(INavigation navigation)
+        public TeamViewModel(INavigation navigation, IRequestService requestService, int teamId)
         {
             _navigation = navigation;
-            _teamId = 1;
+            _teamId = teamId;
             if (AppSettings.ApiStatus)
-                _teamService = new TeamService(new RequestService());
+                _teamService = new TeamService(requestService);
             else
                 _teamService = new FakeTeamService();
             Members = new ObservableCollection<Player>();
-            DescriptionCommandExecute();
+
+            Task.Run(() => DescriptionCommandExecute());
         }
 
-        private void DescriptionCommandExecute()
+        private async Task DescriptionCommandExecute()
         {
             TabMembers = false;
             Description = true;
-            LoadProfile();
+            await LoadProfile();
         }
 
-        private void MembersCommandExecute()
+        private async Task MembersCommandExecute()
         {
             Description = false;
             TabMembers = true;
-            LoadMembers();
+            await LoadMembers();
         }
 
-        private async void VacanciesCommandExecute()
+        private async Task VacanciesCommandExecute()
         {
             await _navigation.PushAsync(new Views.VacanciesTeamPage(_teamId));
         }
 
-        private async void LoadProfile()
+        private async Task LoadProfile()
         {
             Team = await _teamService.GetById(_teamId);
         }
 
-        private async void LoadMembers()
+        private async Task LoadMembers()
         {
             var members = await _teamService.GetPlayers(_teamId);
 

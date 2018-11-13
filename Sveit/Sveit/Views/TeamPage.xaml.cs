@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sveit.Models;
+using Sveit.Services.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +14,10 @@ namespace Sveit.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TeamPage : ContentPage
 	{
-		public TeamPage ()
+		public TeamPage (IRequestService requestService, int teamId)
 		{
 			InitializeComponent ();
-            BindingContext = new ViewModels.TeamViewModel(Navigation);
+            BindingContext = new ViewModels.TeamViewModel(Navigation, requestService, teamId);
 		}
 	}
 }

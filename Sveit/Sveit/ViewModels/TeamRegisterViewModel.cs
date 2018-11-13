@@ -15,6 +15,8 @@ using Plugin.Permissions.Abstractions;
 using Plugin.Permissions;
 using Plugin.Media;
 using Sveit.Services.Image;
+using System.Threading.Tasks;
+using Sveit.Extensions;
 
 namespace Sveit.ViewModels
 {
@@ -38,7 +40,7 @@ namespace Sveit.ViewModels
             set
             {
                 game = value;
-                LoadPlatforms(game.GameId);
+                Task.Run(() => LoadPlatforms(game.GameId));
                 OnPropertyChanged();
             }
         }
@@ -79,13 +81,13 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Platform> Platforms { get; set; }
 
-        public ICommand ContinueCommand => new Command(ContinueCommandExecute);
+        public IAsyncCommand ContinueCommand => new AsyncCommand(ContinueCommandExecute);
 
-        public ICommand ImageCommand => new Command(ImageCommandExecute);
+        public IAsyncCommand ImageCommand => new AsyncCommand(ImageCommandExecute);
 
-        public ICommand GameCommand => new Command(GameCommandExecute);
+        public IAsyncCommand GameCommand => new AsyncCommand(GameCommandExecute);
 
-        public ICommand PlatformCommand => new Command(PlatformCommandExecute);
+        public IAsyncCommand PlatformCommand => new AsyncCommand(PlatformCommandExecute);
 
         public TeamRegisterViewModel(INavigation navigation)
         {
@@ -107,9 +109,9 @@ namespace Sveit.ViewModels
             }
             Games = new ObservableCollection<Game>();
             Platforms = new ObservableCollection<Platform>();
-            LoadGames();
-
             IconSource = "http://liquipedia.net/commons/images/thumb/1/1d/Immortals_org.png/600px-Immortals_org.png";
+
+            Task.Run(() => LoadGames());
         }
 
         private async void HandlePlatformSelected(object sender, Xamarin.Forms.ItemTappedEventArgs e)
@@ -126,7 +128,7 @@ namespace Sveit.ViewModels
             await _navigation.PopAllPopupAsync();
         }
 
-        private async void LoadGames()
+        private async Task LoadGames()
         {
             var games = await _gameService.GetGamesAsync();
 
@@ -137,7 +139,7 @@ namespace Sveit.ViewModels
                 Game = Games[0];
         }
 
-        private async void LoadPlatforms(int gameId)
+        private async Task LoadPlatforms(int gameId)
         {
             var platforms = await _platformService.GetPlatformsByGameAsync(gameId);
 
@@ -147,7 +149,7 @@ namespace Sveit.ViewModels
             HasPlatforms = Platforms.Count > 0;
         }
 
-        private async void ContinueCommandExecute()
+        private async Task ContinueCommandExecute()
         {
             if (!CheckFields()) return;
             Team team = new Team
@@ -170,7 +172,7 @@ namespace Sveit.ViewModels
 
         }
 
-        private async void ImageCommandExecute()
+        private async Task ImageCommandExecute()
         {
             var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
 
@@ -184,13 +186,13 @@ namespace Sveit.ViewModels
             {
                 if (!CrossMedia.Current.IsPickPhotoSupported)
                 {
-                    await App.Current.MainPage.DisplayAlert("Not supported", "Gallery not supported", "OK");
+                    await App.Current.MainPage.DisplayAlert(AppResources.NotSupported, AppResources.GalleryNotSupported, AppResources.Ok);
                     return;
                 }
                 var file = await CrossMedia.Current.PickPhotoAsync();
                 if (file == null) return;
                 //TODO: Change file name
-                IconSource = await _imageService.PostImage("tst", file.Path);
+                //IconSource = await _imageService.PostImage("tst", file.Path);
                 //var image = ImageSource.FromStream(() =>
                 //{
                 //    var stream = file.GetStream();
@@ -201,13 +203,12 @@ namespace Sveit.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Permissions Denied", "Unable to take photos.", "OK");
-                //On iOS you may want to send your user to the settings screen.
-                //CrossPermissions.Current.OpenAppSettings();
+                await App.Current.MainPage.DisplayAlert(AppResources.PermissionsDenied, AppResources.CameraDenied, AppResources.Ok);
+                CrossPermissions.Current.OpenAppSettings();
             }
         }
 
-        private async void GameCommandExecute()
+        private async Task GameCommandExecute()
         {
             var popupPlatform = new PopupPickerPage
             {
@@ -218,7 +219,7 @@ namespace Sveit.ViewModels
             await _navigation.PushPopupAsync(popupPlatform);
         }
 
-        private async void PlatformCommandExecute()
+        private async Task PlatformCommandExecute()
         {
             var popupPlatform = new Views.PopupPickerPage
             {

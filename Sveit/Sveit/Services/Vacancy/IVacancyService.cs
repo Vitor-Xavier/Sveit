@@ -13,7 +13,7 @@ namespace Sveit.Services.Vacancy
 
         Task<IEnumerable<Models.Vacancy>> GetVacanciesByGameAsync(int gameId);
 
-        Task<bool> PostVacancyAsync(Models.Vacancy vacancy);
+        Task<Models.Vacancy> PostVacancyAsync(Models.Vacancy vacancy);
 
         Task<bool> DeleteVacancyAsync(int vacancyId);
     }

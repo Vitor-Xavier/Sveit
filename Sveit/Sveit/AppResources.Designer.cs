@@ -131,7 +131,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Apply", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to CameraDenied.
+        /// </summary>
+        internal static string CameraDenied
+        {
+            get
+            {
+                return ResourceManager.GetString("CameraDenied", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Comments.
         /// </summary>
@@ -217,6 +228,17 @@ namespace Sveit {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to GalleryNotSupported.
+        /// </summary>
+        internal static string GalleryNotSupported
+        {
+            get
+            {
+                return ResourceManager.GetString("GalleryNotSupported", resourceCulture);
+            }
+        }
+       
         /// <summary>
         ///   Looks up a localized string similar to Game.
         /// </summary>
@@ -411,6 +433,17 @@ namespace Sveit {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to NotSupported.
+        /// </summary>
+        internal static string NotSupported
+        {
+            get
+            {
+                return ResourceManager.GetString("NotSupported", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
         internal static string Others
@@ -458,6 +491,17 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One year ago.
+        /// </summary>
+        internal static string Ok
+        {
+            get
+            {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         internal static string Owner {
@@ -474,7 +518,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Password", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to PermissionsDenied.
+        /// </summary>
+        internal static string PermissionsDenied
+        {
+            get
+            {
+                return ResourceManager.GetString("PermissionsDenied", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Platform.
         /// </summary>

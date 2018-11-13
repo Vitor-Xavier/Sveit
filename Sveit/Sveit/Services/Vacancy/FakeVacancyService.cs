@@ -126,9 +126,9 @@ namespace Sveit.Services.Vacancy
             });
         }
 
-        public Task<bool> PostVacancyAsync(Models.Vacancy vacancy)
+        public Task<Models.Vacancy> PostVacancyAsync(Models.Vacancy vacancy)
         {
-            return Task.FromResult(false);
+            return Task.FromResult(vacancy);
         }
     }
 }

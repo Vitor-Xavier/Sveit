@@ -31,17 +31,15 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
-        /// Retorna tipos de função para determinada jogo.
+        /// Retorna tipos de função.
         /// </summary>
-        /// <param name="gameId">Identificação do jogo</param>
         /// <returns>Lista de tipos de função</returns>
         [HttpGet]
-        [Route("RoleType/Game/{gameId:int}")]
-        public IEnumerable<RoleType> GetRoleTypesByGame(int gameId)
+        [Route("RoleType/Game")]
+        public IEnumerable<RoleType> GetRoleTypes()
         {
             return (from rt in _context.RoleTypes
-                    where rt.GameId == gameId &&
-                    rt.Deleted == false
+                    where rt.Deleted == false
                     select rt).AsEnumerable();
         }
 

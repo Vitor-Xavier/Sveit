@@ -6,6 +6,8 @@ using System.Text;
 using System.Windows.Input;
 using Sveit.Models;
 using Xamarin.Forms;
+using System.Threading.Tasks;
+using Sveit.Extensions;
 
 namespace Sveit.ViewModels
 {
@@ -33,8 +35,7 @@ namespace Sveit.ViewModels
             set { title = value; OnPropertyChanged(); }
         }
 
-
-        public ICommand CancelCommand => new Command(CancelCommandExecute);
+        public IAsyncCommand CancelCommand => new AsyncCommand(CancelCommandExecute);
 
         public PopupPickerViewModel(INavigation navigation, IList<T> list)
         {
@@ -42,12 +43,7 @@ namespace Sveit.ViewModels
             Items = new ObservableCollection<T>();
 
             foreach (T it in list)
-            {
                 Items.Add(it);
-            }
-            //Items.Add(new Platform { Name = "XBOX One", Icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1024px-Xbox_one_logo.svg.png" });
-            //Items.Add(new Platform { Name = "Playstation 4", Icon = "https://logodownload.org/wp-content/uploads/2017/05/playstation-4-logo-ps4-6.png" });
-            //Items.Add(new Platform { Name = "PC", Icon = "https://pre00.deviantart.net/10db/th/pre/i/2017/235/5/4/pc_master_race_by_kingvego-d9r6gtn.png" });
         }
 
         private void ItemTapped(object obj)
@@ -56,9 +52,9 @@ namespace Sveit.ViewModels
                 ItemSelected?.Invoke(this, new ItemTappedEventArgs(null, obj));
         }
 
-        private void CancelCommandExecute()
+        private async Task CancelCommandExecute()
         {
-            _navigation.PopAllPopupAsync();
+            await _navigation.PopAllPopupAsync();
         }
     }
 }

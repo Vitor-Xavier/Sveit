@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Requests;
 using Sveit.Services.Vacancy;
@@ -13,27 +15,38 @@ namespace Sveit.ViewModels
     {
         private readonly INavigation _navigation;
 
+        private readonly IRequestService _requestService;
+
         private readonly IVacancyService _vacancyService;
 
-        public Game Game { get; set; }
+        private Game game;
 
-        public ObservableCollection<Vacancy> Vacancies { get; set; }
-
-        public GameViewModel(INavigation navigation, Game game)
+        public Game Game
         {
-            _navigation = navigation;
-            if (AppSettings.ApiStatus)
-                _vacancyService = new VacancyService(new RequestService());
-            else
-                _vacancyService = new FakeVacancyService();
-
-
-            Vacancies = new ObservableCollection<Vacancy>();
-            Game = game;
-            LoadVacancies();
+            get { return game; }
+            set { game = value; OnPropertyChanged(); }
         }
 
-        private async void LoadVacancies()
+        public ObservableCollection<Vacancy> Vacancies { get; }
+
+        public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
+
+        public GameViewModel(INavigation navigation, IRequestService requestService, Game game)
+        {
+            _navigation = navigation;
+            _requestService = requestService;
+            if (AppSettings.ApiStatus)
+                _vacancyService = new VacancyService(requestService);            
+            else 
+                _vacancyService = new FakeVacancyService();
+                
+            Game = game;
+
+            Vacancies = new ObservableCollection<Vacancy>();
+            Task.Run(() => LoadVacancies());
+        }
+
+        private async Task LoadVacancies()
         {
             if (IsLoading) return;
             IsLoading = true;
@@ -45,9 +58,9 @@ namespace Sveit.ViewModels
             IsLoading = false;
         }
 
-        public async void VacancySelectedCommandExecute(Vacancy vacancy)
+        public async Task VacancyCommandExecute(Vacancy vacancy)
         {
-            await _navigation.PushModalAsync(new Views.VacancyPage(vacancy));
+            await _navigation.PushModalAsync(new Views.VacancyPage(_requestService, vacancy));
         }
     }
 }

@@ -13,11 +13,11 @@ namespace Sveit.Views
             BindingContext = new ViewModels.VacanciesViewModel(Navigation, requestService);
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = ((ListView)sender).SelectedItem as Models.Vacancy;
             if (item == null) return;
-            (BindingContext as ViewModels.VacanciesViewModel).VacancySelectedCommandExecute(item);
+            await (BindingContext as ViewModels.VacanciesViewModel).VacancyCommandExecute(item);
             ((ListView)sender).SelectedItem = null;
         }
     }

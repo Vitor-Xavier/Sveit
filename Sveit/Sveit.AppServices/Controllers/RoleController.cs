@@ -31,6 +31,19 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
+        /// Retorna lista de funções.
+        /// </summary>
+        /// <returns>Lista de Funções</returns>
+        [HttpGet]
+        [Route("Role")]
+        public IEnumerable<Role> GetRoles()
+        {
+            return (from r in _context.Roles
+                    where r.Deleted == false
+                    select r).AsEnumerable();
+        }
+
+        /// <summary>
         /// Retorna lista de funções de determinado tipo.
         /// </summary>
         /// <param name="roleTypeId">Identificação do tipo</param>

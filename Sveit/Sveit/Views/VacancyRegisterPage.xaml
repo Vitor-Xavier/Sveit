@@ -93,7 +93,7 @@
                         </ListView>
                     </StackLayout>
                     <StackLayout VerticalOptions="EndAndExpand">
-                        <flex:FlexButton Text="{i18n:Translate Continue}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
+                        <flex:FlexButton Text="{i18n:Translate Finalize}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding FinalizeCommand}"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

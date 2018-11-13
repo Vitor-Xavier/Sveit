@@ -1,9 +1,11 @@
-﻿using Sveit.Models;
+﻿using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.Comment;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -39,7 +41,7 @@ namespace Sveit.ViewModels
             set { playerTo = value; OnPropertyChanged(); }
         }
 
-        public ICommand ContinueCommand => new Command(ContinueCommandExecute);
+        public IAsyncCommand ContinueCommand => new AsyncCommand(ContinueCommandExecute);
 
         public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player)
         {
@@ -48,7 +50,7 @@ namespace Sveit.ViewModels
             PlayerTo = player;
         }
 
-        private async void ContinueCommandExecute()
+        private async Task ContinueCommandExecute()
         {
             var comment = new Comment
             {
