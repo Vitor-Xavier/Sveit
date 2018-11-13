@@ -1,4 +1,5 @@
-﻿using Sveit.Services.Login;
+﻿using Sveit.Controls;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.Generic;
@@ -56,11 +57,18 @@ namespace Sveit.Views
             var page = (Page)Activator.CreateInstance(item.TargetType, _requestService);
             //page.Title = item.Title;
             
-            Detail = new NavigationPage(page)
+            if (item.TransparentNavBar)
             {
-                BarBackgroundColor = item.TransparentNavBar ? Color.Transparent : (Color)Application.Current.Resources["AccentColor"],
-                BarTextColor = Color.FromHex("#FFFFFF"),
-            };
+                Detail = new CustomNavigationPage(page);
+            }
+            else
+            {
+                Detail = new NavigationPage(page)
+                {
+                    BarBackgroundColor = item.TransparentNavBar ? Color.Transparent : (Color)Application.Current.Resources["AccentColor"],
+                    BarTextColor = Color.FromHex("#FFFFFF"),
+                };
+            }
             
             IsPresented = false;
 

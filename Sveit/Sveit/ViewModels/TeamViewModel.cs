@@ -65,9 +65,7 @@ namespace Sveit.ViewModels
             else
                 _teamService = new FakeTeamService();
             Members = new ObservableCollection<Player>();
-            DescriptionCommandExecute(); MembersCommandExecute();
-            Description = true; TabMembers = true; //TODO: Fix IsVisible update bug
-            //DescriptionCommandExecute();
+            DescriptionCommandExecute();
         }
 
         private void DescriptionCommandExecute()

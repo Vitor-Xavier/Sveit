@@ -79,7 +79,7 @@
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
-                <Label Text="{Binding Nickname}" 
+                <Label Text="{Binding Player.Nickname}" 
                        TextColor="{StaticResource PrimaryText}" 
                        FontSize="Large"
                        HorizontalOptions="Center"/>

@@ -1,7 +1,9 @@
-﻿using Sveit.Models;
+﻿using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.Content;
 using Sveit.Services.Requests;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,7 +15,7 @@ namespace Sveit.ViewModels
 
         private readonly IContentService _contentService;
 
-        public ICommand RefreshCommand => new Command(RefreshCommandExecute);
+        public IAsyncCommand RefreshCommand => new AsyncCommand(RefreshCommandExecute);
 
         public HomeViewModel(IRequestService requestService)
         {
@@ -23,19 +25,20 @@ namespace Sveit.ViewModels
                 _contentService = new FakeContentService();
             News = new ObservableCollection<Content>();
 
-            RefreshCommandExecute();
+            Task.Run(() => RefreshCommandExecute()).ConfigureAwait(false);
         }
 
-        private async void RefreshCommandExecute()
+        private async Task RefreshCommandExecute()
         {
-            //if (IsLoading) return;
-            //IsLoading = true;
+            if (IsLoading) return;
+            IsLoading = true;
             var contents = await _contentService.GetContentsAsync();
 
             News.Clear();
             foreach (Content content in contents)
                 News.Add(content);
-            //IsLoading = false;
+
+            IsLoading = false;
         }
     }
 }

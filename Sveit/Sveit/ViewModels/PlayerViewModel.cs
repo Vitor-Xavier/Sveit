@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System;
+using Sveit.Extensions;
+using System.Threading.Tasks;
 
 namespace Sveit.ViewModels
 {
@@ -67,11 +69,11 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Comment> Comments { get; set; }
 
-        public ICommand ProfileCommand => new Command(ProfileCommandExecute);
+        public IAsyncCommand ProfileCommand => new AsyncCommand(ProfileCommandExecute);
 
-        public ICommand TeamCommand => new Command(TeamCommandExecute);
+        public IAsyncCommand TeamCommand => new AsyncCommand(TeamCommandExecute);
 
-        public ICommand CommentCommand => new Command(CommentCommandExecute);
+        public IAsyncCommand CommentCommand => new AsyncCommand(CommentCommandExecute);
 
         public ICommand AddCommentCommand => new Command(AddCommentCommandExecute);
 
@@ -99,38 +101,34 @@ namespace Sveit.ViewModels
                 _commentService = new FakeCommentService();
             }
             _playerId = App.LoggedPlayer.PlayerId;
-            //_playerId = 1;
-            //LoadProfile(); LoadTeams(); LoadComments();
-            //ProfileCommandExecute(); TeamCommandExecute(); CommentCommandExecute();
-            Comment = Team = Profile = true; //TODO: Fix IsVisible update bug
-            ProfileCommandExecute();
+            Task.Run(() => ProfileCommandExecute());
         }
 
-        private void ProfileCommandExecute()
+        private async Task ProfileCommandExecute()
         {
-            //if (Profile) return;
+            if (Profile) return;
             Comment = Team = false;
             Profile = true;
             if (Player == null)
-                LoadProfile();
+                await LoadProfile();
         }
 
-        private void TeamCommandExecute()
+        private async Task TeamCommandExecute()
         {
-            //if (Team) return;
+            if (Team) return;
             Comment = Profile = false;
             Team = true;
             if (Teams?.Count == 0)
-                LoadTeams();
+                await LoadTeams();
         }
 
-        private void CommentCommandExecute()
+        private async Task CommentCommandExecute()
         {
-            //if (Comment) return;
+            if (Comment) return;
             Team = Profile = false;
             Comment = true;
             if (Comments?.Count == 0)
-                LoadComments();
+                await LoadComments();
         }
 
         private async void AddTeamCommandExecute()
@@ -153,7 +151,7 @@ namespace Sveit.ViewModels
             await _navigation.PushAsync(new TeamPage());
         }
 
-        private async void LoadProfile()
+        private async Task LoadProfile()
         {
             Player = await _playerService.GetPlayerById(_playerId);
 
@@ -164,7 +162,7 @@ namespace Sveit.ViewModels
                 Skills.Add(skill);
         }
 
-        private async void LoadTeams()
+        private async Task LoadTeams()
         {
             var teams = await _playerService.GetPlayerTeams(_playerId);
 
@@ -173,7 +171,7 @@ namespace Sveit.ViewModels
                 Teams.Add(team);
         }
 
-        private async void LoadComments()
+        private async Task LoadComments()
         {
             var comments = await _commentService.GetCommentsToPlayer(_playerId);
 
