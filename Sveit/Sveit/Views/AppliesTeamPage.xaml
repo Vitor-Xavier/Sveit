@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.AppliesTeamPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:converters="clr-namespace:Sveit.Helpers"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
@@ -47,9 +48,9 @@
                     </Label.FormattedText>
                 </Label>
             </StackLayout>
-            <ListView Grid.Row="1" 
+            <controls:CustomListView Grid.Row="1" 
                       ItemsSource="{Binding Applies}" 
-                      ItemSelected="ListView_ItemSelected" 
+                      ItemTappedCommand="{Binding VacancyCommand}"
                       Margin="0, 5, 0, 5"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -73,7 +74,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

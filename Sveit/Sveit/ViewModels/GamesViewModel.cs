@@ -21,6 +21,14 @@ namespace Sveit.ViewModels
 
         private readonly IRequestService _requestService;
 
+        private int position = 0;
+
+        public int Position
+        {
+            get { return position; }
+            set { position = value; OnPropertyChanged(); }
+        }
+
         public ObservableCollection<Game> Games { get; set; }
 
         public IAsyncCommand<Game> GameCommand => new AsyncCommand<Game>(GameCommandExecute);

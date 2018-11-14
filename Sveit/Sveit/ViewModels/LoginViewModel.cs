@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Services.Login;
 using Sveit.Services.Requests;
 using System.Security.Cryptography;
@@ -59,6 +60,7 @@ namespace Sveit.ViewModels
             var player = await _loginService.LogIn(Email, pass);
             if (player == null)
             {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.LoginFailed);
                 return;
             }
             else

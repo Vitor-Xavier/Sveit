@@ -6,6 +6,9 @@ using Sveit.Models;
 
 namespace Sveit.API.Context
 {
+    /// <summary>
+    /// Inicia a conexão com o contexto de dados.
+    /// </summary>
     public class DatabaseContext : DbContext
     {
         public DatabaseContext() : base("name = TCC")
@@ -35,6 +38,10 @@ namespace Sveit.API.Context
         public virtual DbSet<TeamPlayer> TeamPlayers { get; set; }
         public virtual DbSet<Vacancy> Vacancies { get; set; }
 
+        /// <summary>
+        /// Armazena as alterações adicionando a data de criação e/ou alteração.
+        /// </summary>
+        /// <returns>Sucesso da operação</returns>
         public override int SaveChanges()
         {
             var entities = ChangeTracker.Entries().Where(x => x.Entity is EntityBase && (x.State == EntityState.Added || x.State == EntityState.Modified));

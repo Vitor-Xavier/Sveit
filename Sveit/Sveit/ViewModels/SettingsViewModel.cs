@@ -8,15 +8,28 @@ using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : BaseViewModel
     {
+        private bool storeCredentials;
+
+        public bool StoreCredentials
+        {
+            get { return storeCredentials; }
+            set
+            {
+                storeCredentials = value;
+                OnPropertyChanged();
+                ChangeStoreCredrentialsStatus();
+            }
+        }
+
         public ICommand TwitterCommand => new Command(TwitterCommandExecute);
 
         public ICommand FacebookCommand => new Command(FacebookCommandExecute);
 
         public ICommand LinkedInCommand => new Command(LinkedInCommandExecute);
 
-        public ICommand GoogleCommand => new Command(GoogleCommandExecute);
+        public ICommand OutlookCommand => new Command(OutlookCommandExecute);
 
         public ICommand GithubCommand => new Command(GithubCommandExecute);
 
@@ -87,14 +100,19 @@ namespace Sveit.ViewModels
             catch (Exception) { }
         }
 
-        private void GoogleCommandExecute()
+        private void OutlookCommandExecute()
         {
-            Device.OpenUri(new Uri("https://plus.google.com/100082514671815234409"));
+            Device.OpenUri(new Uri("mailto:vitorvxs@live.com"));
         }
 
         private void GithubCommandExecute()
         {
             Device.OpenUri(new Uri("https://github.com/Vitor-Xavier"));
+        }
+
+        private void ChangeStoreCredrentialsStatus()
+        {
+            AppSettings.CredentialStatus = StoreCredentials;
         }
     }
 }

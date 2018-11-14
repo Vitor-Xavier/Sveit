@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Sveit.Controls
 {
@@ -13,7 +10,7 @@ namespace Sveit.Controls
         public Color LineColor
         {
             get => (Color)GetValue(LineColorProperty);
-            set => SetValue(LineColorProperty, value); 
+            set => SetValue(LineColorProperty, value);
         }
     }
 }

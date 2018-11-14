@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:i18n="clr-namespace:Sveit.Helpers"
              xmlns:converter="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
+             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:dltag="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.TagEntryView"
@@ -9,15 +11,26 @@
              x:Class="Sveit.Views.PlayerPage"
              BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{i18n:Translate CreateTeam}" Order="Secondary" Command="{Binding AddTeamCommand}"/>
-        <ToolbarItem Text="Add comment" Order="Secondary" Command="{Binding AddCommentCommand}"/>
-        <ToolbarItem Text="{i18n:Translate Applies}" Order="Secondary" Command="{Binding AppliesCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate CreateTeam}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsCurrentPlayer}" 
+                                      Command="{Binding AddTeamCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate AddComment}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsCurrentPlayer, Converter={StaticResource BooleanInverter}}" 
+                                      Command="{Binding AddCommentCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate Applies}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsCurrentPlayer}"             
+                                      Command="{Binding AppliesCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:RelativeDateTimeConverter x:Key="RelativeDateTimeConverter" />
             <converter:ContactsToStringConverter x:Key="contactsToString"/>
             <converter:GenderTransalteConverter x:Key="GenderTransalte"/>
+            <converter:BooleanInverterConverter x:Key="BooleanInverter"/>
+
             <Style x:Key="TabHeader" TargetType="Label">
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
@@ -119,11 +132,11 @@
             </Grid>
             <!--Profile Content-->
             <StackLayout x:Name="ProfilePanel" Grid.Row="2" 
+                             IsVisible="{Binding Profile}" 
                              Grid.Column="0" 
                              Grid.ColumnSpan="3" 
-                             Margin="10" 
-                             Spacing="8"
-                             IsVisible="{Binding Profile}">
+                             Margin="10"
+                             Spacing="8">
                 <StackLayout Margin="10">
                     <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
                     <Label Text="{Binding Player.Contacts, Converter={StaticResource contactsToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
@@ -144,7 +157,7 @@
                     <Trigger TargetType="StackLayout" Property="StackLayout.IsVisible" Value="True">
                         <Trigger.EnterActions>
                             <xamanimation:BeginAnimation
-                                                Animation="{StaticResource ProfileAnimation}" />
+                                                Animation="{StaticResource ProfileAnimation}"/>
                         </Trigger.EnterActions>
                     </Trigger>
                 </StackLayout.Triggers>
@@ -174,7 +187,7 @@
                     </BoxView.Triggers>
                 </BoxView>
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding TeamCommand}"/>
+                    <TapGestureRecognizer Command="{Binding TeamsCommand}"/>
                 </Grid.GestureRecognizers>
             </Grid>
             <!--Teams Content-->
@@ -183,10 +196,10 @@
                   Grid.Column="0"
                   Grid.ColumnSpan="3"
                   IsVisible="{Binding Team}">
-                <ListView ItemsSource="{Binding Teams}" 
-                          ItemSelected="ListView_ItemSelected"
-                          Margin="6" 
-                          HasUnevenRows="True">
+                <controls:CustomListView ItemsSource="{Binding Teams}" 
+                                         ItemTappedCommand="{Binding TeamCommand}" 
+                                         Margin="6" 
+                                         HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -212,7 +225,7 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </controls:CustomListView>
                 <Grid.Triggers>
                     <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
                         <Trigger.EnterActions>
@@ -247,7 +260,7 @@
                     </BoxView.Triggers>
                 </BoxView>
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CommentCommand}"/>
+                    <TapGestureRecognizer Command="{Binding CommentsCommand}"/>
                 </Grid.GestureRecognizers>
             </Grid>
             <!--Comments Content-->
@@ -258,11 +271,11 @@
                   IsVisible="{Binding Comment}" >
                 <ListView ItemsSource="{Binding Comments}" 
                           HasUnevenRows="True" 
-                          Margin="0, 0, 0, 10">
+                          Margin="6">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame Padding="10, 10, 10, 0" 
+                                <Frame Padding="6" 
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">
                                     <StackLayout Orientation="Vertical" Padding="10" BackgroundColor="{StaticResource CardColor}">

@@ -67,13 +67,6 @@ namespace Sveit.API.Context
                 Contacts = new List<Contact> { new Contact { Text = "vitorvxs@live.com", ContactTypeId = 2 }, new Contact { Text = "Vitorxs #6122", ContactTypeId = 3 }, new Contact { Text = "live:vitorvxs", ContactTypeId = 4 } }
             });
 
-            context.ContactTypes.Add(new ContactType { ContactTypeId = 1, Name = "Email" });
-            context.ContactTypes.Add(new ContactType { ContactTypeId = 2, Name = "Telefone" });
-            context.ContactTypes.Add(new ContactType { ContactTypeId = 3, Name = "Discord" });
-            context.ContactTypes.Add(new ContactType { ContactTypeId = 4, Name = "Teamspeak" });
-            context.ContactTypes.Add(new ContactType { ContactTypeId = 5, Name = "Raidcall" });
-            context.ContactTypes.Add(new ContactType { ContactTypeId = 6, Name = "Skype" });
-
             context.Genres.Add(new Genre { GenreId = 01, Name = "FPS" });
             context.Genres.Add(new Genre { GenreId = 02, Name = "TPS" });
             context.Genres.Add(new Genre { GenreId = 03, Name = "Stealth" });

@@ -72,9 +72,9 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand ProfileCommand => new AsyncCommand(ProfileCommandExecute);
 
-        public IAsyncCommand TeamCommand => new AsyncCommand(TeamCommandExecute);
+        public IAsyncCommand TeamsCommand => new AsyncCommand(TeamsCommandExecute);
 
-        public IAsyncCommand CommentCommand => new AsyncCommand(CommentCommandExecute);
+        public IAsyncCommand CommentsCommand => new AsyncCommand(CommentsCommandExecute);
 
         public IAsyncCommand AddCommentCommand => new AsyncCommand(AddCommentCommandExecute);
 
@@ -82,7 +82,7 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand AppliesCommand => new AsyncCommand(AppliesCommandExecute);
 
-        public IAsyncCommand<Team> TeamSelectedCommand => new AsyncCommand<Team>(TeamSelectedCommandExecute);
+        public IAsyncCommand<Team> TeamCommand => new AsyncCommand<Team>(TeamCommandExecute);
 
         public PlayerViewModel(INavigation navigation, IRequestService requestService, int? playerId = null)
         {
@@ -117,7 +117,7 @@ namespace Sveit.ViewModels
                 await LoadProfile();
         }
 
-        private async Task TeamCommandExecute()
+        private async Task TeamsCommandExecute()
         {
             if (Team) return;
             Comment = Profile = false;
@@ -126,7 +126,7 @@ namespace Sveit.ViewModels
                 await LoadTeams();
         }
 
-        private async Task CommentCommandExecute()
+        private async Task CommentsCommandExecute()
         {
             if (Comment) return;
             Team = Profile = false;
@@ -150,7 +150,7 @@ namespace Sveit.ViewModels
             await _navigation.PushAsync(new AppliesPlayerPage(_playerId));
         }
 
-        public async Task TeamSelectedCommandExecute(Team team)
+        public async Task TeamCommandExecute(Team team)
         {
             await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));
         }

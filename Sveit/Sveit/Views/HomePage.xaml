@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.HomePage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:converter="clr-namespace:Sveit.Helpers"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{i18n:Translate News}">
@@ -13,11 +14,11 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding News}" 
-                      HasUnevenRows="True" 
-                      RefreshCommand="{Binding RefreshCommand}"
-                      Margin="6"
-                      SeparatorVisibility="None">
+            <controls:CustomListView ItemsSource="{Binding News}" 
+                                     HasUnevenRows="True" 
+                                     RefreshCommand="{Binding RefreshCommand}" 
+                                     Margin="6" 
+                                     SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -35,7 +36,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.VacanciesTeamPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{i18n:Translate Vacancies}">
     <ContentPage.Resources>
@@ -17,11 +18,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource AccentColor}"/>
-            <ListView Grid.Row="1" 
-                      ItemsSource="{Binding Vacancies}"
-                      ItemSelected="ListView_ItemSelected"
-                      Margin="0, 5, 0, 5"
-                      HasUnevenRows="True">
+            <controls:CustomListView Grid.Row="1" 
+                                     ItemsSource="{Binding Vacancies}" 
+                                     ItemTappedCommand="{Binding VacancyCommand}"
+                                     Margin="0, 5, 0, 5" 
+                                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -43,7 +44,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

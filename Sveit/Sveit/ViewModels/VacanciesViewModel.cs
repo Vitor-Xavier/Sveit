@@ -19,7 +19,7 @@ namespace Sveit.ViewModels
 
         private readonly IGameService _gameService;
 
-        private int position = 0;
+        private int position;
 
         public int Position
         {

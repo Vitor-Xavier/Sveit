@@ -11,7 +11,7 @@
             <Label Text="{i18n:Translate Settings}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
                 <Label Text="{i18n:Translate StoreCredencials}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" VerticalOptions="Center"/>
-                <Switch IsToggled="True" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                <Switch IsToggled="{Binding StoreCredentials}" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
                 <Label Text="{i18n:Translate Language}" 
@@ -69,13 +69,13 @@
                                 WidthRequest="40"
                                 HeightRequest="40"
                                 CornerRadius="8"
-                                Icon="ic_google"
+                                Icon="ic_outlook"
                                 Padding="6"
                                 ForegroundColor="#FFFFFF"
-                                HighlightForegroundColor="#D6252B"
-                                BackgroundColor="#D6252B"
+                                HighlightForegroundColor="#0072c6"
+                                BackgroundColor="#0072c6"
                                 HighlightBackgroundColor="#FFFFFF"
-                                ClickedCommand="{Binding GoogleCommand}"/>
+                                ClickedCommand="{Binding OutlookCommand}"/>
                 <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"

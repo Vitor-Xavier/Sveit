@@ -372,4 +372,13 @@
   <data name="PermissionsDenied" xml:space="preserve">
     <value>Permissions Denied</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="LogoutFailed" xml:space="preserve">
+    <value>Unable to logout</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Login failed, verify credentials</value>
+  </data>
 </root>

@@ -4,7 +4,6 @@ using Sveit.API;
 using Swashbuckle.Application;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
-
 namespace Sveit.API
 {
     public class SwaggerConfig

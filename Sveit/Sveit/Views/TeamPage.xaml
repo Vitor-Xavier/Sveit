@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:i18n="clr-namespace:Sveit.Helpers" 
+             xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
@@ -9,7 +10,10 @@
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{Binding Team.Name}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{i18n:Translate Vacancies}" Order="Secondary" Command="{Binding VacanciesCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate Vacancies}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsOwner}"
+                                      Command="{Binding VacanciesCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -173,13 +177,13 @@
                   Grid.Row="1" 
                   Grid.ColumnSpan="2"
                   IsVisible="{Binding TabMembers}">
-                <ListView HasUnevenRows="True" 
-                          Margin="0, 0, 0, 10" 
-                          ItemsSource="{Binding Members}">
+                <controls:CustomListView HasUnevenRows="True" 
+                                         Margin="6" 
+                                         ItemsSource="{Binding Members}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame Padding="10, 10, 10, 0"
+                                <Frame Padding="6"
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">
                                     <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
@@ -193,7 +197,7 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </controls:CustomListView>
                 <Grid.Triggers>
                     <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
                         <Trigger.EnterActions>

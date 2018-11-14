@@ -372,4 +372,13 @@
   <data name="PermissionsDenied" xml:space="preserve">
     <value>Permissões negadas</value>
   </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Adicionar comentário</value>
+  </data>
+  <data name="LogoutFailed" xml:space="preserve">
+    <value>Não foi possível deslogar</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Não foi possivel realizar o login, verifique as credenciais</value>
+  </data>
 </root>

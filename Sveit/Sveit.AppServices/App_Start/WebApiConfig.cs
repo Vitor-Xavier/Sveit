@@ -16,7 +16,7 @@ namespace Sveit.API
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "TCC API",
+                name: "Sveit API",
                 routeTemplate: "",
                 defaults: null,
                 constraints: null,

@@ -68,7 +68,18 @@ namespace Sveit {
                 return ResourceManager.GetString("About", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to AddComment.
+        /// </summary>
+        internal static string AddComment
+        {
+            get
+            {
+                return ResourceManager.GetString("AddComment", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Age.
         /// </summary>
@@ -129,6 +140,17 @@ namespace Sveit {
         internal static string Apply {
             get {
                 return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Applies.
+        /// </summary>
+        internal static string Applies
+        {
+            get
+            {
+                return ResourceManager.GetString("Applies", resourceCulture);
             }
         }
 
@@ -299,6 +321,28 @@ namespace Sveit {
         internal static string LogIn {
             get {
                 return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to LoginFailed.
+        /// </summary>
+        internal static string LoginFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("LoginFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to LogoutFailed.
+        /// </summary>
+        internal static string LogoutFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("LogoutFailed", resourceCulture);
             }
         }
 

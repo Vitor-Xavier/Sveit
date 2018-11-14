@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.AppliesPlayerPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{i18n:Translate Applies}">
     <ContentPage.Content>
@@ -12,9 +13,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource AccentColor}"/>
-            <ListView Grid.Row="1" 
+            <controls:CustomListView Grid.Row="1" 
                       ItemsSource="{Binding Applies}" 
-                      ItemSelected="ListView_ItemSelected" 
+                      ItemTappedCommand="{Binding ApplyCommand}"
                       Margin="0, 5, 0, 5"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -38,7 +39,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

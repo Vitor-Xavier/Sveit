@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.VacanciesPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
              xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
@@ -53,11 +54,11 @@
                     </DataTemplate>
                 </forms:CarouselView.ItemTemplate>
             </forms:CarouselView>
-            <ListView Grid.Row="1" 
-                      ItemsSource="{Binding Vacancies}" 
-                      ItemSelected="ListView_ItemSelected" 
-                      Margin="0, 5, 0, 5"
-                      HasUnevenRows="True">
+            <controls:CustomListView Grid.Row="1" 
+                                     ItemsSource="{Binding Vacancies}" 
+                                     ItemTappedCommand="{Binding VacancyCommand}"
+                                     Margin="0, 5, 0, 5" 
+                                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -79,7 +80,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

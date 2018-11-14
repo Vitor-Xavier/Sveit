@@ -18,6 +18,19 @@ namespace Sveit.Views
 		{
 			InitializeComponent ();
             BindingContext = new ViewModels.TeamViewModel(Navigation, requestService, teamId);
-		}
+
+            List<ToolbarItem> items = new List<ToolbarItem>();
+            foreach (Sveit.Controls.HideableToolbarItem toolbarItem in ToolbarItems)
+            {
+                if (toolbarItem.IsVisible == false)
+                {
+                    items.Add(toolbarItem);
+                }
+            }
+            foreach (Sveit.Controls.HideableToolbarItem toolbarItem in items)
+            {
+                ToolbarItems.Remove(toolbarItem);
+            }
+        }
 	}
 }

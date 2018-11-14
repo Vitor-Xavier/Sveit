@@ -4,6 +4,7 @@
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
              xmlns:helpers="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="Sveit.Views.GamePage"
              BackgroundColor="{StaticResource BackgroundColor}">
@@ -31,7 +32,11 @@
                     <Label Text="{Binding Game.Genres, Converter={StaticResource GenresToString}}" HorizontalTextAlignment="Center" TextColor="{StaticResource SecondaryText}"/>
                 </StackLayout>
             </StackLayout>
-            <ListView Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Vacancies}" ItemSelected="ListView_ItemSelected" HasUnevenRows="True">
+            <controls:CustomListView Grid.Row="1" 
+                                     Grid.RowSpan="2" 
+                                     ItemsSource="{Binding Vacancies}" 
+                                     ItemTappedCommand="{Binding VacancyCommand}"
+                                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -53,7 +58,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

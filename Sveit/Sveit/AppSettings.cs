@@ -31,6 +31,7 @@ namespace Sveit
         private const string DefaultTokenEndpoint = "Token";
         private const string DefaultVacanciesEndpoint = "Vacancy";
         private const bool DefaultApiStatus = false;
+        private const bool DefaultCredentialStatus = true;
 
         private static ISettings Settings => CrossSettings.Current;
 
@@ -38,6 +39,12 @@ namespace Sveit
         {
             get => Settings.GetValueOrDefault(nameof(ApiStatus), DefaultApiStatus);
             set => Settings.AddOrUpdateValue(nameof(ApiStatus), value);
+        }
+
+        public static bool CredentialStatus
+        {
+            get => Settings.GetValueOrDefault(nameof(CredentialStatus), DefaultCredentialStatus);
+            set => Settings.AddOrUpdateValue(nameof(CredentialStatus), value);
         }
 
         public static string AuthEndpoint

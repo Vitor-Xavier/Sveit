@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.GamesPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
              xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations" 
@@ -20,7 +21,7 @@
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
-            <forms:CarouselView ItemsSource="{Binding Games}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <forms:CarouselView ItemsSource="{Binding Games}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Position="{Binding Position}">
                 <forms:CarouselView.ItemTemplate>
                     <DataTemplate>
                         <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -53,17 +54,17 @@
                     </DataTemplate>
                 </forms:CarouselView.ItemTemplate>
             </forms:CarouselView>
-            <ListView Grid.Row="1" 
-                      ItemSelected="ListView_ItemSelected"
-                      ItemsSource="{Binding Games}" 
-                      HasUnevenRows="True"
-                      Margin="0, 5, 0, 5">
+            <controls:CustomListView Grid.Row="1" 
+                                     ItemTappedCommand="{Binding GameCommand}"
+                                     ItemsSource="{Binding Games}"  
+                                     HasUnevenRows="True"
+                                     Margin="0, 5, 0, 5">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame Padding="10, 5, 10, 5"
-                                       OutlineColor="Transparent"
-                                       BackgroundColor="Transparent">
+                            <Frame Padding="10, 5, 10, 5" 
+                                   OutlineColor="Transparent" 
+                                   BackgroundColor="Transparent">
                                 <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
                                     <Image Source="{Binding IconSource}" WidthRequest="64" HeightRequest="64"/>
                                     <StackLayout>
@@ -75,7 +76,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

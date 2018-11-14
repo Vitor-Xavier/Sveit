@@ -18,7 +18,7 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Apply> Applies { get; set; }
 
-        public IAsyncCommand<Apply> ApplySelectedCommand => new AsyncCommand<Apply>(ApplySelectedCommandExecute);
+        public IAsyncCommand<Apply> ApplyCommand => new AsyncCommand<Apply>(ApplyCommandExecute);
 
         public AppliesPlayerViewModel(INavigation navigation, int playerId)
         {
@@ -46,7 +46,7 @@ namespace Sveit.ViewModels
             IsLoading = false;
         }
 
-        public async Task ApplySelectedCommandExecute(Apply apply)
+        public async Task ApplyCommandExecute(Apply apply)
         {
             await _navigation.PushModalAsync(new Views.ApplyPage(apply));
         }

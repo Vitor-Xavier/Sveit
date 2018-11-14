@@ -18,13 +18,5 @@ namespace Sveit.Views
             BindingContext = new ViewModels.AppliesPlayerViewModel(Navigation, playerId);
         }
 
-        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var item = ((ListView)sender).SelectedItem as Models.Apply;
-            if (item == null) return;
-            await (BindingContext as ViewModels.AppliesPlayerViewModel).ApplySelectedCommandExecute(item);
-            ((ListView)sender).SelectedItem = null;
-        }
-
     }
 }

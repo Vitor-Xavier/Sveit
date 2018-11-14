@@ -109,6 +109,7 @@
     <Compile Include="Controls\CustomEntryRenderer.cs" />
     <Compile Include="Controls\CustomNavigationPageRenderer.cs" />
     <Compile Include="Controls\CustomPickerRenderer.cs" />
+    <Compile Include="Controls\Message.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -403,6 +404,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_xone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_outlook.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

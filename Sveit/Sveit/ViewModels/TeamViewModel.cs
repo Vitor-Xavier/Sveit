@@ -18,6 +18,14 @@ namespace Sveit.ViewModels
 
         private readonly int _teamId;
 
+        private bool isOwner;
+
+        public bool IsOwner
+        {
+            get { return isOwner; }
+            set { isOwner = value; OnPropertyChanged(); }
+        }
+
         private Team team;
 
         public Team Team
@@ -67,6 +75,8 @@ namespace Sveit.ViewModels
             else
                 _teamService = new FakeTeamService();
             Members = new ObservableCollection<Player>();
+            //TODO: Restritions
+            //IsOwner = App.LoggedPlayer.PlayerId == Team.
 
             Task.Run(() => DescriptionCommandExecute());
         }

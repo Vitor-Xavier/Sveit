@@ -9,6 +9,9 @@ using System.Web;
 
 namespace Sveit.AppServices
 {
+    /// <summary>
+    /// Configura a autentição na API, em OAuth 2
+    /// </summary>
     public partial class Startup
     {
         public void ConfigureAuth(IAppBuilder app)

@@ -8,7 +8,7 @@ namespace Sveit.Models
     public class Player : EntityBase
     {
         public int PlayerId { get; set; }
-        [Required, StringLength(30)]
+        [Required, StringLength(50)]
         public string Email { get; set; }
         [StringLength(300)]
         public string Password { get; set; }

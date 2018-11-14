@@ -22,7 +22,7 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Vacancy> Vacancies { get; set; }
 
-        public IAsyncCommand<Vacancy> VacancySelectCommand => new AsyncCommand<Vacancy>(VacancySelectCommandExecute);
+        public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
         public VacanciesTeamViewModel(INavigation navigation, int teamId)
         {
@@ -46,7 +46,7 @@ namespace Sveit.ViewModels
                 Vacancies.Add(v);
         }
 
-        public async Task VacancySelectCommandExecute(Vacancy vacancy)
+        public async Task VacancyCommandExecute(Vacancy vacancy)
         {
             await _navigation.PushAsync(new Views.AppliesTeamPage(vacancy));
         }

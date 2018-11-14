@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace Sveit.Services.Login
@@ -52,6 +53,8 @@ namespace Sveit.Services.Login
                 await SecureStorage.SetAsync("Sveit-Email", email);
                 await SecureStorage.SetAsync("Sveit-Password", password);
                 await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken);
+                await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
+
                 App.LoggedPlayer = player;
                 return player;
             }
@@ -66,8 +69,9 @@ namespace Sveit.Services.Login
                 var email = SecureStorage.Remove("Sveit-Email");
                 var password = SecureStorage.Remove("Sveit-Password");
                 var oauthToken = SecureStorage.Remove("Sveit-OAuthToken");
+                var tokenTime = SecureStorage.Remove("Sveit-DateTime");
                 App.LoggedPlayer = null;
-                return email && password && oauthToken;
+                return true;
             }
             catch
             {

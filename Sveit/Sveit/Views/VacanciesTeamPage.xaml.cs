@@ -17,13 +17,5 @@ namespace Sveit.Views
 			InitializeComponent ();
             BindingContext = new ViewModels.VacanciesTeamViewModel(Navigation, teamId);
 		}
-
-        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var item = ((ListView)sender).SelectedItem as Models.Vacancy;
-            if (item == null) return;
-            await (BindingContext as ViewModels.VacanciesTeamViewModel).VacancySelectCommandExecute(item);
-            ((ListView)sender).SelectedItem = null;
-        }
     }
 }

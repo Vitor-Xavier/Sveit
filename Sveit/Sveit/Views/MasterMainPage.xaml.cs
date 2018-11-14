@@ -51,6 +51,11 @@ namespace Sveit.Views
                     App.Current.MainPage = new Sveit.Views.MasterMainPage(_requestService);
                     return;
                 }
+                else
+                {
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.LogoutFailed);
+                    return;
+                }
 
             }
 
