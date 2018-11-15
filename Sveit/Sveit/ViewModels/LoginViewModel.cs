@@ -5,6 +5,7 @@ using Sveit.Services.Requests;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -33,7 +34,7 @@ namespace Sveit.ViewModels
             set { email = value; OnPropertyChanged(); }
         }
 
-        public IAsyncCommand SignUpCommand => new AsyncCommand(SignUpCommandExecute);
+        public ICommand SignUpCommand => new Command(SignUpCommandExecute);
 
         public IAsyncCommand LogInCommand => new AsyncCommand(LogInCommandExecute);
 
@@ -47,15 +48,15 @@ namespace Sveit.ViewModels
                 _loginService = new FakeLoginService();
         }
 
-        private async Task SignUpCommandExecute()
+        private void SignUpCommandExecute()
         {
-            await _navigation.PushModalAsync(new Views.PlayerRegisterPage());
+            _navigation.PushModalAsync(new Views.PlayerRegisterPage(_requestService));
         }
 
         private async Task LogInCommandExecute()
         {
             if (!Validate()) return;
-            var pass = ComputeSha256Hash(Password);
+            var pass = Utils.SHA2Utilities.ComputeSha256Hash(Password);
 
             var player = await _loginService.LogIn(Email, pass);
             if (player == null)
@@ -78,22 +79,5 @@ namespace Sveit.ViewModels
             return true;
         }
 
-        private static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
     }
 }

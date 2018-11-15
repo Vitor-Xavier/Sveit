@@ -27,30 +27,45 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-                <forms:CachedImage Source="{Binding PlayerTo.AvatarSource}" HeightRequest="100">
+            <StackLayout Grid.Row="0" 
+                         Grid.RowSpan="2" 
+                         Grid.Column="0" 
+                         BackgroundColor="#A6000000" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" 
+                         VerticalOptions="CenterAndExpand" 
+                         HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="{Binding PlayerTo.AvatarSource}" 
+                                   HeightRequest="100">
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
             </StackLayout>
-            <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
-                <StackLayout Padding="16" Spacing="10" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CardColor}">
+            <ScrollView Grid.Row="1" 
+                        Grid.RowSpan="2" 
+                        Margin="16, 0, 16, 16" 
+                        VerticalOptions="FillAndExpand">
+                <StackLayout Padding="16"
+                             Spacing="10" 
+                             VerticalOptions="FillAndExpand" 
+                             BackgroundColor="{StaticResource CardColor}">
                     <StackLayout>
-                        <Label Text="{i18n:Translate Title}" TextColor="{StaticResource SecondaryText}"/>
-                        <controls:CustomEntry Placeholder="{i18n:Translate Title}" Text="{Binding Title}" TextColor="{StaticResource SecondaryText}" PlaceholderColor="{StaticResource DisabledText}" LineColor="Accent">
-                            <controls:CustomEntry.Behaviors>
-                                <behaviors:TextLenghtValidationBehavior MinLength="4"/>
-                            </controls:CustomEntry.Behaviors>
-                        </controls:CustomEntry>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Text="{i18n:Translate Text}" TextColor="{StaticResource SecondaryText}"/>
-                        <Editor Text="{Binding Text}" TextColor="{StaticResource SecondaryText}" MaxLength="300" HeightRequest="100"/>
+                        <Label Text="{i18n:Translate Text}" 
+                               TextColor="{StaticResource SecondaryText}"/>
+                        <Editor Text="{Binding Text}" 
+                                TextColor="{StaticResource SecondaryText}" 
+                                MaxLength="300" 
+                                HeightRequest="100"/>
                     </StackLayout>
                     <StackLayout VerticalOptions="EndAndExpand">
-                        <flex:FlexButton Text="{i18n:Translate Continue}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
+                        <flex:FlexButton Text="{i18n:Translate Finalize}" 
+                                         BackgroundColor="{StaticResource AccentColor}" 
+                                         ForegroundColor="{StaticResource PrimaryText}" 
+                                         CornerRadius="8" 
+                                         HeightRequest="40" 
+                                         ClickedCommand="{Binding FinalizeCommand}"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

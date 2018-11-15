@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.ContactType;
 using Sveit.Services.Requests;
@@ -48,13 +49,14 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand AddContactCommand => new AsyncCommand(AddContactCommandExecute);
 
-        public ContactsTeamRegisterViewModel(INavigation navigation, Team team)
+        public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
+
+        public ContactsTeamRegisterViewModel(INavigation navigation, IRequestService requestService, Team team)
         {
             _navigation = navigation;
             Team = team;
             if (AppSettings.ApiStatus)
             {
-                IRequestService requestService = new RequestService();
                 _contactTypeService = new ContactTypeService(requestService);
                 _teamService = new TeamService(requestService);
             }
@@ -68,8 +70,8 @@ namespace Sveit.ViewModels
 
             Task.Run(async () =>
             {
-                await LoadContacts();
                 await LoadContactTypes();
+                await LoadContacts();
             });
         }
 
@@ -93,7 +95,11 @@ namespace Sveit.ViewModels
 
         private async Task AddContactCommandExecute()
         {
-            if (ContactType == null) return;
+            if (!AddContactCommandCanExecute())
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.InvalidValues);
+                return;
+            }
             var contact = new Models.Contact
             {
                 Text = ContactText,
@@ -102,6 +108,18 @@ namespace Sveit.ViewModels
 
             await _teamService.PostTeamContact(Team.TeamId, contact);
             await LoadContacts();
+        }
+
+        private bool AddContactCommandCanExecute()
+        {
+            if (string.IsNullOrWhiteSpace(ContactText) || ContactText.Length < 4)
+                return false;
+            return true;
+        }
+
+        private async Task FinalizeCommandExecute()
+        {
+            await _navigation.PopToRootAsync();
         }
     }
 }

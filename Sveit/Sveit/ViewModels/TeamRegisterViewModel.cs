@@ -1,28 +1,27 @@
-﻿using Rg.Plugins.Popup.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows.Input;
+﻿using Plugin.Media;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using Rg.Plugins.Popup.Extensions;
+using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Game;
+using Sveit.Services.Image;
 using Sveit.Services.Platform;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
-using Xamarin.Forms;
 using Sveit.Views;
-using Plugin.Permissions.Abstractions;
-using Plugin.Permissions;
-using Plugin.Media;
-using Sveit.Services.Image;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Sveit.Extensions;
+using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
-    class TeamRegisterViewModel : BaseViewModel
+    public class TeamRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
+
+        private readonly IRequestService _requestService;
 
         private readonly IGameService _gameService;
 
@@ -89,12 +88,12 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand PlatformCommand => new AsyncCommand(PlatformCommandExecute);
 
-        public TeamRegisterViewModel(INavigation navigation)
+        public TeamRegisterViewModel(INavigation navigation, IRequestService requestService)
         {
             _navigation = navigation;
+            _requestService = requestService;
             if (AppSettings.ApiStatus)
             {
-                IRequestService requestService = new RequestService();
                 _gameService = new GameService(requestService);
                 _platformService = new PlatformService(requestService);
                 _teamService = new TeamService(requestService);
@@ -151,13 +150,17 @@ namespace Sveit.ViewModels
 
         private async Task ContinueCommandExecute()
         {
-            if (!CheckFields()) return;
+            if (!ContinueCommandCanExecute())
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.InvalidValues);
+                return;
+            }
             Team team = new Team
             {
                 GamePlatform_GameId = Game.GameId,
                 GamePlatform_PlatformId = Platform.PlatformId,
                 Name = Name,
-                OwnerId = 1,
+                OwnerId = App.LoggedPlayer.PlayerId,
                 Deleted = false,
                 IconSource = IconSource
             };
@@ -165,11 +168,48 @@ namespace Sveit.ViewModels
             var created = await _teamService.PostTeam(team);
             if (created != null)
             {
-                await _navigation.PushModalAsync(new ContactsTeamRegisterPage(created));
+                await _navigation.PushModalAsync(new ContactsTeamRegisterPage(_requestService, created));
             }
             else
-                await _navigation.PopModalAsync();
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.TeamFailed);
 
+        }
+
+        private bool ContinueCommandCanExecute()
+        {
+            if (App.LoggedPlayer == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(Name))
+                return false;
+            if (string.IsNullOrWhiteSpace(IconSource))
+                return false;
+            if (Game == null)
+                return false;
+            if (Platform == null)
+                return false;
+            return true;
+        }
+
+        private async Task GameCommandExecute()
+        {
+            var popupPlatform = new PopupPickerPage
+            {
+                BindingContext = new PopupPickerViewModel<Game>(_navigation, Games)
+            };
+            (popupPlatform.BindingContext as PopupPickerViewModel<Game>).ItemSelected += HandleGameSelected;
+            (popupPlatform.BindingContext as PopupPickerViewModel<Game>).Title = AppResources.Platform;
+            await _navigation.PushPopupAsync(popupPlatform);
+        }
+
+        private async Task PlatformCommandExecute()
+        {
+            var popupPlatform = new Views.PopupPickerPage
+            {
+                BindingContext = new PopupPickerViewModel<Platform>(_navigation, Platforms)
+            };
+            (popupPlatform.BindingContext as PopupPickerViewModel<Platform>).ItemSelected += HandlePlatformSelected;
+            (popupPlatform.BindingContext as PopupPickerViewModel<Platform>).Title = AppResources.Platform;
+            await _navigation.PushPopupAsync(popupPlatform);
         }
 
         private async Task ImageCommandExecute()
@@ -206,41 +246,6 @@ namespace Sveit.ViewModels
                 await App.Current.MainPage.DisplayAlert(AppResources.PermissionsDenied, AppResources.CameraDenied, AppResources.Ok);
                 CrossPermissions.Current.OpenAppSettings();
             }
-        }
-
-        private async Task GameCommandExecute()
-        {
-            var popupPlatform = new PopupPickerPage
-            {
-                BindingContext = new PopupPickerViewModel<Game>(_navigation, Games)
-            };
-            (popupPlatform.BindingContext as PopupPickerViewModel<Game>).ItemSelected += HandleGameSelected;
-            (popupPlatform.BindingContext as PopupPickerViewModel<Game>).Title = AppResources.Platform;
-            await _navigation.PushPopupAsync(popupPlatform);
-        }
-
-        private async Task PlatformCommandExecute()
-        {
-            var popupPlatform = new Views.PopupPickerPage
-            {
-                BindingContext = new PopupPickerViewModel<Platform>(_navigation, Platforms)
-            };
-            (popupPlatform.BindingContext as PopupPickerViewModel<Platform>).ItemSelected += HandlePlatformSelected;
-            (popupPlatform.BindingContext as PopupPickerViewModel<Platform>).Title = AppResources.Platform;
-            await _navigation.PushPopupAsync(popupPlatform);
-        }
-
-        private bool CheckFields()
-        {
-            if (string.IsNullOrWhiteSpace(Name))
-                return false;
-            if (string.IsNullOrWhiteSpace(IconSource))
-                return false;
-            if (Game == null)
-                return false;
-            if (Platform == null)
-                return false;
-            return true;
         }
     }
 }

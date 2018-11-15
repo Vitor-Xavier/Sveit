@@ -76,6 +76,8 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand CommentsCommand => new AsyncCommand(CommentsCommandExecute);
 
+        public IAsyncCommand ContactsCommand => new AsyncCommand(ContactsCommandExecute);
+
         public IAsyncCommand AddCommentCommand => new AsyncCommand(AddCommentCommandExecute);
 
         public IAsyncCommand AddTeamCommand => new AsyncCommand(AddTeamCommandExecute);
@@ -137,12 +139,12 @@ namespace Sveit.ViewModels
 
         private async Task AddTeamCommandExecute()
         {
-            await _navigation.PushModalAsync(new TeamRegisterPage());
+            await _navigation.PushModalAsync(new TeamRegisterPage(_requestService));
         }
 
         private async Task AddCommentCommandExecute()
         {
-            await _navigation.PushModalAsync(new CommentRegisterPage());
+            await _navigation.PushModalAsync(new CommentRegisterPage(_requestService, Player));
         }
 
         private async Task AppliesCommandExecute()
@@ -153,6 +155,11 @@ namespace Sveit.ViewModels
         public async Task TeamCommandExecute(Team team)
         {
             await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));
+        }
+
+        private async Task ContactsCommandExecute()
+        {
+            await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, Player));
         }
 
         private async Task LoadProfile()

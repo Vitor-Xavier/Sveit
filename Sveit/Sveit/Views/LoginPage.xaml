@@ -26,7 +26,8 @@
             </StackLayout>
             <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
                 <StackLayout Padding="16" Spacing="10" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CardColor}">
-                    <Label TextColor="{StaticResource SecondaryText}" HorizontalOptions="Center">
+                    <Label TextColor="{StaticResource SecondaryText}" 
+                           HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{i18n:Translate NewHere}"/>
@@ -37,6 +38,7 @@
                                 </Span>
                             </FormattedString>
                         </Label.FormattedText>
+                        
                     </Label>
                     <StackLayout>
                         <Label Text="{i18n:Translate Email}" TextColor="{StaticResource SecondaryText}"/>

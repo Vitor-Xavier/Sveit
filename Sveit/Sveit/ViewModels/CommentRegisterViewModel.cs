@@ -1,12 +1,9 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Comment;
 using Sveit.Services.Requests;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -25,14 +22,6 @@ namespace Sveit.ViewModels
             set { text = value; OnPropertyChanged(); }
         }
 
-        private string title;
-
-        public string Title
-        {
-            get { return title; }
-            set { title = value; OnPropertyChanged(); }
-        }
-
         private Player playerTo;
 
         public Player PlayerTo
@@ -41,17 +30,25 @@ namespace Sveit.ViewModels
             set { playerTo = value; OnPropertyChanged(); }
         }
 
-        public IAsyncCommand ContinueCommand => new AsyncCommand(ContinueCommandExecute);
+        public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
 
         public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player)
         {
             _navigation = navigation;
-            _commentService = new CommentService(requestService);
+            if (AppSettings.ApiStatus)
+                _commentService = new CommentService(requestService);
+            else
+                _commentService = new FakeCommentService();
             PlayerTo = player;
         }
 
-        private async Task ContinueCommandExecute()
+        private async Task FinalizeCommandExecute()
         {
+            if (!FinalizeCommandCanExecute())
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.CommentFailed);
+                return;
+            }
             var comment = new Comment
             {
                 ToPlayerId = PlayerTo.PlayerId,
@@ -62,6 +59,15 @@ namespace Sveit.ViewModels
             bool registered = await _commentService.PostComment(comment);
             if (registered)
                 await _navigation.PopModalAsync();
+            else
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.CommentFailed);
+        }
+
+        private bool FinalizeCommandCanExecute()
+        {
+            if (string.IsNullOrWhiteSpace(Text) && Text.Length <= 60)
+                return false;
+            return true;
         }
     }
 }

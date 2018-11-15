@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.ContactType;
 using Sveit.Services.Player;
@@ -14,6 +15,8 @@ namespace Sveit.ViewModels
     public class ContactsPlayerRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
+
+        private readonly IRequestService _requestService;
 
         private readonly IContactTypeService _contactTypeService;
 
@@ -49,13 +52,15 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand AddContactCommand => new AsyncCommand(AddContactCommandExecute);
 
-        public ContactsPlayerRegisterViewModel(INavigation navigation, Player player)
+        public ICommand FinalizeCommand => new Command(FinalizeCommandExecute);
+
+        public ContactsPlayerRegisterViewModel(INavigation navigation, IRequestService requestService, Player player)
         {
             _navigation = navigation;
+            _requestService = requestService;
             Player = player;
             if (AppSettings.ApiStatus)
             {
-                IRequestService requestService = new RequestService();
                 _contactTypeService = new ContactTypeService(requestService);
                 _playerService = new PlayerService(requestService);
             }
@@ -69,8 +74,8 @@ namespace Sveit.ViewModels
 
             Task.Run(async () =>
             {
-                await LoadContacts();
                 await LoadContactTypes();
+                await LoadContacts();
             });
         }
 
@@ -94,7 +99,11 @@ namespace Sveit.ViewModels
 
         private async Task AddContactCommandExecute()
         {
-            if (ContactType == null) return;
+            if (!AddContactCommandCanExecute())
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.InvalidValues);
+                return;
+            }
             var contact = new Contact
             {
                 Text = ContactText,
@@ -103,6 +112,18 @@ namespace Sveit.ViewModels
 
             await _playerService.PostPlayerContact(Player.PlayerId, contact);
             await LoadContacts();
+        }
+
+        private bool AddContactCommandCanExecute()
+        {
+            if (string.IsNullOrWhiteSpace(ContactText) || ContactText.Length < 4)
+                return false;
+            return true;
+        }
+
+        private void FinalizeCommandExecute()
+        {
+            App.Current.MainPage = new Views.MasterMainPage(_requestService);
         }
     }
 }

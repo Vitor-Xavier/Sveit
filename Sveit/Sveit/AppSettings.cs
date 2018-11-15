@@ -30,7 +30,7 @@ namespace Sveit
         private const string DefaultTeamsEndpoint = "Team";
         private const string DefaultTokenEndpoint = "Token";
         private const string DefaultVacanciesEndpoint = "Vacancy";
-        private const bool DefaultApiStatus = false;
+        private const bool DefaultApiStatus = true;
         private const bool DefaultCredentialStatus = true;
 
         private static ISettings Settings => CrossSettings.Current;

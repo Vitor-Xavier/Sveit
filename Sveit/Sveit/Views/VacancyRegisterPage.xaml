@@ -7,6 +7,7 @@
              xmlns:behaviors="clr-namespace:Sveit.Behaviors"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:dltag="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.TagEntryView"
              xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              BackgroundColor="{StaticResource BackgroundColor}">
@@ -28,37 +29,89 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-                <forms:CachedImage Source="{Binding Team.IconSource}" HeightRequest="100">
+            <StackLayout Grid.Row="0" 
+                         Grid.RowSpan="2" 
+                         Grid.Column="0" 
+                         BackgroundColor="#A6000000" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" 
+                         VerticalOptions="CenterAndExpand" 
+                         HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="{Binding Team.IconSource}" 
+                                   HeightRequest="100">
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
             </StackLayout>
-            <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
-                <StackLayout Padding="16" Spacing="10" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CardColor}">
+            <ScrollView Grid.Row="1" 
+                        Grid.RowSpan="2" 
+                        Margin="16, 0, 16, 16" 
+                        VerticalOptions="FillAndExpand">
+                <StackLayout Padding="16" 
+                             Spacing="10" 
+                             VerticalOptions="FillAndExpand" 
+                             BackgroundColor="{StaticResource CardColor}">
                     <StackLayout>
-                        <Label Text="{i18n:Translate Title}" TextColor="{StaticResource SecondaryText}"/>
-                        <controls:CustomEntry Placeholder="{i18n:Translate Title}" Text="{Binding Title}" TextColor="{StaticResource SecondaryText}" PlaceholderColor="{StaticResource DisabledText}" LineColor="Accent">
+                        <Label Text="{i18n:Translate Title}" 
+                               TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomEntry Placeholder="{i18n:Translate Title}" 
+                                              Text="{Binding Title}" 
+                                              TextColor="{StaticResource SecondaryText}" 
+                                              PlaceholderColor="{StaticResource DisabledText}" 
+                                              LineColor="{StaticResource AccentColor}">
                             <controls:CustomEntry.Behaviors>
                                 <behaviors:TextLenghtValidationBehavior MinLength="4"/>
                             </controls:CustomEntry.Behaviors>
                         </controls:CustomEntry>
                     </StackLayout>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Description}" TextColor="{StaticResource SecondaryText}"/>
-                        <Editor Text="{Binding Description}" TextColor="{StaticResource SecondaryText}" MaxLength="300" HeightRequest="100"/>
+                        <Label Text="{i18n:Translate Description}" 
+                               TextColor="{StaticResource SecondaryText}"/>
+                        <Editor Text="{Binding Description}" 
+                                TextColor="{StaticResource SecondaryText}" 
+                                MaxLength="300" 
+                                HeightRequest="100"/>
                     </StackLayout>
                     <StackLayout>
                         <Label Text="{i18n:Translate Age}" TextColor="{StaticResource SecondaryText}"/>
                         <StackLayout Orientation="Horizontal" Margin="8">
-                            <Entry Placeholder="{i18n:Translate MinAge}" Text="{Binding MinAge}" TextColor="{StaticResource SecondaryText}" MaxLength="2" Keyboard="Numeric" HorizontalOptions="StartAndExpand"/>
-                            <Entry Placeholder="{i18n:Translate MaxAge}" Text="{Binding MaxAge}" TextColor="{StaticResource SecondaryText}" MaxLength="2" Keyboard="Numeric" HorizontalOptions="EndAndExpand"/>
+                            <Entry Placeholder="{i18n:Translate MinAge}" 
+                                   Text="{Binding MinAge}" 
+                                   TextColor="{StaticResource SecondaryText}" 
+                                   MaxLength="2" 
+                                   Keyboard="Numeric" 
+                                   HorizontalOptions="StartAndExpand"/>
+                            <Entry Placeholder="{i18n:Translate MaxAge}" 
+                                   Text="{Binding MaxAge}" 
+                                   TextColor="{StaticResource SecondaryText}" 
+                                   MaxLength="2" 
+                                   Keyboard="Numeric" 
+                                   HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </StackLayout>
+                    <StackLayout Margin="10">
+                        <Label Text="{i18n:Translate Skills}" 
+                           TextColor="{StaticResource SecondaryText}" 
+                           FontSize="Medium"/>
+                        <dltag:TagEntryView TagItems="{Binding Skills}" 
+                                            Margin="-4, 4"
+                                            AllowKeyboardReturnToAddNewTag="True">
+                            <dltag:TagEntryView.TagItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout BackgroundColor="{StaticResource AccentColor}" 
+                                                 Padding="8">
+                                        <Label Text="{Binding Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </dltag:TagEntryView.TagItemTemplate>
+                        </dltag:TagEntryView>
+                    </StackLayout>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Roles}" TextColor="{StaticResource SecondaryText}"/>
+                        <Label Text="{i18n:Translate Roles}" 
+                               TextColor="{StaticResource SecondaryText}"/>
                         <ListView ItemsSource="{Binding RoleTypes}"
                                   HasUnevenRows="True"
                                   IsGroupingEnabled="True"
@@ -71,7 +124,9 @@
                                 <DataTemplate>
                                     <ViewCell>
                                         <StackLayout>
-                                            <Label Text="{Binding Key.Name}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                                            <Label Text="{Binding Key.Name}" 
+                                                   TextColor="{StaticResource SecondaryText}" 
+                                                   FontSize="Medium"/>
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>
@@ -84,7 +139,33 @@
                                         </lv:SelectableCell.CheckView>
                                         <lv:SelectableCell.DataView>
                                             <StackLayout>
-                                                <Label Text="{Binding Name}" TextColor="{StaticResource SecondaryText}"/>
+                                                <Label Text="{Binding Name}" 
+                                                       TextColor="{StaticResource SecondaryText}"/>
+                                            </StackLayout>
+                                        </lv:SelectableCell.DataView>
+                                    </lv:SelectableCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <StackLayout Margin="10">
+                        <Label/>
+                        <ListView ItemsSource="{Binding Genders}"
+                                  HasUnevenRows="True"
+                                  SeparatorVisibility="None"
+                                  lv:MultiSelect.Enable="True"
+                                  Margin="4, 0"
+                                  HeightRequest="90">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <lv:SelectableCell x:Name="SelectableCell">
+                                        <lv:SelectableCell.CheckView>
+                                            <Image Source="selected.png" WidthRequest="18" HeightRequest="18"/>
+                                        </lv:SelectableCell.CheckView>
+                                        <lv:SelectableCell.DataView>
+                                            <StackLayout>
+                                                <Label Text="{Binding Name}" 
+                                                       TextColor="{StaticResource SecondaryText}"/>
                                             </StackLayout>
                                         </lv:SelectableCell.DataView>
                                     </lv:SelectableCell>
@@ -93,7 +174,12 @@
                         </ListView>
                     </StackLayout>
                     <StackLayout VerticalOptions="EndAndExpand">
-                        <flex:FlexButton Text="{i18n:Translate Finalize}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding FinalizeCommand}"/>
+                        <flex:FlexButton Text="{i18n:Translate Finalize}" 
+                                         BackgroundColor="{StaticResource AccentColor}" 
+                                         ForegroundColor="{StaticResource PrimaryText}" 
+                                         CornerRadius="8" 
+                                         HeightRequest="40" 
+                                         ClickedCommand="{Binding FinalizeCommand}"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

@@ -381,4 +381,22 @@
   <data name="LoginFailed" xml:space="preserve">
     <value>Não foi possivel realizar o login, verifique as credenciais</value>
   </data>
+  <data name="ApplyFailed" xml:space="preserve">
+    <value>Não foi possível registrar a aplicação</value>
+  </data>
+  <data name="CommentFailed" xml:space="preserve">
+    <value>Não foi possível registrar o comentário</value>
+  </data>
+  <data name="PlayerFailed" xml:space="preserve">
+    <value>Não foi possível criar a conta</value>
+  </data>
+  <data name="TeamFailed" xml:space="preserve">
+    <value>Não foi possível criar a equipe</value>
+  </data>
+  <data name="VacancyFailed" xml:space="preserve">
+    <value>Não foi possível registrar a vaga</value>
+  </data>
+  <data name="InvalidValues" xml:space="preserve">
+    <value>Campos com valores inválidos, verifique</value>
+  </data>
 </root>

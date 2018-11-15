@@ -1,11 +1,11 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Apply;
 using Sveit.Services.Requests;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -34,7 +34,7 @@ namespace Sveit.ViewModels
 
         public List<MultiSelectObservableGroupCollection<RoleType, Role>> RoleTypes { get; set; }
 
-        public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute);
+        public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute, ApplyCommandCanExecute);
 
         public ApplyRegisterViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy)
         {
@@ -52,6 +52,12 @@ namespace Sveit.ViewModels
 
         private async Task ApplyCommandExecute()
         {
+            if (ApplyCommandCanExecute())
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.InvalidValues);
+                return;
+            }
+
             var roles = new List<Role>();
             foreach (var group in RoleTypes)
                 roles.AddRange(group.SelectedItems);
@@ -68,6 +74,15 @@ namespace Sveit.ViewModels
             var result = await _applyService.PostApply(apply);
             if (result != null)
                 await _navigation.PopModalAsync();
+            else
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.ApplyFailed);
+        }
+
+        private bool ApplyCommandCanExecute()
+        {
+            if (string.IsNullOrWhiteSpace(Text))
+                return false;
+            return true;
         }
     }
 }

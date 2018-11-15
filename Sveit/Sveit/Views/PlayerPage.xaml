@@ -3,7 +3,6 @@
              xmlns:i18n="clr-namespace:Sveit.Helpers"
              xmlns:converter="clr-namespace:Sveit.Helpers"
              xmlns:controls="clr-namespace:Sveit.Controls"
-             xmlns:fab="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:dltag="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.TagEntryView"
@@ -22,7 +21,11 @@
         <controls:HideableToolbarItem Text="{i18n:Translate Applies}" 
                                       Order="Secondary" 
                                       IsVisible="{Binding IsCurrentPlayer}"             
-                                      Command="{Binding AppliesCommand}"/>
+                                      Command="{Binding AppliesCommand}"/> 
+        <controls:HideableToolbarItem Text="{i18n:Translate Contacts}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsCurrentPlayer}"             
+                                      Command="{Binding ContactsCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -85,9 +88,21 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <forms:CachedImage Source="{Binding Player.AvatarSource}" HeightRequest="92" >
+            <StackLayout Grid.Row="0" 
+                         Grid.RowSpan="2" 
+                         Grid.Column="0" 
+                         Grid.ColumnSpan="3" 
+                         BackgroundColor="#A6000000" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" 
+                         Grid.RowSpan="2" 
+                         Grid.Column="0" 
+                         Grid.ColumnSpan="3" 
+                         VerticalOptions="CenterAndExpand" 
+                         HorizontalOptions="CenterAndExpand">
+                <forms:CachedImage Source="{Binding Player.AvatarSource}" 
+                                   HeightRequest="92" >
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
@@ -138,16 +153,26 @@
                              Margin="10"
                              Spacing="8">
                 <StackLayout Margin="10">
-                    <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                    <Label Text="{Binding Player.Contacts, Converter={StaticResource contactsToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                    <Label Text="{i18n:Translate Contacts}" 
+                           TextColor="{StaticResource SecondaryText}" 
+                           FontSize="Medium"/>
+                    <Label Text="{Binding Player.Contacts, Converter={StaticResource contactsToString}}" 
+                           TextColor="{StaticResource PrimaryText}" 
+                           FontSize="Medium" 
+                           Margin="2"/>
                 </StackLayout>
                 <StackLayout Margin="10">
-                    <Label Text="{i18n:Translate Skills}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                    <dltag:TagEntryView TagItems="{Binding Skills}" Margin="-4, 4">
+                    <Label Text="{i18n:Translate Skills}" 
+                           TextColor="{StaticResource SecondaryText}" 
+                           FontSize="Medium"/>
+                    <dltag:TagEntryView TagItems="{Binding Skills}" 
+                                        Margin="-4, 4">
                         <dltag:TagEntryView.TagItemTemplate>
                             <DataTemplate>
-                                <StackLayout BackgroundColor="{StaticResource AccentColor}"  Padding="8">
-                                    <Label Text="{Binding Name}" TextColor="{StaticResource SecondaryText}"/>
+                                <StackLayout BackgroundColor="{StaticResource AccentColor}" 
+                                             Padding="8">
+                                    <Label Text="{Binding Name}" 
+                                           TextColor="{StaticResource SecondaryText}"/>
                                 </StackLayout>
                             </DataTemplate>
                         </dltag:TagEntryView.TagItemTemplate>
@@ -206,10 +231,17 @@
                                 <Frame Padding="6"
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">
-                                    <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
-                                        <Image Source="{Binding IconSource}" WidthRequest="64" HeightRequest="64"/>
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Padding="10" 
+                                                 BackgroundColor="{StaticResource CardColor}">
+                                        <Image Source="{Binding IconSource}" 
+                                               WidthRequest="64" 
+                                               HeightRequest="64"/>
                                         <StackLayout>
-                                            <Label Text="{Binding Name}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Name}" 
+                                                   TextColor="#FFFFFF" 
+                                                   FontSize="Medium" 
+                                                   FontAttributes="Bold"/>
                                             <Label TextColor="{StaticResource SecondaryText}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
@@ -279,9 +311,17 @@
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">
                                     <StackLayout Orientation="Vertical" Padding="10" BackgroundColor="{StaticResource CardColor}">
-                                        <Label Text="{Binding FromPlayer.Nickname}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Text}" TextColor="{StaticResource SecondaryText}" LineBreakMode="WordWrap" Margin="4"/>
-                                        <Label Text="{Binding CreatedAt, Converter={StaticResource RelativeDateTimeConverter}}" TextColor="{StaticResource DisabledText}" HorizontalOptions="End"/>
+                                        <Label Text="{Binding FromPlayer.Nickname}" 
+                                               TextColor="#FFFFFF" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Text}" 
+                                               TextColor="{StaticResource SecondaryText}" 
+                                               LineBreakMode="WordWrap" 
+                                               Margin="4"/>
+                                        <Label Text="{Binding CreatedAt, Converter={StaticResource RelativeDateTimeConverter}}" 
+                                               TextColor="{StaticResource DisabledText}" 
+                                               HorizontalOptions="End"/>
                                     </StackLayout>
                                 </Frame>
                             </ViewCell>

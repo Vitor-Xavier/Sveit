@@ -118,7 +118,7 @@ namespace Sveit.API.Controllers
         /// <param name="playerId">Identificação do jogador</param>
         /// <returns>Lista de Contatos</returns>
         [HttpGet]
-        [Route("Player/Contacts/{teamId:int}")]
+        [Route("Player/Contacts/{playerId:int}")]
         public IEnumerable<Contact> GetPlayerContacts(int playerId)
         {
             var player = (from t in _context.Players

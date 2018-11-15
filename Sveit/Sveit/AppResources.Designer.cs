@@ -59,7 +59,7 @@ namespace Sveit {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
@@ -144,6 +144,17 @@ namespace Sveit {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to ApplyFailed.
+        /// </summary>
+        internal static string ApplyFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("ApplyFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Applies.
         /// </summary>
         internal static string Applies
@@ -162,6 +173,17 @@ namespace Sveit {
             get
             {
                 return ResourceManager.GetString("CameraDenied", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to CommentFailed.
+        /// </summary>
+        internal static string CommentFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("CommentFailed", resourceCulture);
             }
         }
 
@@ -296,7 +318,18 @@ namespace Sveit {
                 return ResourceManager.GetString("HoursAgo", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to InvalidValues.
+        /// </summary>
+        internal static string InvalidValues
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidValues", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Just now.
         /// </summary>
@@ -582,7 +615,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Platform", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to PlayerFailed.
+        /// </summary>
+        internal static string PlayerFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("PlayerFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
@@ -735,7 +779,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Team", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to TeamFailed.
+        /// </summary>
+        internal static string TeamFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("TeamFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Team name.
         /// </summary>
@@ -744,6 +799,7 @@ namespace Sveit {
                 return ResourceManager.GetString("TeamName", resourceCulture);
             }
         }
+
         
         /// <summary>
         ///   Looks up a localized string similar to Teams.
@@ -782,7 +838,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Vacancies", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to VacancyFailed.
+        /// </summary>
+        internal static string VacancyFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("VacancyFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Version.
         /// </summary>
