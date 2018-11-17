@@ -10,9 +10,11 @@ namespace Sveit.ViewModels
 {
     public class AppliesPlayerViewModel : BaseViewModel
     {
+        private readonly int _playerId;
+
         private readonly INavigation _navigation;
 
-        private readonly int _playerId;
+        private readonly IRequestService _requestService;
 
         private readonly IApplyService _applyService;
 
@@ -20,10 +22,11 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Apply> ApplyCommand => new AsyncCommand<Apply>(ApplyCommandExecute);
 
-        public AppliesPlayerViewModel(INavigation navigation, int playerId)
+        public AppliesPlayerViewModel(INavigation navigation, IRequestService requestService, int playerId)
         {
-            _navigation = navigation;
             _playerId = playerId;
+            _navigation = navigation;
+            _requestService = requestService;
             if (AppSettings.ApiStatus)
                 _applyService = new ApplyService(new RequestService());
             else
@@ -48,7 +51,7 @@ namespace Sveit.ViewModels
 
         public async Task ApplyCommandExecute(Apply apply)
         {
-            await _navigation.PushModalAsync(new Views.ApplyPage(apply));
+            await _navigation.PushModalAsync(new Views.ApplyPage(_requestService, apply));
         }
     }
 }

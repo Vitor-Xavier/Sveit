@@ -149,7 +149,7 @@ namespace Sveit.ViewModels
 
         private async Task AppliesCommandExecute()
         {
-            await _navigation.PushAsync(new AppliesPlayerPage(_playerId));
+            await _navigation.PushAsync(new AppliesPlayerPage(_requestService, _playerId));
         }
 
         public async Task TeamCommandExecute(Team team)

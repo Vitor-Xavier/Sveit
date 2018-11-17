@@ -204,7 +204,18 @@ namespace Sveit {
                 return ResourceManager.GetString("Contacts", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Type.
+        /// </summary>
+        internal static string ContactType
+        {
+            get
+            {
+                return ResourceManager.GetString("ContactType", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>

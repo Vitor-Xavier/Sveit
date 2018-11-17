@@ -14,6 +14,8 @@ namespace Sveit.ViewModels
     {
         public readonly INavigation _navigation;
 
+        private readonly IRequestService _requestService;
+
         private readonly ITeamService _teamService;
 
         private readonly int _teamId;
@@ -97,7 +99,7 @@ namespace Sveit.ViewModels
 
         private async Task VacanciesCommandExecute()
         {
-            await _navigation.PushAsync(new Views.VacanciesTeamPage(_teamId));
+            await _navigation.PushAsync(new Views.VacanciesTeamPage(_requestService, _teamId));
         }
 
         private async Task LoadProfile()

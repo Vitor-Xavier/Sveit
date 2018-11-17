@@ -3,6 +3,7 @@ using Sveit.Models;
 using Sveit.Services.Apply;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
+using Sveit.Services.Team;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ namespace Sveit.ViewModels
         private readonly IApplyService _applyService;
 
         private readonly IPlayerService _playerService;
+
+        private readonly ITeamService _teamService;
 
         private readonly INavigation _navigation;
 
@@ -45,19 +48,21 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand DeclineCommand => new AsyncCommand(DeclineCommandExecute);
 
-        public ApplyViewModel(INavigation navigation, Apply apply, bool isEvaluation)
+        public ApplyViewModel(INavigation navigation, IRequestService requestService, Apply apply, bool isEvaluation)
         {
             IsEvaluation = isEvaluation;
             _navigation = navigation;
             Apply = apply;
             if (AppSettings.ApiStatus)
             {
-                _applyService = new ApplyService(new RequestService());
-                _playerService = new PlayerService(new RequestService());
+                _applyService = new ApplyService(requestService);
+                _teamService = new TeamService(requestService);
+                _playerService = new PlayerService(requestService);
             }
             else
             {
                 _applyService = new FakeApplyService();
+                _teamService = new FakeTeamService();
                 _playerService = new FakePlayerService();
             }
             RoleTypes = Apply.Roles.OrderBy(p => p.Name)
@@ -82,8 +87,13 @@ namespace Sveit.ViewModels
         private async Task AcceptCommandExecute()
         {
             Apply.Approved = true;
-            if (null != await _applyService.PostApply(Apply))
+            var result = await _applyService.PostApply(Apply);
+            if (result != null)
+            {
+                await _teamService.PostTeamPlayer(new TeamPlayer { TeamId = apply.Vacancy.TeamId, PlayerId = result.PlayerId });
                 await _navigation.PopModalAsync();
+            }
+                
         }
 
         private async Task DeclineCommandExecute()

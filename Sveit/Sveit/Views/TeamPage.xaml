@@ -189,7 +189,7 @@
                                     <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
                                         <Image Source="{Binding AvatarSource}" HeightRequest="64"/>
                                         <StackLayout Margin="6">
-                                            <Label Text="{Binding Nickname}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" FontAttributes="Bold"/>
                                             <Label Text="{Binding Gender.Name}" TextColor="{StaticResource SecondaryText}" Margin="6, 0"/>
                                         </StackLayout>
                                     </StackLayout>

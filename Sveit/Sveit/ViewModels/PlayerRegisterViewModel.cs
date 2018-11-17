@@ -6,6 +6,7 @@ using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Gender;
 using Sveit.Services.Image;
+using Sveit.Services.Login;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
 using Sveit.Views;
@@ -24,6 +25,8 @@ namespace Sveit.ViewModels
         private readonly IRequestService _requestService;
 
         private readonly IPlayerService _playerService;
+
+        private readonly ILoginService _loginService;
 
         private readonly IGenderService _genderService;
 
@@ -109,9 +112,12 @@ namespace Sveit.ViewModels
                 _playerService = new PlayerService(_requestService);
                 _genderService = new GenderService(_requestService);
                 _imageService = new ImageService(_requestService);
+                _loginService = new LoginService(_requestService);
             }
             else
             {
+                _playerService = new FakePlayerService();
+                _loginService = new FakeLoginService();
                 _genderService = new FakeGenderService();
                 _imageService = new ImageService(new RequestService());
             }
@@ -149,7 +155,8 @@ namespace Sveit.ViewModels
             var result = await _playerService.PostPlayerAsync(player);
             if (result != null)
             {
-                await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, result));
+                var loggedPlayer = await _loginService.LogIn(player.Email, player.Password);
+                await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, loggedPlayer));
             }
             else
             {

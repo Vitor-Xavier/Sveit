@@ -18,10 +18,10 @@ namespace Sveit.Services.ContactType
 
         private IEnumerable<Models.ContactType> GetFakeContactTypes()
         {
-            yield return new Models.ContactType { ContactTypeId = 1, Name = "Email", IconSource = "" };
-            yield return new Models.ContactType { ContactTypeId = 2, Name = "Discord", IconSource = "" };
-            yield return new Models.ContactType { ContactTypeId = 3, Name = "Skype", IconSource = "" };
-            yield return new Models.ContactType { ContactTypeId = 4, Name = "TeamSpeak", IconSource = "" };
+            yield return new Models.ContactType { ContactTypeId = 1, Name = "Email", IconSource = "ic_email.png" };
+            yield return new Models.ContactType { ContactTypeId = 2, Name = "Discord", IconSource = "ic_discord.png" };
+            yield return new Models.ContactType { ContactTypeId = 3, Name = "Skype", IconSource = "ic_skype.png" };
+            yield return new Models.ContactType { ContactTypeId = 4, Name = "TeamSpeak", IconSource = "ic_teamspeak.png" };
         }
 
         public Task<IEnumerable<Models.ContactType>> GetContactTypesAsync()

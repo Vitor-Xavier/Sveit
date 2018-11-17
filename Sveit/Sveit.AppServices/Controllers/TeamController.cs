@@ -224,6 +224,7 @@ namespace Sveit.API.Controllers
             try
             {
                 _context.Teams.AddOrUpdate(team);
+                _context.TeamPlayers.Add(new TeamPlayer { TeamId = team.TeamId, PlayerId = team.OwnerId });
                 _context.SaveChanges();
 
                 return Created("Ok", team);

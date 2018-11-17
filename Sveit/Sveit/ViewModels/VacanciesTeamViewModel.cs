@@ -2,12 +2,8 @@
 using Sveit.Models;
 using Sveit.Services.Requests;
 using Sveit.Services.Vacancy;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -18,18 +14,21 @@ namespace Sveit.ViewModels
 
         private readonly INavigation _navigation;
 
+        private readonly IRequestService _requestService;
+
         private readonly IVacancyService _vacancyService;
 
         public ObservableCollection<Vacancy> Vacancies { get; set; }
 
         public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
-        public VacanciesTeamViewModel(INavigation navigation, int teamId)
+        public VacanciesTeamViewModel(INavigation navigation, IRequestService requestService, int teamId)
         {
             _navigation = navigation;
             _teamId = teamId;
+            _requestService = requestService;
             if (AppSettings.ApiStatus)
-                _vacancyService = new VacancyService(new RequestService());
+                _vacancyService = new VacancyService(_requestService);
             else
                 _vacancyService = new FakeVacancyService();
             Vacancies = new ObservableCollection<Vacancy>();
@@ -48,7 +47,7 @@ namespace Sveit.ViewModels
 
         public async Task VacancyCommandExecute(Vacancy vacancy)
         {
-            await _navigation.PushAsync(new Views.AppliesTeamPage(vacancy));
+            await _navigation.PushAsync(new Views.AppliesTeamPage(_requestService, vacancy));
         }
     }
 }

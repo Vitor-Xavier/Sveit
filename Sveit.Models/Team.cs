@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sveit.Models
 {
@@ -8,9 +9,12 @@ namespace Sveit.Models
         public int TeamId { get; set; }
         [StringLength(40)]
         public string Name { get; set; }
+        [ForeignKey("GamePlatform"), Column(Order = 0)]
         public int GamePlatform_GameId { get; set; }
+        [ForeignKey("GamePlatform"), Column(Order = 1)]
         public int GamePlatform_PlatformId { get; set; }
         public virtual GamePlatform GamePlatform { get; set; }
+        [ForeignKey("Owner")]
         public int OwnerId { get; set; }
         public virtual Player Owner { get; set; }
         [StringLength(150)]

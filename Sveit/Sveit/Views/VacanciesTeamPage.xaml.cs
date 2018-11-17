@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sveit.Services.Requests;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Sveit.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class VacanciesTeamPage : ContentPage
-	{
-		public VacanciesTeamPage (int teamId)
-		{
-			InitializeComponent ();
-            BindingContext = new ViewModels.VacanciesTeamViewModel(Navigation, teamId);
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class VacanciesTeamPage : ContentPage
+    {
+        public VacanciesTeamPage(IRequestService requestService, int teamId)
+        {
+            InitializeComponent();
+            BindingContext = new ViewModels.VacanciesTeamViewModel(Navigation, requestService, teamId);
+        }
     }
 }

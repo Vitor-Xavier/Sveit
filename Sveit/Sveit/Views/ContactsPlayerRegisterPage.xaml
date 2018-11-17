@@ -42,15 +42,20 @@
                          BackgroundColor="{StaticResource CardColor}">
                 <Label Text="{i18n:Translate Contacts}" TextColor="{StaticResource SecondaryText}"/>
                 <StackLayout Orientation="Horizontal">
-                    <Picker SelectedItem="{Binding ContactType}" 
-                            ItemsSource="{Binding ContactTypes}" 
-                            Title="{i18n:Translate Type}" 
-                            TextColor="{StaticResource SecondaryText}">
-                    </Picker>
+                    <StackLayout>
+                        <Label Text="{i18n:Translate Type}" 
+                               TextColor="{StaticResource SecondaryText}"/>
+                        <Image HeightRequest="24" 
+                               Source="{Binding ContactType.IconSource}"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ContactTypeCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
                     <Entry Text="{Binding ContactText}" 
                            TextColor="{StaticResource SecondaryText}" 
                            Placeholder="{i18n:Translate Contacts}" 
                            PlaceholderColor="{StaticResource DisabledText}"
+                           VerticalOptions="End"
                            HorizontalOptions="FillAndExpand"/>
                     <flex:FlexButton Text="+" 
                                      ClickedCommand="{Binding AddContactCommand}"
@@ -59,20 +64,38 @@
                                      CornerRadius="8" 
                                      HeightRequest="20"/>
                 </StackLayout>
-                <ListView ItemsSource="{Binding Contacts}" HasUnevenRows="True">
+                <ListView ItemsSource="{Binding Contacts}" 
+                          HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout>
-                                    <Image Source="{Binding ContactType.IconSource}" HeightRequest="24"/>
-                                    <Label Text="{Binding Text}" TextColor="{StaticResource SecondaryText}"/>
-                                </StackLayout>
+                                <Frame Padding="6"
+                                       OutlineColor="Transparent"
+                                       BackgroundColor="Transparent">
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Padding="10" 
+                                                 BackgroundColor="{StaticResource CardColor}">
+                                        <Image Source="{Binding ContactType.IconSource}" 
+                                               VerticalOptions="Center" 
+                                               HeightRequest="40"/>
+                                        <Label Text="{Binding Text}" 
+                                               TextColor="{StaticResource PrimaryText}" 
+                                               VerticalOptions="Center" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </Frame>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackLayout VerticalOptions="EndAndExpand">
-                    <flex:FlexButton Text="{i18n:Translate Finalize}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding ContinueCommand}"/>
+                    <flex:FlexButton Text="{i18n:Translate Finalize}" 
+                                     BackgroundColor="{StaticResource AccentColor}" 
+                                     ForegroundColor="{StaticResource PrimaryText}" 
+                                     CornerRadius="8" 
+                                     HeightRequest="40" 
+                                     ClickedCommand="{Binding FinalizeCommand}"/>
                 </StackLayout>
             </StackLayout>
         </Grid>

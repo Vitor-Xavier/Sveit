@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Sveit.Extensions;
-using Sveit.Services.Player;
+﻿using Sveit.Extensions;
 using Sveit.Services.Requests;
 using System;
 using System.Threading.Tasks;
@@ -25,7 +23,7 @@ namespace Sveit.Services.Login
             var storagedTokenTime = await SecureStorage.GetAsync("Sveit-DateTime");
 
             string tokenRequest = $"username={storagedEmail}&password={storagedPassword}&grant_type=password";
-            Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.TokenEndpoint, tokenRequest);
+            Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.AuthEndpoint, tokenRequest);
             if (oauthToken != null)
             {
                 var player = await GetByEmail(storagedEmail);
@@ -41,7 +39,7 @@ namespace Sveit.Services.Login
             string tokenRequest = $"username={email}&password={password}&grant_type=password";
             try
             {
-                Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.TokenEndpoint, tokenRequest);
+                Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.AuthEndpoint, tokenRequest);
 
                 if (oauthToken == null) return null;
                 var player = await GetByEmail(email);
@@ -64,7 +62,7 @@ namespace Sveit.Services.Login
                 var email = SecureStorage.Remove("Sveit-Email");
                 var password = SecureStorage.Remove("Sveit-Password");
                 var oauthToken = SecureStorage.Remove("Sveit-OAuthToken");
-                return email && password && oauthToken;
+                return true;
             }
             catch
             {
@@ -79,14 +77,14 @@ namespace Sveit.Services.Login
             {
                 TimeSpan ts = DateTime.Now.Subtract(tokenTime);
 
-                if (ts.TotalMinutes <= 90.0)
+                if (ts.TotalMinutes <= AppSettings.TokenDuration)
                     return await SecureStorage.GetAsync("Sveit-OAuthToken");
             }
             var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
             var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
 
-            string tokenRequest = $"username=[{storagedEmail}]&password=[{storagedPassword}]&grant_type=password";
-            Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.TokenEndpoint, tokenRequest);
+            string tokenRequest = $"username={storagedEmail}&password={storagedPassword}&grant_type=password";
+            Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.AuthEndpoint, tokenRequest);
 
             if (oauthToken == null) return null;
 

@@ -13,6 +13,8 @@ namespace Sveit.ViewModels
     {
         private readonly INavigation _navigation;
 
+        private readonly IRequestService _requestService;
+
         private readonly IApplyService _applyService;
 
         private Vacancy vacancy;
@@ -28,12 +30,13 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Apply> ApplySelectedCommand => new AsyncCommand<Apply>(ApplySelectedCommandExecute);
 
-        public AppliesTeamViewModel(INavigation navigation, Vacancy vacancy)
+        public AppliesTeamViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy)
         {
             _navigation = navigation;
+            _requestService = requestService;
             Vacancy = vacancy;
             if (AppSettings.ApiStatus)
-                _applyService = new ApplyService(new RequestService());
+                _applyService = new ApplyService(_requestService);
             else
                 _applyService = new FakeApplyService();
             Applies = new ObservableCollection<Apply>();
@@ -56,7 +59,7 @@ namespace Sveit.ViewModels
 
         public async Task ApplySelectedCommandExecute(Models.Apply apply)
         {
-            await _navigation.PushModalAsync(new Views.ApplyPage(apply, true));
+            await _navigation.PushModalAsync(new Views.ApplyPage(_requestService, apply, true));
         }
     }
 }

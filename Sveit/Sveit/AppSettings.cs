@@ -8,11 +8,9 @@ namespace Sveit
 {
     public static class AppSettings
     {
-        private const string DefaultAuthEndpoint = "";
+        private const string DefaultAuthEndpoint = "Token";
         private const string DefaultBaseEndpoint = "http://192.168.31.27:45455/";
         private const string DefaultAppliesEndpoint = "Apply";
-        private const string DefaultCharactersEndpoint = "Character";
-        private const string DefaultCharacterTypesEndpoint = "CharacterType";
         private const string DefaultCommentsEndpoint = "Comment";
         private const string DefaultContactsEndpoint = "Contact";
         private const string DefaultContactTypesEndpoint = "ContactType";
@@ -28,7 +26,7 @@ namespace Sveit
         private const string DefaultSkillsEndpoint = "Skill";
         private const string DefaultTagsEndpoint = "Tag";
         private const string DefaultTeamsEndpoint = "Team";
-        private const string DefaultTokenEndpoint = "Token";
+        private const double DefaultTokenDuration = 90.0;
         private const string DefaultVacanciesEndpoint = "Vacancy";
         private const bool DefaultApiStatus = true;
         private const bool DefaultCredentialStatus = true;
@@ -63,18 +61,6 @@ namespace Sveit
         {
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(AppliesEndpoint), DefaultAppliesEndpoint);
             set => Settings.AddOrUpdateValue(nameof(AppliesEndpoint), value);
-        }
-
-        public static string CharactersEndpoint
-        {
-            get => BaseEndpoint + Settings.GetValueOrDefault(nameof(CharactersEndpoint), DefaultCharactersEndpoint);
-            set => Settings.AddOrUpdateValue(nameof(CharactersEndpoint), value);
-        }
-
-        public static string CharacterTypesEndpoint
-        {
-            get => BaseEndpoint + Settings.GetValueOrDefault(nameof(CharacterTypesEndpoint), DefaultCharacterTypesEndpoint);
-            set => Settings.AddOrUpdateValue(nameof(CharacterTypesEndpoint), value);
         }
 
         public static string CommentsEndpoint
@@ -166,13 +152,12 @@ namespace Sveit
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(TeamsEndpoint), DefaultTeamsEndpoint);
             set => Settings.AddOrUpdateValue(nameof(TeamsEndpoint), value);
         }
-        
-        public static string TokenEndpoint
-        {
-            get => BaseEndpoint + Settings.GetValueOrDefault(nameof(TokenEndpoint), DefaultTokenEndpoint);
-            set => Settings.AddOrUpdateValue(nameof(TokenEndpoint), value);
-        }
 
+        public static double TokenDuration
+        {
+            get => Settings.GetValueOrDefault(nameof(TokenDuration), DefaultTokenDuration);
+            set => Settings.AddOrUpdateValue(nameof(TokenDuration), value);
+        }
 
         public static string VacanciesEndpoint
         {

@@ -399,4 +399,7 @@
   <data name="InvalidValues" xml:space="preserve">
     <value>Fields with invalid values, please check</value>
   </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>Contact Type</value>
+  </data>
 </root>

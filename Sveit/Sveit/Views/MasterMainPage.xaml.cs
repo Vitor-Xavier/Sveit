@@ -39,7 +39,7 @@ namespace Sveit.Views
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = e.SelectedItem as MasterMenuItem;
+            MasterMenuItem item = e.SelectedItem as MasterMenuItem;
             if (item == null)
                 return;
 

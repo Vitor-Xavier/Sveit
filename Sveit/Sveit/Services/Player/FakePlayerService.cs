@@ -124,7 +124,8 @@ namespace Sveit.Services.Player
                     ContactType = new Models.ContactType
                     {
                         ContactTypeId = 1,
-                        Name = "Discord"
+                        Name = "Discord",
+                        IconSource = "ic_discord.png"
                     }
                 },
                 new Models.Contact
@@ -135,7 +136,8 @@ namespace Sveit.Services.Player
                     ContactType = new Models.ContactType
                     {
                         ContactTypeId = 2,
-                        Name = "Skype"
+                        Name = "Skype",
+                        IconSource = "ic_skype.png"
                     }
                 }
             };

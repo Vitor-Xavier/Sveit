@@ -1,12 +1,14 @@
-﻿using Sveit.Controls;
+﻿using Rg.Plugins.Popup.Extensions;
+using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.ContactType;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
+using Sveit.Views;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -14,6 +16,8 @@ namespace Sveit.ViewModels
     public class ContactsTeamRegisterViewModel : BaseViewModel
     {
         private readonly INavigation _navigation;
+
+        private readonly IRequestService _requestService;
 
         private readonly IContactTypeService _contactTypeService;
 
@@ -49,11 +53,14 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand AddContactCommand => new AsyncCommand(AddContactCommandExecute);
 
+        public IAsyncCommand ContactTypeCommand => new AsyncCommand(ContactTypeCommandExecute);
+
         public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
 
         public ContactsTeamRegisterViewModel(INavigation navigation, IRequestService requestService, Team team)
         {
             _navigation = navigation;
+            _requestService = requestService;
             Team = team;
             if (AppSettings.ApiStatus)
             {
@@ -82,6 +89,7 @@ namespace Sveit.ViewModels
             ContactTypes.Clear();
             foreach (ContactType c in contactTypes)
                 ContactTypes.Add(c);
+            ContactType = ContactTypes.FirstOrDefault();
         }
 
         private async Task LoadContacts()
@@ -119,7 +127,25 @@ namespace Sveit.ViewModels
 
         private async Task FinalizeCommandExecute()
         {
-            await _navigation.PopToRootAsync();
+            App.Current.MainPage = new MasterMainPage(_requestService);
+        }
+
+        private async Task ContactTypeCommandExecute()
+        {
+            var popupContactType = new PopupPickerPage
+            {
+                BindingContext = new PopupPickerViewModel<ContactType>(_navigation, ContactTypes)
+            };
+            (popupContactType.BindingContext as PopupPickerViewModel<ContactType>).ItemSelected += HandleContactTypeSelected;
+            (popupContactType.BindingContext as PopupPickerViewModel<ContactType>).Title = AppResources.ContactType;
+            await _navigation.PushPopupAsync(popupContactType);
+        }
+
+        private async void HandleContactTypeSelected(object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        {
+            var item = e.Item as ContactType;
+            ContactType = item;
+            await _navigation.PopAllPopupAsync();
         }
     }
 }
