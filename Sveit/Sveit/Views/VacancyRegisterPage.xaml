@@ -60,7 +60,8 @@
                                               Text="{Binding Title}" 
                                               TextColor="{StaticResource SecondaryText}" 
                                               PlaceholderColor="{StaticResource DisabledText}" 
-                                              LineColor="{StaticResource AccentColor}">
+                                              LineColor="{StaticResource AccentColor}"
+                                              MaxLength="60">
                             <controls:CustomEntry.Behaviors>
                                 <behaviors:TextLenghtValidationBehavior MinLength="4"/>
                             </controls:CustomEntry.Behaviors>

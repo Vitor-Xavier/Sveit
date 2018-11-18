@@ -12,7 +12,7 @@ namespace Sveit.Models
         public string Email { get; set; }
         [StringLength(300)]
         public string Password { get; set; }
-        [StringLength(40)]
+        [StringLength(60)]
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public virtual Gender Gender { get; set; }

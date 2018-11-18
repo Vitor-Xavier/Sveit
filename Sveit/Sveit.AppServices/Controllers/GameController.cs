@@ -110,6 +110,8 @@ namespace Sveit.API.Controllers
         {
             try
             {
+                foreach (Genre g in game.Genres)
+                    _context.Entry(g).State = System.Data.Entity.EntityState.Unchanged;
                 _context.Games.AddOrUpdate(game);
                 _context.SaveChanges();
                 return Created("Ok", game);

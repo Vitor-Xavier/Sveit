@@ -73,6 +73,8 @@ namespace Sveit.API.Controllers
         {
             try
             {
+                foreach (Role r in apply.Roles)
+                    _context.Entry(r).State = System.Data.Entity.EntityState.Unchanged;
                 _context.Applies.AddOrUpdate(apply);
                 _context.SaveChanges();
 

@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Sveit.Views.ContactsTeamRegisterPage"
              xmlns:i18n="clr-namespace:Sveit.Helpers"
+             xmlns:controls="clr-namespace:Sveit.Controls"
+             xmlns:behaviors="clr-namespace:Sveit.Behaviors"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
@@ -51,12 +53,18 @@
                             <TapGestureRecognizer Command="{Binding ContactTypeCommand}"/>
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
-                    <Entry Text="{Binding ContactText}" 
-                           TextColor="{StaticResource SecondaryText}" 
-                           Placeholder="{i18n:Translate Contacts}" 
-                           PlaceholderColor="{StaticResource DisabledText}"
-                           VerticalOptions="End"
-                           HorizontalOptions="FillAndExpand"/>
+                    <controls:CustomEntry Text="{Binding ContactText}" 
+                                          TextColor="{StaticResource SecondaryText}" 
+                                          Placeholder="{i18n:Translate Contacts}" 
+                                          PlaceholderColor="{StaticResource DisabledText}"
+                                          LineColor="{StaticResource AccentColor}" 
+                                          MaxLength="40" 
+                                          VerticalOptions="End" 
+                                          HorizontalOptions="FillAndExpand">
+                        <controls:CustomEntry.Behaviors>
+                            <behaviors:TextLenghtValidationBehavior MinLength="4"/>
+                        </controls:CustomEntry.Behaviors>
+                    </controls:CustomEntry>
                     <flex:FlexButton Text="+" 
                                      ClickedCommand="{Binding AddContactCommand}"
                                      BackgroundColor="{StaticResource AccentColor}" 

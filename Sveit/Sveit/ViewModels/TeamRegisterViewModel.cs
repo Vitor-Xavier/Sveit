@@ -12,6 +12,7 @@ using Sveit.Services.Requests;
 using Sveit.Services.Team;
 using Sveit.Views;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -50,14 +51,6 @@ namespace Sveit.ViewModels
         {
             get { return platform; }
             set { platform = value; OnPropertyChanged(); }
-        }
-
-        private bool hasPlatforms = false;
-
-        public bool HasPlatforms
-        {
-            get { return hasPlatforms; }
-            set { hasPlatforms = value; OnPropertyChanged(); }
         }
 
         private string name;
@@ -134,8 +127,7 @@ namespace Sveit.ViewModels
             Games.Clear();
             foreach (Game game in games)
                 Games.Add(game);
-            if (Games.Count > 0)
-                Game = Games[0];
+            Game = Games.FirstOrDefault();
         }
 
         private async Task LoadPlatforms(int gameId)
@@ -145,7 +137,7 @@ namespace Sveit.ViewModels
             Platforms.Clear();
             foreach (Platform platform in platforms)
                 Platforms.Add(platform);
-            HasPlatforms = Platforms.Count > 0;
+            Platform = Platforms.FirstOrDefault();
         }
 
         private async Task ContinueCommandExecute()

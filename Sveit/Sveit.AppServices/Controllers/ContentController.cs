@@ -102,6 +102,9 @@ namespace Sveit.API.Controllers
         {
             try
             {
+                foreach (Tag t in content.Tags)
+                    if (t.TagId == 0)
+                        _context.Entry(t).State = System.Data.Entity.EntityState.Unchanged;
                 _context.Contents.AddOrUpdate(content);
                 _context.SaveChanges();
 

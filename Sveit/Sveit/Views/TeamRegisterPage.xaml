@@ -25,7 +25,7 @@
                                VerticalOptions="FillAndExpand"
                                Source="{Binding Game.ImageSource}">
                 <forms:CachedImage.Transformations>
-                    <transformations:BlurredTransformation Radius="180" />
+                    <transformations:BlurredTransformation Radius="180"/>
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
             <StackLayout Grid.Row="0" 
@@ -67,7 +67,10 @@
                                               TextColor="{StaticResource SecondaryText}"
                                               Placeholder="{i18n:Translate TeamName}" 
                                               PlaceholderColor="{StaticResource DisabledText}" 
-                                              LineColor="{StaticResource AccentColor}">
+                                              LineColor="{StaticResource AccentColor}"
+                                              MaxLength="40"
+                                              IsSpellCheckEnabled="False"
+                                              IsTextPredictionEnabled="False">
                             <controls:CustomEntry.Behaviors>
                                 <behaviors:TextLenghtValidationBehavior MinLength="4"/>
                             </controls:CustomEntry.Behaviors>

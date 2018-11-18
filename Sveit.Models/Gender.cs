@@ -6,6 +6,7 @@ namespace Sveit.Models
 {
     public class Gender : EntityBase
     {
+        [Key]
         public int GenderId { get; set; }
         [StringLength(15)]
         public string Name { get; set; }

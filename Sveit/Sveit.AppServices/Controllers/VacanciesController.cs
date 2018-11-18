@@ -81,6 +81,20 @@ namespace Sveit.API.Controllers
         {
             try
             {
+                var skills = new List<Skill>();
+                foreach (Skill s in vacancy.Skills)
+                {
+                    var skill = (from sk in _context.Skills
+                                 where sk.Name.Equals(s.Name)
+                                 select sk).FirstOrDefault();
+                    skills.Add(skill ?? s);
+                }
+                vacancy.Skills = skills;
+                foreach (Gender g in vacancy.Genders)
+                    _context.Entry(g).State = System.Data.Entity.EntityState.Unchanged;
+                foreach (Role r in vacancy.Roles)
+                    _context.Entry(r).State = System.Data.Entity.EntityState.Unchanged;
+
                 _context.Vacancies.AddOrUpdate(vacancy);
                 _context.SaveChanges();
 
