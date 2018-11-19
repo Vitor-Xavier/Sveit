@@ -12,6 +12,7 @@ using Sveit.Services.Requests;
 using Sveit.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -46,6 +47,14 @@ namespace Sveit.ViewModels
         {
             get { return gender; }
             set { gender = value; OnPropertyChanged(); }
+        }
+
+        private string username;
+
+        public string Username
+        {
+            get { return username; }
+            set { username = value; OnPropertyChanged(); }
         }
 
         private string email;
@@ -144,19 +153,21 @@ namespace Sveit.ViewModels
             }
             var player = new Player
             {
+                Username = Username,
                 Email = Email,
                 Password = Utils.SHA2Utilities.ComputeSha256Hash(Password),
                 Name = Name,
                 Nickname = Nickname,
                 AvatarSource = AvatarSource,
                 DateOfBirth = DateOfBirth,
+                GenderId = Gender.GenderId,
                 Gender = Gender
             };
             var result = await _playerService.PostPlayerAsync(player);
             if (result != null)
             {
-                var loggedPlayer = await _loginService.LogIn(player.Email, player.Password);
-                await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, loggedPlayer));
+                var loggedPlayer = await _loginService.LogIn(player.Username, player.Password);
+                await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, result));
             }
             else
             {
@@ -201,6 +212,10 @@ namespace Sveit.ViewModels
         }
         private bool ContinueCommandCanExecute()
         {
+            if (string.IsNullOrWhiteSpace(Username) || Username.Length < 4)
+                return false;
+            if (Username.Any(ch => Char.IsLetterOrDigit(ch)))
+                return false;
             if (string.IsNullOrWhiteSpace(Email) || Email.Length < 5)
                 return false;
             if (string.IsNullOrWhiteSpace(Password) || Password.Length < 5)

@@ -154,7 +154,7 @@ namespace Sveit.ViewModels
 
         public async Task TeamCommandExecute(Team team)
         {
-            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));
+            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));  
         }
 
         private async Task ContactsCommandExecute()

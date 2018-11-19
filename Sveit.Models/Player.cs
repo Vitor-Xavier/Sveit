@@ -8,15 +8,18 @@ namespace Sveit.Models
     public class Player : EntityBase
     {
         public int PlayerId { get; set; }
+        [Required, StringLength(40)]
+        public string Username { get; set; }
         [Required, StringLength(50)]
         public string Email { get; set; }
-        [StringLength(300)]
+        [Required, StringLength(300)]
         public string Password { get; set; }
-        [StringLength(60)]
+        [Required, StringLength(60)]
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public int GenderId { get; set; }
         public virtual Gender Gender { get; set; }
-        [StringLength(30)]
+        [Required, StringLength(30)]
         public string Nickname { get; set; }
         [StringLength(300)]
         public string AvatarSource { get; set; }

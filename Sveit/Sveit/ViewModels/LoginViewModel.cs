@@ -18,20 +18,20 @@ namespace Sveit.ViewModels
 
         private readonly IRequestService _requestService;
 
+        private string username;
+
+        public string Username
+        {
+            get { return username; }
+            set { username = value; OnPropertyChanged(); }
+        }
+
         private string password;
 
         public string Password
         {
             get { return password; }
             set { password = value; OnPropertyChanged(); }
-        }
-
-        private string email;
-
-        public string Email
-        {
-            get { return email; }
-            set { email = value; OnPropertyChanged(); }
         }
 
         public ICommand SignUpCommand => new Command(SignUpCommandExecute);
@@ -58,7 +58,7 @@ namespace Sveit.ViewModels
             if (!Validate()) return;
             var pass = Utils.SHA2Utilities.ComputeSha256Hash(Password);
 
-            var player = await _loginService.LogIn(Email, pass);
+            var player = await _loginService.LogIn(Username, pass);
             if (player == null)
             {
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.LoginFailed);
@@ -72,9 +72,9 @@ namespace Sveit.ViewModels
 
         private bool Validate()
         {
-            if (string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Email))
+            if (string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Username))
                 return false;
-            if (Password.Length <= 4 || Email.Length <= 4)
+            if (Password.Length <= 4 || Username.Length <= 4)
                 return false;
             return true;
         }

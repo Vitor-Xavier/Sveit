@@ -70,7 +70,7 @@ namespace Sveit.ViewModels
                .Select(p => new ObservableGroupCollection<RoleType, Role>(p)).ToList();
             Skills = new ObservableCollection<Skill>();
 
-            IsEvaluation = App.LoggedPlayer.PlayerId == Apply.Vacancy.Team.OwnerId;
+            //IsEvaluation = App.LoggedPlayer.PlayerId == Apply.Vacancy.Team.OwnerId;
 
             Task.Run(() => LoadData());
         }

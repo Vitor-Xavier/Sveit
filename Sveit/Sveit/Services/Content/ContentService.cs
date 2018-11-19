@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Sveit.Extensions;
+using Sveit.Services.Login;
+using Sveit.Services.Requests;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
-using Sveit.Extensions;
-using Sveit.Services.Login;
-using Sveit.Services.Player;
-using Sveit.Services.Requests;
 
 namespace Sveit.Services.Content
 {

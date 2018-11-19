@@ -18,9 +18,36 @@ namespace Sveit.Services.Role
 
         private IEnumerable<Models.Role> GetFakeRoles()
         {
-            yield return new Models.Role { Name = "Agressivo", RoleType = new Models.RoleType { RoleTypeId = 1, Name = "Papel primário" } };
-            yield return new Models.Role { Name = "DPS", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } };
-            yield return new Models.Role { Name = "Tank", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } };
+            yield return new Models.Role
+            {
+                Name = "Agressivo",
+                RoleType = new Models.RoleType
+                {
+                    RoleTypeId = 1,
+                    Name = "Papel primário",
+                    IconSource = "ic_primaryRole.png"
+                }
+            };
+            yield return new Models.Role
+            {
+                Name = "DPS",
+                RoleType = new Models.RoleType
+                {
+                    RoleTypeId = 2,
+                    Name = "Papel secundário",
+                    IconSource = "ic_secondaryRole.png"
+                }
+            };
+            yield return new Models.Role
+            {
+                Name = "Tank",
+                RoleType = new Models.RoleType
+                {
+                    RoleTypeId = 2,
+                    Name = "Papel secundário",
+                    IconSource = "ic_secondaryRole.png"
+                }
+            };
         }
 
         public Task<Models.Role> GetRole(int roleId)

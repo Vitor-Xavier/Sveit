@@ -7,7 +7,7 @@ namespace Sveit.Models
     public class Role : EntityBase
     {
         public int RoleId { get; set; }
-        [StringLength(40)]
+        [Required, StringLength(40)]
         public string Name { get; set; }
         public int RoleTypeId { get; set; }
         public virtual RoleType RoleType { get; set; }

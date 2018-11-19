@@ -24,7 +24,7 @@ namespace Sveit.Behaviors
             bool IsValid = false;
             IsValid = e.NewTextValue.Length >= MinLength;
 
-            ((CustomEntry)sender).LineColor = IsValid ? Color.Default : Color.Red;
+            ((CustomEntry)sender).LineColor = IsValid ? Color.Default : Color.FromHex("#B00020");
         }
 
         protected override void OnDetachingFrom(CustomEntry bindable)

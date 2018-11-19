@@ -17,16 +17,16 @@ namespace Sveit.Services.Login
 
         public async Task<Models.Player> CheckLogIn()
         {
-            var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
+            var storagedUsername = await SecureStorage.GetAsync("Sveit-Username");
             var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
             var storagedToken = await SecureStorage.GetAsync("Sveit-OAuthToken");
             var storagedTokenTime = await SecureStorage.GetAsync("Sveit-DateTime");
 
-            string tokenRequest = $"username={storagedEmail}&password={storagedPassword}&grant_type=password";
+            string tokenRequest = $"username={storagedUsername}&password={storagedPassword}&grant_type=password";
             Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.AuthEndpoint, tokenRequest);
             if (oauthToken != null)
             {
-                var player = await GetByEmail(storagedEmail);
+                var player = await GetByUsername(storagedUsername);
                 App.LoggedPlayer = player;
                 return player;
             }
@@ -34,19 +34,20 @@ namespace Sveit.Services.Login
                 return null;
         }
 
-        public async Task<Models.Player> LogIn(string email, string password)
+        public async Task<Models.Player> LogIn(string username, string password)
         {
-            string tokenRequest = $"username={email}&password={password}&grant_type=password";
+            string tokenRequest = $"username={username}&password={password}&grant_type=password";
             try
             {
                 Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.AuthEndpoint, tokenRequest);
 
                 if (oauthToken == null) return null;
-                var player = await GetByEmail(email);
-                await SecureStorage.SetAsync("Sveit-Email", email);
+                
+                await SecureStorage.SetAsync("Sveit-Username", username);
                 await SecureStorage.SetAsync("Sveit-Password", password);
                 await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken.Access_token);
                 await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
+                var player = await GetByUsername(username);
                 return player;
             }
             catch
@@ -59,7 +60,7 @@ namespace Sveit.Services.Login
         {
             try
             {
-                var email = SecureStorage.Remove("Sveit-Email");
+                var email = SecureStorage.Remove("Sveit-Username");
                 var password = SecureStorage.Remove("Sveit-Password");
                 var oauthToken = SecureStorage.Remove("Sveit-OAuthToken");
                 return true;
@@ -80,10 +81,10 @@ namespace Sveit.Services.Login
                 if (ts.TotalMinutes <= AppSettings.TokenDuration)
                     return await SecureStorage.GetAsync("Sveit-OAuthToken");
             }
-            var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
+            var storagedUsername = await SecureStorage.GetAsync("Sveit-Username");
             var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
 
-            string tokenRequest = $"username={storagedEmail}&password={storagedPassword}&grant_type=password";
+            string tokenRequest = $"username={storagedUsername}&password={storagedPassword}&grant_type=password";
             Token oauthToken = await _requestService.PostRawAsync<Token>(AppSettings.AuthEndpoint, tokenRequest);
 
             if (oauthToken == null) return null;
@@ -94,11 +95,11 @@ namespace Sveit.Services.Login
             return oauthToken.Access_token;
         }
 
-        public Task<Models.Player> GetByEmail(string email)
+        public Task<Models.Player> GetByUsername(string username)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
-            builder.AppendToPath("Email");
-            builder.AppendToPath(email);
+            builder.AppendToPath("Username");
+            builder.AppendToPath(username);
             string uri = builder.ToString();
 
             return _requestService.GetAsync<Models.Player>(uri);

@@ -109,6 +109,7 @@
     <Compile Include="Controls\CustomEntryRenderer.cs" />
     <Compile Include="Controls\CustomNavigationPageRenderer.cs" />
     <Compile Include="Controls\CustomPickerRenderer.cs" />
+    <Compile Include="Controls\ListViewNestedScroll.cs" />
     <Compile Include="Controls\Message.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

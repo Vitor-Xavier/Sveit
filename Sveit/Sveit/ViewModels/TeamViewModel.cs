@@ -20,7 +20,7 @@ namespace Sveit.ViewModels
 
         private readonly int _teamId;
 
-        private bool isOwner;
+        private bool isOwner = true;
 
         public bool IsOwner
         {
@@ -43,6 +43,8 @@ namespace Sveit.ViewModels
         public IAsyncCommand MembersCommand => new AsyncCommand(MembersCommandExecute);
 
         public IAsyncCommand VacanciesCommand => new AsyncCommand(VacanciesCommandExecute);
+
+        public IAsyncCommand AddVacancyCommand => new AsyncCommand(AddVacancyCommandExecute);
 
         private bool tabMembers;
 
@@ -71,6 +73,7 @@ namespace Sveit.ViewModels
         public TeamViewModel(INavigation navigation, IRequestService requestService, int teamId)
         {
             _navigation = navigation;
+            _requestService = requestService;
             _teamId = teamId;
             if (AppSettings.ApiStatus)
                 _teamService = new TeamService(requestService);
@@ -114,6 +117,11 @@ namespace Sveit.ViewModels
             Members.Clear();
             foreach (Player player in members)
                 Members.Add(player);
+        }
+
+        private async Task AddVacancyCommandExecute()
+        {
+            await _navigation.PushModalAsync(new Views.VacancyRegisterPage(_requestService, Team));
         }
     }
 }

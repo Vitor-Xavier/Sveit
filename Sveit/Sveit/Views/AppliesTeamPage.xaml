@@ -50,7 +50,7 @@
             </StackLayout>
             <controls:CustomListView Grid.Row="1" 
                       ItemsSource="{Binding Applies}" 
-                      ItemTappedCommand="{Binding VacancyCommand}"
+                      ItemTappedCommand="{Binding ApplyCommand}"
                       Margin="0, 5, 0, 5"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>

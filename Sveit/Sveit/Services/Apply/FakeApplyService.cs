@@ -25,7 +25,7 @@ namespace Sveit.Services.Apply
             {
                 ApplyId = 1,
                 Text = "Texto para ser aprovado na vaga.",
-                PlayerId = 1,
+                PlayerId = 4,
                 Player = new Models.Player
                 {
                     Name = "Jogador 1",
@@ -34,26 +34,87 @@ namespace Sveit.Services.Apply
                     Gender = new Models.Gender { Name = "Masculino" },
                     AvatarSource = "https://pbs.twimg.com/profile_images/949941380259991552/C4b4NckD_400x400.jpg",
                     Deleted = false,
-                    PlayerId = 1
+                    PlayerId = 4
                 },
                 VacancyId = 1,
                 Vacancy = new Models.Vacancy
                 {
-                    Title = "Vaga suporte, papeis",
-                    Roles = new List<Models.Role> { new Models.Role { Name = "Agressivo", RoleType = new Models.RoleType { RoleTypeId = 1, Name = "Papel primário" } }, new Models.Role { Name = "DPS", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } }, new Models.Role { Name = "Tank", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } } },
-                    Skills = new List<Models.Skill> { new Models.Skill { Name = "skill1" }, new Models.Skill { Name = "skill1" }, new Models.Skill { Name = "skill1" } },
-                    Team = new Models.Team { Name = "Commander eSports", GamePlatform = gamePlatform, IconSource = "https://static-cdn.jtvnw.net/jtv_user_pictures/flawedbot-profile_image-815076ff68773420-300x300.jpeg" },
+                    Title = "Vaga suporte",
+                    Roles = new List<Models.Role>
+                    {
+                        new Models.Role
+                        {
+                            Name = "Agressivo",
+                            RoleType = new Models.RoleType
+                            {
+                                RoleTypeId = 1,
+                                Name = "Papel primário",
+                                IconSource = "ic_primaryRole.png"
+                            }
+                        },
+                        new Models.Role
+                        {
+                            Name = "DPS",
+                            RoleType = new Models.RoleType
+                            {
+                                RoleTypeId = 2,
+                                Name = "Papel secundário",
+                                IconSource = "ic_secondaryRole.png"
+                            }
+                        }, new Models.Role
+                        {
+                            Name = "Tank",
+                            RoleType = new Models.RoleType
+                            {
+                                RoleTypeId = 2,
+                                Name = "Papel secundário",
+                                IconSource = "ic_secondaryRole.png"
+                            }
+                        }
+                    },
+                    Skills = new List<Models.Skill> { new Models.Skill { Name = "tiro" }, new Models.Skill { Name = "healing" }, new Models.Skill { Name = "suporte" }, new Models.Skill { Name = "sniper" }, new Models.Skill { Name = "estratégia" } },
+                    Team = new Models.Team
+                    {
+                        TeamId = 10,
+                        Name = "To do",
+                        GamePlatform = gamePlatform,
+                        IconSource = "https://image.moboplay.com/images/apk/725/com.musSharApp.myToDoList_icon.png"
+                    },
+                    MinAge = 16,
+                    MaxAge = 23,
                     VacancyId = 1,
-                    Description = "vaga...."
+                    Description = "Descrição completa da vaga que está sendo oferecida pela equipe e alguns de seus requisitos explicados pelo membro que oferta tal vaga, além de questões comportamentais que estão a procura nos cadidatos e etc.",
                 },
-                Roles = new List<Models.Role> { new Models.Role { Name = "Agressivo", RoleType = new Models.RoleType { RoleTypeId = 1, Name = "Papel primário" } }, new Models.Role { Name = "Tank", RoleType = new Models.RoleType { RoleTypeId = 2, Name = "Papel secundário" } } },
+                Roles = new List<Models.Role>
+                {
+                    new Models.Role
+                    {
+                        Name = "Agressivo",
+                        RoleType = new Models.RoleType
+                        {
+                            RoleTypeId = 1,
+                            Name = "Papel primário",
+                            IconSource = "ic_primaryRole.png"
+                        }
+                    },
+                    new Models.Role
+                    {
+                        Name = "DPS",
+                        RoleType = new Models.RoleType
+                        {
+                            RoleTypeId = 2,
+                            Name = "Papel secundário",
+                            IconSource = "ic_secondaryRole.png"
+                        }
+                    }
+                },
                 Approved = null
             };
             yield return new Models.Apply
             {
                 ApplyId = 2,
                 Text = "Texto para ser aprovado na vaga.",
-                PlayerId = 1,
+                PlayerId = 4,
                 Player = new Models.Player
                 {
                     Name = "Jogador 1",
@@ -61,7 +122,7 @@ namespace Sveit.Services.Apply
                     Gender = new Models.Gender { Name = "Masculino" },
                     AvatarSource = "https://pbs.twimg.com/profile_images/949941380259991552/C4b4NckD_400x400.jpg",
                     Deleted = false,
-                    PlayerId = 1
+                    PlayerId = 4
                 },
                 VacancyId = 1,
                 Vacancy = new Models.Vacancy

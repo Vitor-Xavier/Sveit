@@ -97,6 +97,7 @@
                            TextColor="{StaticResource SecondaryText}" 
                            FontSize="Medium"/>
                         <dltag:TagEntryView TagItems="{Binding Skills}" 
+                                            TagValidatorFactory="{StaticResource SkillValidatorFactory}"
                                             Margin="-4, 4"
                                             AllowKeyboardReturnToAddNewTag="True">
                             <dltag:TagEntryView.TagItemTemplate>
@@ -113,7 +114,8 @@
                     <StackLayout>
                         <Label Text="{i18n:Translate Roles}" 
                                TextColor="{StaticResource SecondaryText}"/>
-                        <ListView ItemsSource="{Binding RoleTypes}"
+                        <ListView x:Name="listRoles" 
+                                  ItemsSource="{Binding RoleTypes}"
                                   HasUnevenRows="True"
                                   IsGroupingEnabled="True"
                                   SeparatorVisibility="None"
@@ -124,7 +126,8 @@
                             <ListView.GroupHeaderTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <StackLayout>
+                                        <StackLayout Orientation="Horizontal" Spacing="8">
+                                            <Image Source="{Binding Key.IconSource}" HeightRequest="24"/>
                                             <Label Text="{Binding Key.Name}" 
                                                    TextColor="{StaticResource SecondaryText}" 
                                                    FontSize="Medium"/>
@@ -150,8 +153,10 @@
                         </ListView>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label/>
-                        <ListView ItemsSource="{Binding Genders}"
+                        <Label Text="{i18n:Translate Gender}" 
+                               TextColor="{StaticResource SecondaryText}"/>
+                        <ListView x:Name="listGenders" 
+                                  ItemsSource="{Binding Genders}"
                                   HasUnevenRows="True"
                                   SeparatorVisibility="None"
                                   lv:MultiSelect.Enable="True"

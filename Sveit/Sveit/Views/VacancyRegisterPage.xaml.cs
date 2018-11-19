@@ -1,5 +1,6 @@
 ﻿using Sveit.Models;
 using Sveit.Services.Requests;
+using Sveit.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,15 @@ namespace Sveit.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class VacancyRegisterPage : ContentPage
-	{
+    {
 		public VacancyRegisterPage (IRequestService requestService, Team team)
 		{
-			InitializeComponent ();
-            BindingContext = new ViewModels.VacancyRegisterViewModel(Navigation, requestService, team);
+            Resources = new ResourceDictionary();
+            Resources.Add("SkillValidatorFactory", new Func<string, object>(
+                (arg) => (BindingContext as VacancyRegisterViewModel)?.ValidateAndReturn(arg)));
+
+            InitializeComponent ();
+            BindingContext = new VacancyRegisterViewModel(Navigation, requestService, team);
 		}
-	}
+    }
 }

@@ -7,7 +7,7 @@ namespace Sveit.Models
     public class Tag : EntityBase
     {
         public int TagId { get; set; }
-        [StringLength(20)]
+        [Required, StringLength(20)]
         public string Name { get; set; }
         [JsonIgnore]
         public virtual ICollection<Content> Contents { get; set; }

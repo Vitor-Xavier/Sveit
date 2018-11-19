@@ -7,7 +7,7 @@ namespace Sveit.Models
     public class Team : EntityBase
     {
         public int TeamId { get; set; }
-        [StringLength(40)]
+        [Required, StringLength(40)]
         public string Name { get; set; }
         [ForeignKey("GamePlatform"), Column(Order = 0)]
         public int GamePlatform_GameId { get; set; }

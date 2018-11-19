@@ -6,16 +6,16 @@ namespace Sveit.Models
     public class Content : EntityBase
     {
         public int ContentId { get; set; }
-        [StringLength(120)]
+        [Required, StringLength(120)]
         public string Title { get; set; }
         public virtual Game Game { get; set; }
         [StringLength(300)]
         public string Description { get; set; }
-        [StringLength(50)]
+        [Required, StringLength(50)]
         public string Source { get; set; }
         [StringLength(300)]
         public string ImageSource { get; set; }
-        [StringLength(300)]
+        [Required, StringLength(300)]
         public string ContentUrl { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
 

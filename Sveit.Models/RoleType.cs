@@ -5,7 +5,7 @@ namespace Sveit.Models
     public class RoleType : EntityBase
     {
         public int RoleTypeId { get; set; }
-        [StringLength(40)]
+        [Required, StringLength(40)]
         public string Name { get; set; }
         [StringLength(40)]
         public string IconSource { get; set; }

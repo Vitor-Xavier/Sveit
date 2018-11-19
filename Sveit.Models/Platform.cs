@@ -5,7 +5,7 @@ namespace Sveit.Models
     public class Platform : EntityBase
     {
         public int PlatformId { get; set; }
-        [StringLength(20)]
+        [Required, StringLength(20)]
         public string Name { get; set; }
         [StringLength(50)]
         public string IconSource { get; set; }

@@ -20,7 +20,7 @@ namespace Sveit.Behaviors
             {
                 bool IsValid = picker.SelectedItem != null;
 
-                ((CustomPicker)sender).LineColor = IsValid ? Color.Default : Color.Red;
+                ((CustomPicker)sender).LineColor = IsValid ? Color.Default : Color.FromHex("#B00020");
             }
         }
 

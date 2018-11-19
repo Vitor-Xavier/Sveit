@@ -8,7 +8,23 @@ namespace Sveit.Services.Team
     {
         private GamePlatform gamePlatform = new GamePlatform
         {
-            Game = new Models.Game { Name = "Overwatch" },
+            Game = new Models.Game
+            {
+                Name = "Overwatch",
+                IconSource = "https://i.imgur.com/0RIw2RB.png",
+                ImageSource = "http://www.base2.com.br/wp-content/uploads/2017/04/overwatch1280jpg-6daa73_1280w.jpg"
+            },
+            Platform = new Models.Platform { Name = "PC" }
+        };
+
+        private GamePlatform gamePlatform2 = new GamePlatform
+        {
+            Game = new Models.Game
+            {
+                Name = "Rainbow Six Siege",
+                IconSource = "https://i.redd.it/iznunq2m8vgy.png",
+                ImageSource = "https://www.torcedores.com/content/uploads/2018/02/erwmqs3hzvkfqudfutqdyh_tb7c.jpg"
+            },
             Platform = new Models.Platform { Name = "PC" }
         };
 
@@ -21,22 +37,20 @@ namespace Sveit.Services.Team
 
         private IEnumerable<Models.Team> GetFakeTeams()
         {
-            yield return new Models.Team { Name = "Commander eSports1", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports2", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports3", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports4", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports5", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports6", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports7", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
+            yield return new Models.Team { TeamId = 10, Name = "To do", GamePlatform = gamePlatform, IconSource = "https://image.moboplay.com/images/apk/725/com.musSharApp.myToDoList_icon.png" };
+            yield return new Models.Team { Name = "Tc Esports", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
+            yield return new Models.Team { Name = "BR Control", GamePlatform = gamePlatform2, IconSource = "https://cdn2.f-cdn.com/contestentries/1366909/28870354/5b47057dd991d_thumb900.jpg" };
+            yield return new Models.Team { Name = "Bar e Sorveteria Geladão", GamePlatform = gamePlatform2, IconSource = "https://img.olx.com.br/images/31/318810031713352.jpg" };
+            yield return new Models.Team { Name = "Liquidos", GamePlatform = gamePlatform, IconSource = "http://swgohome.com/phpBB3/download/file.php?avatar=53_1303826764.jpg" };
         }
 
         private IEnumerable<Models.Player> GetFakePlayers()
         {
-            yield return new Models.Player { Name = "Alguém", Nickname = "Fate", AvatarSource = "https://i.pinimg.com/736x/4a/3f/12/4a3f129ec33ab700ee2f7a022e545cdc--avatar.jpg", Gender = new Models.Gender() { Name = "Masculino" } };
-            yield return new Models.Player { Name = "Alguém", Nickname = "envy", AvatarSource = "https://i.pinimg.com/236x/c9/0b/43/c90b43c70af2c51d92814a0b08aff527--the-phantom-avatar.jpg", Gender = new Models.Gender() { Name = "Masculino" } };
-            yield return new Models.Player { Name = "Alguém", Nickname = "Verbo", AvatarSource = "https://i.pinimg.com/736x/4a/3f/12/4a3f129ec33ab700ee2f7a022e545cdc--avatar.jpg", Gender = new Models.Gender { Name = "Masculino" } };
-            yield return new Models.Player { Name = "Alguém", Nickname = "KariV", AvatarSource = "https://i.pinimg.com/236x/c9/0b/43/c90b43c70af2c51d92814a0b08aff527--the-phantom-avatar.jpg", Gender = new Models.Gender { Name = "Masculino" } };
-            yield return new Models.Player { Name = "Alguém", Nickname = "GrimReality", AvatarSource = "https://i.pinimg.com/736x/4a/3f/12/4a3f129ec33ab700ee2f7a022e545cdc--avatar.jpg", Gender = new Models.Gender { Name = "Masculino" } };
+            yield return new Models.Player { Name = "Alguém", Nickname = "Destino", AvatarSource = "https://i.pinimg.com/736x/4a/3f/12/4a3f129ec33ab700ee2f7a022e545cdc--avatar.jpg", Gender = new Models.Gender() { Name = "Masculino" } };
+            yield return new Models.Player { Name = "Alguém", Nickname = "Tião", AvatarSource = "https://images-na.ssl-images-amazon.com/images/I/41gcSWbhe0L._SY355_.jpg", Gender = new Models.Gender() { Name = "Masculino" } };
+            yield return new Models.Player { Name = "Alguém", Nickname = "user001", AvatarSource = "https://2static1.fjcdn.com/comments/I+made+this+yesterday+for+steam+avatar+thought+someone+would+_350f2ad66ab4e8da63467b38a1a68db0.png", Gender = new Models.Gender { Name = "Masculino" } };
+            yield return new Models.Player { Name = "Alguém", Nickname = "undefined", AvatarSource = "https://i.pinimg.com/236x/c9/0b/43/c90b43c70af2c51d92814a0b08aff527--the-phantom-avatar.jpg", Gender = new Models.Gender { Name = "Masculino" } };
+            yield return new Models.Player { Name = "Alguém", Nickname = "Agilidaz", AvatarSource = "https://i.pinimg.com/736x/4a/3f/12/4a3f129ec33ab700ee2f7a022e545cdc--avatar.jpg", Gender = new Models.Gender { Name = "Masculino" } };
             yield return new Models.Player { Name = "Alguém", Nickname = "Agilities", AvatarSource = "https://i.pinimg.com/236x/c9/0b/43/c90b43c70af2c51d92814a0b08aff527--the-phantom-avatar.jpg", Gender = new Models.Gender { Name = "Masculino" } };
         }
 
@@ -57,18 +71,13 @@ namespace Sveit.Services.Team
 
         public Task<Models.Team> GetById(int teamId)
         {
-            var gamePlatform = new GamePlatform
-            {
-                Game = new Models.Game { Name = "Overwatch", ImageSource = "http://fullhdpictures.com/wp-content/uploads/2016/03/Magnificent-Overwatch-Wallpaper.png", IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" },
-                Platform = new Models.Platform { Name = "PC" }
-            };
-
             return Task.FromResult(new Models.Team
             {
-                Name = "Immortals",
+                TeamId = 10,
+                Name = "To do",
                 GamePlatform = gamePlatform,
-                IconSource = "http://liquipedia.net/commons/images/thumb/1/1d/Immortals_org.png/600px-Immortals_org.png",
-                Owner = new Models.Player { Name = "Owner player", Nickname = "Owner_" }
+                IconSource = "https://image.moboplay.com/images/apk/725/com.musSharApp.myToDoList_icon.png",
+                Owner = new Models.Player { Name = "Vitor Xavier de Souza", Nickname = "vitorxs" }
             });
         }
 
@@ -95,7 +104,7 @@ namespace Sveit.Services.Team
 
         public Task<Models.Team> PostTeam(Models.Team team)
         {
-            return Task.FromResult(new Models.Team { Name = "Commander eSports1", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" });
+            return Task.FromResult(team);
         }
 
         public Task<bool> PostTeamPlayer(TeamPlayer teamPlayer)
@@ -125,7 +134,7 @@ namespace Sveit.Services.Team
                 new Models.Contact
                 {
                     ContactId = 1,
-                    Text = "user_discord",
+                    Text = "todo_discord",
                     ContactTypeId = 1,
                     ContactType = new Models.ContactType
                     {
@@ -136,7 +145,7 @@ namespace Sveit.Services.Team
                 new Models.Contact
                 {
                     ContactId = 2,
-                    Text = "user_skype",
+                    Text = "todo_skype",
                     ContactTypeId = 1,
                     ContactType = new Models.ContactType
                     {

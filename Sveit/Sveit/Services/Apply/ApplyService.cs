@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Sveit.Extensions;
-using Sveit.Models;
+﻿using Sveit.Extensions;
 using Sveit.Services.Login;
 using Sveit.Services.Requests;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Sveit.Services.Apply
 {
@@ -33,17 +31,17 @@ namespace Sveit.Services.Apply
         public Task<IEnumerable<Models.Apply>> GetAppliesByVacancy(int vacancyId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.AppliesEndpoint);
-            builder.AppendToPath("Apply/Vacancy/");
+            builder.AppendToPath("Vacancy/");
             builder.AppendToPath(vacancyId.ToString());
             string uri = builder.ToString();
 
-            return _requestService.GetAsync< IEnumerable<Models.Apply>>(uri);
+            return _requestService.GetAsync<IEnumerable<Models.Apply>>(uri);
         }
 
         public Task<IEnumerable<Models.Apply>> GetAppliesByPlayer(int playerId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.AppliesEndpoint);
-            builder.AppendToPath("Apply/Player/");
+            builder.AppendToPath("Player/");
             builder.AppendToPath(playerId.ToString());
             string uri = builder.ToString();
 

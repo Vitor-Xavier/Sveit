@@ -81,21 +81,23 @@ namespace Sveit.ViewModels
         public VacancyRegisterViewModel(INavigation navigation, IRequestService requestService, Team team)
         {
             _navigation = navigation;
+            Team = team;
             if (AppSettings.ApiStatus)
             {
                 _vacancyService = new VacancyService(requestService);
                 _roleService = new RoleService(requestService);
                 _skillService = new SkillService(requestService);
+                _genderService = new GenderService(requestService);
             }
             else
             {
                 _vacancyService = new FakeVacancyService();
                 _roleService = new FakeRoleService();
+                _genderService = new FakeGenderService();
             }
 
             Genders = new MultiSelectObservableCollection<Gender>();
             Skills = new ObservableCollection<Skill>();
-            Skills.CollectionChanged += SkillCollectionChanged;
 
             Task.Run(async () =>
             {
@@ -104,17 +106,15 @@ namespace Sveit.ViewModels
             });
         }
 
-        private async void SkillCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        public Skill ValidateAndReturn(string tag)
         {
-            if (e.Action == NotifyCollectionChangedAction.Add)
+            if (string.IsNullOrWhiteSpace(tag))
+                return null;
+
+            return new Skill()
             {
-                //TODO: Check if Skills are being added
-                //if (e.NewItems != null)
-                //{
-                //    var skill = e.NewItems.Cast<Skill>().First();
-                //    await _skillService.PostSkillAsync(skill);
-                //}
-            }
+                Name = tag
+            };
         }
 
         private async Task LoadRoles()

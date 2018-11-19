@@ -41,12 +41,12 @@ namespace Sveit.ViewModels
             set { contactType = value; OnPropertyChanged(); }
         }
 
-        private Player player;
+        private Player _player;
 
         public Player Player
         {
-            get { return player; }
-            set { player = value; OnPropertyChanged(); }
+            get { return _player; }
+            set { _player = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<Contact> Contacts { get; }

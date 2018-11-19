@@ -6,7 +6,7 @@ namespace Sveit.Services.Player
 {
     public class FakePlayerService : IPlayerService
     {
-        private GamePlatform gamePlatform = new GamePlatform
+        private readonly GamePlatform gamePlatform = new GamePlatform
         {
             Game = new Models.Game { Name = "Overwatch" },
             Platform = new Models.Platform { Name = "PC" }
@@ -45,13 +45,22 @@ namespace Sveit.Services.Player
 
         private IEnumerable<Models.Team> GetFakeTeams()
         {
-            yield return new Models.Team { Name = "Commander eSports1", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports2", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports3", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports4", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports5", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports6", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
-            yield return new Models.Team { Name = "Commander eSports7", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
+            GamePlatform gamePlatform = new GamePlatform
+            {
+                Game = new Models.Game { Name = "Overwatch" },
+                Platform = new Models.Platform { Name = "PC" }
+            };
+            GamePlatform gamePlatform2 = new GamePlatform
+            {
+                Game = new Models.Game { Name = "Rainbow Six Siege" },
+                Platform = new Models.Platform { Name = "PC" }
+            };
+
+            yield return new Models.Team { TeamId = 10, Name = "To do", GamePlatform = gamePlatform, IconSource = "https://image.moboplay.com/images/apk/725/com.musSharApp.myToDoList_icon.png" };
+            yield return new Models.Team { Name = "Tc Esports", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" };
+            yield return new Models.Team { Name = "BR Control", GamePlatform = gamePlatform2, IconSource = "https://cdn2.f-cdn.com/contestentries/1366909/28870354/5b47057dd991d_thumb900.jpg" };
+            yield return new Models.Team { Name = "Bar e Sorveteria Geladão", GamePlatform = gamePlatform2, IconSource = "https://img.olx.com.br/images/31/318810031713352.jpg" };
+            yield return new Models.Team { Name = "Liquidos", GamePlatform = gamePlatform, IconSource = "http://swgohome.com/phpBB3/download/file.php?avatar=53_1303826764.jpg" };
         }
 
         public Task<bool> DeletePlayerAsync(int playerId)
@@ -63,11 +72,12 @@ namespace Sveit.Services.Player
         {
             return Task.FromResult(new Models.Player
             {
-                Name = "Jogador 2",
-                Nickname = "PlayerTwo",
+                Name = "Vitor Xavier de Souza",
+                Nickname = "vitorxs",
                 Gender = new Models.Gender { Name = "Masculino" },
-                AvatarSource = "https://pbs.twimg.com/profile_images/949941380259991552/C4b4NckD_400x400.jpg",
+                AvatarSource = "https://i.pinimg.com/originals/c8/0a/09/c80a0933df51f9f5be92d033c6db65b2.jpg",
                 Deleted = false,
+                DateOfBirth = new System.DateTime(1997, 01, 06),
                 PlayerId = 2
             });
         }

@@ -53,17 +53,23 @@ namespace Sveit.API.Context
                 IconSource = "ic_raidcall.png"
             });
 
+            context.Genders.Add(new Gender { GenderId = 1, Name = "Masculino" });
+            context.Genders.Add(new Gender { GenderId = 2, Name = "Feminino" });
+            context.Genders.Add(new Gender { GenderId = 3, Name = "Outros" });
+
             context.SaveChanges();
 
             context.Players.Add(new Player
             {
                 PlayerId = 1,
-                Email = "admin",
+                Email = "vitorvxs@live.com",
+                Username = "admin",
                 Password = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
                 AvatarSource = "https://i.pinimg.com/originals/c8/0a/09/c80a0933df51f9f5be92d033c6db65b2.jpg",
                 Nickname = "Vitorxs",
                 Name = "Vitor Xavier de Souza",
                 DateOfBirth = new System.DateTime(1997, 01, 06),
+                GenderId = 1,
                 Contacts = new List<Contact> { new Contact { Text = "vitorvxs@live.com", ContactTypeId = 2 }, new Contact { Text = "Vitorxs #6122", ContactTypeId = 3 }, new Contact { Text = "live:vitorvxs", ContactTypeId = 4 } }
             });
 

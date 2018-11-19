@@ -7,7 +7,7 @@ namespace Sveit.Models
     public class Genre : EntityBase
     {
         public int GenreId { get; set; }
-        [StringLength(25)]
+        [Required, StringLength(25)]
         public string Name { get; set; }
         [JsonIgnore]
         public virtual ICollection<Game> Games { get; set; }

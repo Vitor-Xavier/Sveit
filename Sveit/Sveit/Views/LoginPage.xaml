@@ -46,7 +46,7 @@
                                               Text="{Binding Email}" 
                                               TextColor="{StaticResource SecondaryText}" 
                                               PlaceholderColor="{StaticResource DisabledText}" 
-                                              LineColor="Accent"
+                                              LineColor="{StaticResource AccentColor}"
                                               Keyboard="Email">
                             <controls:CustomEntry.Behaviors>
                                 <behaviors:TextLenghtValidationBehavior MinLength="4"/>
@@ -59,7 +59,7 @@
                                               Text="{Binding Password}" 
                                               TextColor="{StaticResource SecondaryText}" 
                                               PlaceholderColor="{StaticResource DisabledText}" 
-                                              LineColor="Accent"
+                                              LineColor="{StaticResource AccentColor}"
                                               IsPassword="True">
                             <controls:CustomEntry.Behaviors>
                                 <behaviors:TextLenghtValidationBehavior MinLength="4"/>

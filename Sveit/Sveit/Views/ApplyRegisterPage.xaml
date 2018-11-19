@@ -75,7 +75,8 @@
                             <ListView.GroupHeaderTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <StackLayout>
+                                        <StackLayout Orientation="Horizontal" Spacing="8">
+                                            <Image Source="{Binding Key.IconSource}" HeightRequest="24"/>
                                             <Label Text="{Binding Key.Name}" 
                                                    TextColor="{StaticResource SecondaryText}" 
                                                    FontSize="Medium"/>

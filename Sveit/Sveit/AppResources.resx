@@ -402,4 +402,7 @@
   <data name="ContactType" xml:space="preserve">
     <value>Contact Type</value>
   </data>
+  <data name="AddVacancy" xml:space="preserve">
+    <value>Add vacancy</value>
+  </data>
 </root>

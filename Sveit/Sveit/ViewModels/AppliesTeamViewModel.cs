@@ -4,7 +4,6 @@ using Sveit.Services.Apply;
 using Sveit.Services.Requests;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -25,10 +24,9 @@ namespace Sveit.ViewModels
             set { vacancy = value; OnPropertyChanged(); }
         }
 
-
         public ObservableCollection<Apply> Applies { get; set; }
 
-        public IAsyncCommand<Apply> ApplySelectedCommand => new AsyncCommand<Apply>(ApplySelectedCommandExecute);
+        public IAsyncCommand<Apply> ApplyCommand => new AsyncCommand<Apply>(ApplyCommandExecute);
 
         public AppliesTeamViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy)
         {
@@ -57,7 +55,7 @@ namespace Sveit.ViewModels
             IsLoading = false;
         }
 
-        public async Task ApplySelectedCommandExecute(Models.Apply apply)
+        public async Task ApplyCommandExecute(Models.Apply apply)
         {
             await _navigation.PushModalAsync(new Views.ApplyPage(_requestService, apply, true));
         }

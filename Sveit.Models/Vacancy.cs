@@ -7,7 +7,7 @@ namespace Sveit.Models
     public class Vacancy : EntityBase
     {
         public int VacancyId { get; set; }
-        [StringLength(80)]
+        [Required, StringLength(80)]
         public string Title { get; set; }
         [StringLength(300)]
         public string Description { get; set; }

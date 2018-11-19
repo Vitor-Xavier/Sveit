@@ -34,7 +34,7 @@ namespace Sveit.ViewModels
 
         public List<MultiSelectObservableGroupCollection<RoleType, Role>> RoleTypes { get; set; }
 
-        public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute, ApplyCommandCanExecute);
+        public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute);
 
         public ApplyRegisterViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy)
         {
@@ -52,7 +52,7 @@ namespace Sveit.ViewModels
 
         private async Task ApplyCommandExecute()
         {
-            if (ApplyCommandCanExecute())
+            if (!ApplyCommandCanExecute())
             {
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.InvalidValues);
                 return;

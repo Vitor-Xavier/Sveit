@@ -34,7 +34,7 @@
                 <Label Text="Alpha 0.1" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium" HorizontalOptions="EndAndExpand"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
-                <Label Text="Xamarin.Forms 3.0" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
+                <Label Text="Xamarin.Forms 3.4" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
                 <Label Text="Visual Studio 2017" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>

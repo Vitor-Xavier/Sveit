@@ -8,7 +8,7 @@ namespace Sveit.Models
     {
         [Key]
         public int GenderId { get; set; }
-        [StringLength(15)]
+        [Required, StringLength(15)]
         public string Name { get; set; }
         [JsonIgnore]
         public virtual ICollection<Vacancy> Vacancies { get; set; }
