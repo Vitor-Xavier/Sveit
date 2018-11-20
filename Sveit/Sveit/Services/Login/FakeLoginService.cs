@@ -34,9 +34,9 @@ namespace Sveit.Services.Login
             return Task.FromResult("key");
         }
 
-        public async Task<Models.Player> LogIn(string email, string password)
+        public async Task<Models.Player> LogIn(string username, string password)
         {
-            if (email.Equals("admin") &&
+            if (username.Equals("admin") &&
                 password.Equals("8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"))
             {
                 var oauthToken = "key";
@@ -50,7 +50,7 @@ namespace Sveit.Services.Login
                     DateOfBirth = new System.DateTime(1997, 01, 06)
                 };
                 
-                await SecureStorage.SetAsync("Sveit-Email", email);
+                await SecureStorage.SetAsync("Sveit-Username", username);
                 await SecureStorage.SetAsync("Sveit-Password", password);
                 await SecureStorage.SetAsync("Sveit-OAuthToken", oauthToken);
                 await SecureStorage.SetAsync("Sveit-DateTime", DateTime.Now.ToString());
@@ -66,7 +66,7 @@ namespace Sveit.Services.Login
         {
             try
             {
-                var email = SecureStorage.Remove("Sveit-Email");
+                var username = SecureStorage.Remove("Sveit-Email");
                 var password = SecureStorage.Remove("Sveit-Password");
                 var oauthToken = SecureStorage.Remove("Sveit-OAuthToken");
                 var tokenTime = SecureStorage.Remove("Sveit-DateTime");

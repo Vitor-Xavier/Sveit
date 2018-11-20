@@ -405,4 +405,7 @@
   <data name="AddVacancy" xml:space="preserve">
     <value>Criar vaga</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
 </root>

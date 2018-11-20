@@ -24,6 +24,10 @@ namespace Sveit.AppServices.Contracts
             {
                 property.ShouldSerialize = instance => { return false; };
             }
+            if (property.DeclaringType == typeof(Player) && property.PropertyName == "Username")
+            {
+                property.ShouldSerialize = instance => { return false; };
+            }
 
             return property;
         }

@@ -130,7 +130,7 @@ namespace Sveit.ViewModels
                 _genderService = new FakeGenderService();
                 _imageService = new ImageService(new RequestService());
             }
-            
+            DateOfBirth = DateTime.Today.AddYears(-16);
             Genders = new ObservableCollection<Gender>();
             Task.Run(() => LoadGenders());
         }
@@ -214,7 +214,7 @@ namespace Sveit.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Username) || Username.Length < 4)
                 return false;
-            if (Username.Any(ch => Char.IsLetterOrDigit(ch)))
+            if (Username.Any(ch => !Char.IsLetterOrDigit(ch)))
                 return false;
             if (string.IsNullOrWhiteSpace(Email) || Email.Length < 5)
                 return false;

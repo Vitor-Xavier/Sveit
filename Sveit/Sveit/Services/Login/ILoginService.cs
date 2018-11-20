@@ -9,7 +9,7 @@ namespace Sveit.Services.Login
     {
         Task<Models.Player> CheckLogIn();
 
-        Task<Models.Player> LogIn(string email, string password);
+        Task<Models.Player> LogIn(string username, string password);
 
         Task<string> GetOAuthToken();
 

@@ -63,7 +63,7 @@ namespace Sveit.AppServices.Providers
         public bool ValidateUser(string user, string pass)
         {
             var player = (from p in _context.Players
-                          where p.Email == user &&
+                          where p.Username == user &&
                           p.Password == pass
                           select p).FirstOrDefault();
             if (player == null)

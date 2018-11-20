@@ -57,7 +57,7 @@ namespace Sveit.API.Controllers
         /// <param name="name">Texto para busca por nome ou nickname</param>
         /// <returns>Lista de Jogadores</returns>
         [HttpGet]
-        [Route("Player/name/{name}")]
+        [Route("Player/Name/{name}")]
         public IEnumerable<Player> GetByName(string name)
         {
             return (from p in _context.Players
@@ -68,16 +68,16 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
-        /// Busca pelo jogador identificado pelo email fornecido.
+        /// Busca pelo jogador identificado pelo usuário fornecido.
         /// </summary>
-        /// <param name="email">Email identificar do jogador</param>
+        /// <param name="username">Usuário do jogador</param>
         /// <returns>Jogador</returns>
         [HttpGet]
-        [Route("Player/Email/{email}")]
-        public Player GetByEmail(string email)
+        [Route("Player/Username/{username}")]
+        public Player GetByUsername(string username)
         {
             return (from p in _context.Players
-                    where p.Email.ToLower().Contains(email.ToLower()) &&
+                    where p.Username.ToLower().Contains(username.ToLower()) &&
                     p.Deleted == false
                     select p).FirstOrDefault();
         }

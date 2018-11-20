@@ -74,6 +74,20 @@
                         </controls:CustomEntry>
                     </StackLayout>
                     <StackLayout>
+                        <Label Text="{i18n:Translate Username}" TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomEntry Placeholder="{i18n:Translate Username}" 
+                                              Text="{Binding Username}" 
+                                              TextColor="{StaticResource SecondaryText}" 
+                                              PlaceholderColor="{StaticResource DisabledText}" 
+                                              LineColor="{StaticResource AccentColor}"
+                                              MaxLength="50"
+                                              IsSpellCheckEnabled="False">
+                            <controls:CustomEntry.Behaviors>
+                                <behaviors:TextLenghtValidationBehavior MinLength="4"/>
+                            </controls:CustomEntry.Behaviors>
+                        </controls:CustomEntry>
+                    </StackLayout>
+                    <StackLayout>
                         <Label Text="{i18n:Translate Password}" 
                                TextColor="{StaticResource SecondaryText}"/>
                         <controls:CustomEntry Placeholder="{i18n:Translate Password}" 

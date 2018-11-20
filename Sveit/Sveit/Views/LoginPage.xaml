@@ -41,13 +41,13 @@
                         
                     </Label>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Email}" TextColor="{StaticResource SecondaryText}"/>
-                        <controls:CustomEntry Placeholder="{i18n:Translate Email}" 
-                                              Text="{Binding Email}" 
+                        <Label Text="{i18n:Translate Username}" TextColor="{StaticResource SecondaryText}"/>
+                        <controls:CustomEntry Placeholder="{i18n:Translate Username}" 
+                                              Text="{Binding Username}" 
                                               TextColor="{StaticResource SecondaryText}" 
                                               PlaceholderColor="{StaticResource DisabledText}" 
                                               LineColor="{StaticResource AccentColor}"
-                                              Keyboard="Email">
+                                              IsSpellCheckEnabled="False">
                             <controls:CustomEntry.Behaviors>
                                 <behaviors:TextLenghtValidationBehavior MinLength="4"/>
                             </controls:CustomEntry.Behaviors>
