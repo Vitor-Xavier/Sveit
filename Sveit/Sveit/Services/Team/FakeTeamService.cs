@@ -1,12 +1,11 @@
-﻿using Sveit.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Sveit.Services.Team
 {
     public class FakeTeamService : ITeamService
     {
-        private GamePlatform gamePlatform = new GamePlatform
+        private Models.GamePlatform gamePlatform = new Models.GamePlatform
         {
             Game = new Models.Game
             {
@@ -17,7 +16,7 @@ namespace Sveit.Services.Team
             Platform = new Models.Platform { Name = "PC" }
         };
 
-        private GamePlatform gamePlatform2 = new GamePlatform
+        private Models.GamePlatform gamePlatform2 = new Models.GamePlatform
         {
             Game = new Models.Game
             {
@@ -107,9 +106,9 @@ namespace Sveit.Services.Team
             return Task.FromResult(team);
         }
 
-        public Task<bool> PostTeamPlayer(TeamPlayer teamPlayer)
+        public Task<Models.TeamPlayer> PostTeamPlayer(Models.TeamPlayer teamPlayer)
         {
-            return Task.FromResult(false);
+            return Task.FromResult(teamPlayer);
         }
 
         public Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact)

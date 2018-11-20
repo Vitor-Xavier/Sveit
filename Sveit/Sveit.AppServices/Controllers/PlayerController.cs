@@ -197,20 +197,14 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                if (player.Gender != null)
-                {
-                    var gender = _context.Genders.Where(g => g.GenderId == player.Gender.GenderId).FirstOrDefault();
-                    player.Gender = gender;
-                }
-
                 _context.Players.AddOrUpdate(player);
                 _context.SaveChanges();
 
                 return Created("Ok", player);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 

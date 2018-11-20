@@ -6,12 +6,9 @@ using Sveit.Services.Requests;
 using Sveit.Services.Role;
 using Sveit.Services.Skill;
 using Sveit.Services.Vacancy;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.MultiSelectListView;
@@ -120,7 +117,7 @@ namespace Sveit.ViewModels
         private async Task LoadRoles()
         {
             var roles = await _roleService.GetRolesAsync();
-                
+
             RoleTypes = roles.OrderBy(p => p.Name)
                .GroupBy(p => p.RoleType)
                .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
@@ -161,9 +158,18 @@ namespace Sveit.ViewModels
                 Available = true
             };
 
-            var result = await _vacancyService.PostVacancyAsync(vacancy);
-            if (result != null)
-                await _navigation.PopModalAsync();
+            try
+            {
+                var result = await _vacancyService.PostVacancyAsync(vacancy);
+                if (result != null)
+                    await _navigation.PopModalAsync();
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.VacancyFailed);
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.VacancyFailed);
+            }
         }
 
         private bool FinalizeCommandCanExecute()

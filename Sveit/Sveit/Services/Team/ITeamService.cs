@@ -25,7 +25,7 @@ namespace Sveit.Services.Team
 
         Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact);
 
-        Task<bool> PostTeamPlayer(Models.TeamPlayer teamPlayer);
+        Task<Models.TeamPlayer> PostTeamPlayer(Models.TeamPlayer teamPlayer);
 
         Task<Models.Team> PostTeam(Models.Team team);
 

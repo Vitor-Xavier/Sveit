@@ -1,15 +1,14 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Apply;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -51,6 +50,8 @@ namespace Sveit.ViewModels
         public ApplyViewModel(INavigation navigation, IRequestService requestService, Apply apply, bool isEvaluation)
         {
             IsEvaluation = isEvaluation;
+            if (Apply.Approved != null)
+                IsEvaluation = false;
             _navigation = navigation;
             Apply = apply;
             if (AppSettings.ApiStatus)
@@ -70,8 +71,6 @@ namespace Sveit.ViewModels
                .Select(p => new ObservableGroupCollection<RoleType, Role>(p)).ToList();
             Skills = new ObservableCollection<Skill>();
 
-            //IsEvaluation = App.LoggedPlayer.PlayerId == Apply.Vacancy.Team.OwnerId;
-
             Task.Run(() => LoadData());
         }
 
@@ -87,20 +86,42 @@ namespace Sveit.ViewModels
         private async Task AcceptCommandExecute()
         {
             Apply.Approved = true;
-            var result = await _applyService.PostApply(Apply);
-            if (result != null)
+            try
             {
-                await _teamService.PostTeamPlayer(new TeamPlayer { TeamId = apply.Vacancy.TeamId, PlayerId = result.PlayerId });
-                await _navigation.PopModalAsync();
+                var result = await _applyService.PostApply(Apply);
+                if (result != null)
+                {
+                    var memberResult = await _teamService.PostTeamPlayer(new TeamPlayer { TeamId = apply.Vacancy.TeamId, PlayerId = result.PlayerId });
+                    if (memberResult != null)
+                    {
+                        await _navigation.PopModalAsync();
+                        return;
+                    }
+                }
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.ApproveFailed);
             }
-                
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.ApproveFailed);
+            }
         }
 
         private async Task DeclineCommandExecute()
         {
             Apply.Approved = false;
-            if (null != await _applyService.PostApply(Apply))
-                await _navigation.PopModalAsync();
+            try
+            {
+                var result = await _applyService.PostApply(Apply);
+                if (null != result)
+                    await _navigation.PopModalAsync();
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.DeclineFailed);
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.DeclineFailed);
+            }
+            
         }
     }
 }

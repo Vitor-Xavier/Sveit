@@ -155,6 +155,17 @@ namespace Sveit {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to ApproveFailed.
+        /// </summary>
+        internal static string ApproveFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("ApproveFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Applies.
         /// </summary>
         internal static string Applies
@@ -242,7 +253,29 @@ namespace Sveit {
                 return ResourceManager.GetString("DaysAgo", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Decline.
+        /// </summary>
+        internal static string Decline
+        {
+            get
+            {
+                return ResourceManager.GetString("Decline", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to decline apply.
+        /// </summary>
+        internal static string DeclineFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("DeclineFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>

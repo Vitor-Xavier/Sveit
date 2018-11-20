@@ -408,4 +408,10 @@
   <data name="Username" xml:space="preserve">
     <value>Usuário</value>
   </data>
+  <data name="ApproveFailed" xml:space="preserve">
+    <value>Não foi possível aprovar a aplicação</value>
+  </data>
+  <data name="DeclineFailed" xml:space="preserve">
+    <value>Não foi possível rejeitar a aplicação</value>
+  </data>
 </root>

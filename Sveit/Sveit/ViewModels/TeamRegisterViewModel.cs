@@ -157,14 +157,20 @@ namespace Sveit.ViewModels
                 IconSource = IconSource
             };
 
-            var created = await _teamService.PostTeam(team);
-            if (created != null)
+            try
             {
-                await _navigation.PushModalAsync(new ContactsTeamRegisterPage(_requestService, created));
+                var created = await _teamService.PostTeam(team);
+                if (created != null)
+                {
+                    await _navigation.PushModalAsync(new ContactsTeamRegisterPage(_requestService, created));
+                }
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.TeamFailed);
             }
-            else
+            catch
+            {
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.TeamFailed);
-
+            }
         }
 
         private bool ContinueCommandCanExecute()
@@ -195,7 +201,7 @@ namespace Sveit.ViewModels
 
         private async Task PlatformCommandExecute()
         {
-            var popupPlatform = new Views.PopupPickerPage
+            var popupPlatform = new PopupPickerPage
             {
                 BindingContext = new PopupPickerViewModel<Platform>(_navigation, Platforms)
             };

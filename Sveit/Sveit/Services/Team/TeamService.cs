@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sveit.Extensions;
-using Sveit.Models;
 using Sveit.Services.Login;
 using Sveit.Services.Requests;
 
@@ -93,14 +92,14 @@ namespace Sveit.Services.Team
             return _requestService.GetAsync<IEnumerable<Models.Contact>>(uri);
         }
 
-        public async Task<bool> PostTeamPlayer(TeamPlayer teamPlayer)
+        public async Task<Models.TeamPlayer> PostTeamPlayer(Models.TeamPlayer teamPlayer)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
             builder.AppendToPath("Player");
             string uri = builder.ToString();
 
             var token = await _loginService.GetOAuthToken();
-            return await _requestService.PostAsync<Models.TeamPlayer, bool>(uri, teamPlayer, token);
+            return await _requestService.PostAsync<Models.TeamPlayer, Models.TeamPlayer>(uri, teamPlayer, token);
         }
 
         public async Task<Models.Contact> PostTeamContact(int teamId, Models.Contact contact)

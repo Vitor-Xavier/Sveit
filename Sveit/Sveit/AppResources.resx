@@ -408,4 +408,10 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="ApproveFailed" xml:space="preserve">
+    <value>Unable to approve apply</value>
+  </data>
+  <data name="DeclineFailed" xml:space="preserve">
+    <value>Unable to decline apply</value>
+  </data>
 </root>

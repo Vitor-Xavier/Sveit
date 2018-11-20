@@ -163,13 +163,19 @@ namespace Sveit.ViewModels
                 GenderId = Gender.GenderId,
                 Gender = Gender
             };
-            var result = await _playerService.PostPlayerAsync(player);
-            if (result != null)
+            try
             {
-                var loggedPlayer = await _loginService.LogIn(player.Username, player.Password);
-                await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, result));
-            }
-            else
+                var result = await _playerService.PostPlayerAsync(player);
+                if (result != null)
+                {
+                    var loggedPlayer = await _loginService.LogIn(player.Username, player.Password);
+                    await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, result));
+                    
+                }
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.PlayerFailed);
+            } 
+            catch (Exception)
             {
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.PlayerFailed);
             }
