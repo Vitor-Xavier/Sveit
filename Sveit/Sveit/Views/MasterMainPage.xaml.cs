@@ -58,21 +58,27 @@ namespace Sveit.Views
                 }
 
             }
+            try
+            {
+                var page = (Page)Activator.CreateInstance(item.TargetType, _requestService);
+                //page.Title = item.Title;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType, _requestService);
-            //page.Title = item.Title;
-            
-            if (item.TransparentNavBar)
-            {
-                Detail = new CustomNavigationPage(page);
-            }
-            else
-            {
-                Detail = new NavigationPage(page)
+                if (item.TransparentNavBar)
                 {
-                    BarBackgroundColor = item.TransparentNavBar ? Color.Transparent : (Color)Application.Current.Resources["AccentColor"],
-                    BarTextColor = Color.FromHex("#FFFFFF"),
-                };
+                    Detail = new CustomNavigationPage(page);
+                }
+                else
+                {
+                    Detail = new NavigationPage(page)
+                    {
+                        BarBackgroundColor = item.TransparentNavBar ? Color.Transparent : (Color)Application.Current.Resources["AccentColor"],
+                        BarTextColor = Color.FromHex("#FFFFFF"),
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
             
             IsPresented = false;

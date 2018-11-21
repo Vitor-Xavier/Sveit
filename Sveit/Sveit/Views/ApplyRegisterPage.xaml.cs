@@ -7,10 +7,10 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ApplyRegisterPage : ContentPage
     {
-        public ApplyRegisterPage(IRequestService requestService, Models.Vacancy vacancy)
+        public ApplyRegisterPage(IRequestService requestService, Models.Vacancy vacancy, int applyId = 0)
         {
             InitializeComponent();
-            BindingContext = new ViewModels.ApplyRegisterViewModel(Navigation, requestService, vacancy);
+            BindingContext = new ViewModels.ApplyRegisterViewModel(Navigation, requestService, vacancy, applyId);
         }
     }
 }

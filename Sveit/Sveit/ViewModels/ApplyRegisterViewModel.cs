@@ -12,6 +12,8 @@ namespace Sveit.ViewModels
 {
     public class ApplyRegisterViewModel : BaseViewModel
     {
+        private readonly int _applyId;
+
         private readonly IApplyService _applyService;
 
         private readonly INavigation _navigation;
@@ -36,9 +38,10 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute);
 
-        public ApplyRegisterViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy)
+        public ApplyRegisterViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy, int applyId)
         {
             _navigation = navigation;
+            _applyId = applyId;
             if (AppSettings.ApiStatus)
                 _applyService = new ApplyService(requestService);
             else
@@ -48,6 +51,8 @@ namespace Sveit.ViewModels
             RoleTypes = vacancy.Roles.OrderBy(p => p.Name)
                .GroupBy(p => p.RoleType)
                .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
+
+            Task.Run(() => LoadApply());
         }
 
         private async Task ApplyCommandExecute()
@@ -64,6 +69,7 @@ namespace Sveit.ViewModels
 
             var apply = new Apply
             {
+                ApplyId = _applyId,
                 Text = Text,
                 PlayerId = App.LoggedPlayer.PlayerId,
                 VacancyId = Vacancy.VacancyId,
@@ -83,6 +89,19 @@ namespace Sveit.ViewModels
             if (string.IsNullOrWhiteSpace(Text))
                 return false;
             return true;
+        }
+
+        private async Task LoadApply()
+        {
+            if (_applyId == 0) return;
+
+            var apply = await _applyService.GetApply(_applyId);
+
+            Text = apply.Text;
+            Vacancy = apply.Vacancy;
+            RoleTypes = apply.Vacancy.Roles.OrderBy(p => p.Name)
+               .GroupBy(p => p.RoleType)
+               .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
         }
     }
 }

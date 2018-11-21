@@ -122,6 +122,19 @@ namespace Sveit.Services.Team
             return await _requestService.PostAsync<Models.Team, Models.Team>(uri, team, token);
         }
 
+        public async Task<bool> DeleteTeamPlayer(int playerId, int teamId)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);
+            builder.AppendToPath("Team");
+            builder.AppendToPath("Player");
+            builder.AppendToPath(teamId.ToString());
+            builder.AppendToPath(playerId.ToString());
+            string uri = builder.ToString();
+
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
+        }
+
         public async Task<bool> DeleteTeam(int teamId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.TeamsEndpoint);

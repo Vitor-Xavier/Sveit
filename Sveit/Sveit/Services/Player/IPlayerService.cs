@@ -17,11 +17,13 @@ namespace Sveit.Services.Player
 
         Task<IEnumerable<Models.Contact>> GetPlayerContacts(int playerId);
 
-        Task<bool> PostPlayerSkill(Models.PlayerSkill playerSkill);
+        Task<Models.PlayerSkill> PostPlayerSkill(Models.PlayerSkill playerSkill);
 
         Task<Models.Contact> PostPlayerContact(int playerId, Models.Contact contact);
 
         Task<Models.Player> PostPlayerAsync(Models.Player player);
+
+        Task<bool> DeleteTeamPlayer(int playerId, int teamId);
 
         Task<bool> DeletePlayerAsync(int playerId);
     }

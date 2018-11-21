@@ -414,4 +414,40 @@
   <data name="DeclineFailed" xml:space="preserve">
     <value>Unable to decline apply</value>
   </data>
+  <data name="PlayerLeaveFailed" xml:space="preserve">
+    <value>Unable to remove player from team</value>
+  </data>
+  <data name="TeamLeaveFailed" xml:space="preserve">
+    <value>Unable to leave team</value>
+  </data>
+  <data name="LeaveTeam" xml:space="preserve">
+    <value>Leave team</value>
+  </data>
+  <data name="RemovePlayer" xml:space="preserve">
+    <value>Remove player</value>
+  </data>
+  <data name="DeleteProfile" xml:space="preserve">
+    <value>Delete profile</value>
+  </data>
+  <data name="DeleteTeam" xml:space="preserve">
+    <value>Delete team</value>
+  </data>
+  <data name="DeleteProfileFailed" xml:space="preserve">
+    <value>Unable to delete profile</value>
+  </data>
+  <data name="DeleteTeamFailed" xml:space="preserve">
+    <value>Unable to delete team</value>
+  </data>
+  <data name="EditApply" xml:space="preserve">
+    <value>Edit apply</value>
+  </data>
+  <data name="EditPlayer" xml:space="preserve">
+    <value>Edit player</value>
+  </data>
+  <data name="EditTeam" xml:space="preserve">
+    <value>Edit team</value>
+  </data>
+  <data name="EditVacancy" xml:space="preserve">
+    <value>Edit vacancy</value>
+  </data>
 </root>

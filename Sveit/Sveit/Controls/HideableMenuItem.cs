@@ -2,7 +2,7 @@
 
 namespace Sveit.Controls
 {
-    public class HideableToolbarItem : ToolbarItem
+    public class HideableMenuItem : MenuItem
     {
         public bool IsVisible
         {
@@ -11,6 +11,6 @@ namespace Sveit.Controls
         }
 
         public static BindableProperty IsVisibleProperty =
-            BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(HideableToolbarItem), true);
+            BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(HideableMenuItem), true);
     }
 }

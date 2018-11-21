@@ -1,14 +1,16 @@
-﻿using Sveit.Models;
-using Sveit.Views;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
+using Sveit.Models;
 using Sveit.Services.Comment;
+using Sveit.Services.Login;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using Xamarin.Forms;
+using Sveit.Utils;
+using Sveit.Views;
 using System;
-using Sveit.Extensions;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Sveit.ViewModels
 {
@@ -84,7 +86,13 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand AppliesCommand => new AsyncCommand(AppliesCommandExecute);
 
+        public IAsyncCommand DeleteCommand => new AsyncCommand(DeleteCommandExecute);
+
+        public IAsyncCommand UpdateCommand => new AsyncCommand(UpdateCommandExecute);
+
         public IAsyncCommand<Team> TeamCommand => new AsyncCommand<Team>(TeamCommandExecute);
+
+        public IAsyncCommand<Team> LeaveTeamCommand => new AsyncCommand<Team>(LeaveTeamCommandExecute);
 
         public PlayerViewModel(INavigation navigation, IRequestService requestService, int? playerId = null)
         {
@@ -137,6 +145,27 @@ namespace Sveit.ViewModels
                 await LoadComments();
         }
 
+        private async Task DeleteCommandExecute()
+        {
+            try
+            {
+                bool result = await _playerService.DeletePlayerAsync(Player.PlayerId);
+                if (result)
+                {
+                    var loginService = new LoginService(_requestService);
+                    loginService.LogOut();
+                    App.Current.MainPage = new MasterMainPage(_requestService);
+                    return;
+                }
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.DeleteProfileFailed);
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.DeleteProfileFailed);
+            }
+        }
+
         private async Task AddTeamCommandExecute()
         {
             await _navigation.PushModalAsync(new TeamRegisterPage(_requestService));
@@ -154,12 +183,35 @@ namespace Sveit.ViewModels
 
         public async Task TeamCommandExecute(Team team)
         {
-            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));  
+            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));
         }
 
         private async Task ContactsCommandExecute()
         {
             await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, Player));
+        }
+
+        private async Task UpdateCommandExecute()
+        {
+            await _navigation.PushAsync(new PlayerRegisterPage(_requestService, Player.PlayerId));
+        }
+
+        private async Task LeaveTeamCommandExecute(Team team)
+        {
+            if (!IsCurrentPlayer) return;
+            try
+            {
+                var result = false; //await _playerService.DeleteTeamPlayerAsync(Player.PlayerId, team.TeamId);
+                if (result)
+                    await LoadTeams();
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.TeamLeaveFailed);
+
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.TeamLeaveFailed);
+            }
         }
 
         private async Task LoadProfile()
@@ -171,6 +223,9 @@ namespace Sveit.ViewModels
             Skills.Clear();
             foreach (Skill skill in skills)
                 Skills.Add(skill);
+
+            await Task.Delay(100);
+            
         }
 
         private async Task LoadTeams()

@@ -17,6 +17,8 @@ namespace Sveit.ViewModels
 {
     public class VacancyRegisterViewModel : BaseViewModel
     {
+        private readonly int _vacancyId;
+
         private readonly INavigation _navigation;
 
         private readonly IVacancyService _vacancyService;
@@ -75,8 +77,9 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
 
-        public VacancyRegisterViewModel(INavigation navigation, IRequestService requestService, Team team)
+        public VacancyRegisterViewModel(INavigation navigation, IRequestService requestService, Team team, int vacancyId)
         {
+            _vacancyId = vacancyId;
             _navigation = navigation;
             Team = team;
             if (AppSettings.ApiStatus)
@@ -101,6 +104,7 @@ namespace Sveit.ViewModels
                 await LoadRoles();
                 await LoadGenders();
             });
+            Task.Run(() => LoadVacancy());
         }
 
         public Skill ValidateAndReturn(string tag)
@@ -147,6 +151,7 @@ namespace Sveit.ViewModels
 
             var vacancy = new Vacancy
             {
+                VacancyId = _vacancyId,
                 Title = Title,
                 Description = Description,
                 MinAge = MinAge,
@@ -179,6 +184,32 @@ namespace Sveit.ViewModels
             if (string.IsNullOrWhiteSpace(Description) || Description.Length < 20)
                 return false;
             return true;
+        }
+
+        private async Task LoadVacancy()
+        {
+            if (_vacancyId == 0) return;
+
+            var vacancy = await _vacancyService.GetVacancyAsync(_vacancyId);
+            if (vacancy == null) return;
+            Title = vacancy.Title;
+            Description = vacancy.Description;
+            MinAge = vacancy.MinAge;
+            MaxAge = vacancy.MaxAge;
+
+            foreach (Skill sk in vacancy.Skills)
+                Skills.Add(sk);
+            foreach (var m in RoleTypes)
+            {
+                var selectedItems = m.Where(s => vacancy.Roles.Any(r => (s.Data as Role).RoleId == r.RoleId));
+                foreach (SelectableItem s in selectedItems)
+                    s.IsSelected = true;
+            }
+            foreach (SelectableItem s in Genders)
+            {
+                if (vacancy.Genders.Any(g => g.GenderId == (s.Data as Gender).GenderId))
+                    s.IsSelected = true;
+            }
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Sveit.ViewModels
 {
     public class TeamRegisterViewModel : BaseViewModel
     {
+        private readonly int _teamId;
+
         private readonly INavigation _navigation;
 
         private readonly IRequestService _requestService;
@@ -81,8 +83,9 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand PlatformCommand => new AsyncCommand(PlatformCommandExecute);
 
-        public TeamRegisterViewModel(INavigation navigation, IRequestService requestService)
+        public TeamRegisterViewModel(INavigation navigation, IRequestService requestService, int teamId)
         {
+            _teamId = teamId;
             _navigation = navigation;
             _requestService = requestService;
             if (AppSettings.ApiStatus)
@@ -149,6 +152,7 @@ namespace Sveit.ViewModels
             }
             Team team = new Team
             {
+                TeamId = _teamId,
                 GamePlatform_GameId = Game.GameId,
                 GamePlatform_PlatformId = Platform.PlatformId,
                 Name = Name,
@@ -244,6 +248,19 @@ namespace Sveit.ViewModels
                 await App.Current.MainPage.DisplayAlert(AppResources.PermissionsDenied, AppResources.CameraDenied, AppResources.Ok);
                 CrossPermissions.Current.OpenAppSettings();
             }
+        }
+
+        private async Task LoadTeam()
+        {
+            if (_teamId == 0) return;
+
+            var team = await _teamService.GetById(_teamId);
+            if (team == null) return;
+
+            Name = team.Name;
+            IconSource = team.IconSource;
+            Game = Games.Where(g => team.GamePlatform_GameId == g.GameId).FirstOrDefault();
+            Platform = Platforms.Where(p => team.GamePlatform_PlatformId == p.PlatformId).FirstOrDefault();
         }
     }
 }

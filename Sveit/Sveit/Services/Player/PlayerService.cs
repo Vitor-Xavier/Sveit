@@ -67,14 +67,14 @@ namespace Sveit.Services.Player
             return _requestService.GetAsync<IEnumerable<Models.Contact>>(uri);
         }
 
-        public async Task<bool> PostPlayerSkill(PlayerSkill playerSkill)
+        public async Task<Models.PlayerSkill> PostPlayerSkill(Models.PlayerSkill playerSkill)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
             builder.AppendToPath("Skill");
             string uri = builder.ToString();
 
             var token = await _loginService.GetOAuthToken();
-            return await _requestService.PostAsync<Models.PlayerSkill, bool>(uri, playerSkill, token);
+            return await _requestService.PostAsync<Models.PlayerSkill, Models.PlayerSkill>(uri, playerSkill, token);
         }
 
         public async Task<Models.Contact> PostPlayerContact(int playerId, Models.Contact contact)
@@ -94,6 +94,19 @@ namespace Sveit.Services.Player
             string uri = builder.ToString();
 
             return _requestService.PostAsync<Models.Player, Models.Player>(uri, player);
+        }
+
+        public async Task<bool> DeleteTeamPlayer(int playerId, int teamId)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
+            builder.AppendToPath("Player");
+            builder.AppendToPath("Team");
+            builder.AppendToPath(playerId.ToString());
+            builder.AppendToPath(teamId.ToString());
+            string uri = builder.ToString();
+
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.DeleteAsync(uri, token);
         }
 
         public async Task<bool> DeletePlayerAsync(int playerId)

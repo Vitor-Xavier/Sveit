@@ -245,7 +245,7 @@ namespace Sveit.API.Controllers
         /// <returns>Sucesso da operação</returns>
         [Authorize]
         [HttpDelete]
-        [Route("Team/Player/{playerId:int}/{teamId:int}")]
+        [Route("Team/Player/{teamId:int}/{playerId:int}")]
         public IHttpActionResult DeleteTeamPlayer(int playerId, int teamId)
         {
             try

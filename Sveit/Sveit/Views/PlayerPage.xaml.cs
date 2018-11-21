@@ -1,4 +1,5 @@
 ﻿using Sveit.Services.Requests;
+using Sveit.Utils;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,7 +14,7 @@ namespace Sveit.Views
         {
             InitializeComponent();
             BindingContext = new ViewModels.PlayerViewModel(Navigation, requestService, playerId);
-
+            //(BindingContext as ViewModels.PlayerViewModel).ToolbarIsVisibleChanged += this.ToolbarIsVisibleChanged;
             List<ToolbarItem> items = new List<ToolbarItem>();
             foreach (Sveit.Controls.HideableToolbarItem toolbarItem in ToolbarItems)
             {
@@ -30,5 +31,20 @@ namespace Sveit.Views
 
         public PlayerPage(IRequestService requestService) : this(requestService, null) { }
 
+        public void ToolbarIsVisibleChanged(object sender, BoolChangedEventArgs e)
+        {
+            List<ToolbarItem> items = new List<ToolbarItem>();
+            foreach (Sveit.Controls.HideableToolbarItem toolbarItem in ToolbarItems)
+            {
+                if (toolbarItem.IsVisible == false)
+                {
+                    items.Add(toolbarItem);
+                }
+            }
+            foreach (Sveit.Controls.HideableToolbarItem toolbarItem in items)
+            {
+                ToolbarItems.Remove(toolbarItem);
+            }
+        }
     }
 }

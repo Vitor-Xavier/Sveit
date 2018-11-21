@@ -21,6 +21,8 @@ namespace Sveit.ViewModels
 {
     class PlayerRegisterViewModel : BaseViewModel
     {
+        private readonly int _playerId;
+
         private readonly INavigation _navigation;
 
         private readonly IRequestService _requestService;
@@ -32,14 +34,6 @@ namespace Sveit.ViewModels
         private readonly IGenderService _genderService;
 
         private readonly IImageService _imageService;
-
-        private Player player;
-
-        public Player Player
-        {
-            get { return player; }
-            set { player = value; OnPropertyChanged(); }
-        }
 
         private Gender gender;
 
@@ -111,8 +105,9 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand ContinueCommand => new AsyncCommand(ContinueCommandExecute);
 
-        public PlayerRegisterViewModel(INavigation navigation, IRequestService requestService)
+        public PlayerRegisterViewModel(INavigation navigation, IRequestService requestService, int playerId)
         {
+            _playerId = playerId;
             AvatarSource = "https://www.yourfirstpatient.com/assets/default-user-avatar-thumbnail@2x-ad6390912469759cda3106088905fa5bfbadc41532fbaa28237209b1aa976fc9.png";
             _navigation = navigation;
             _requestService = requestService;
@@ -133,6 +128,7 @@ namespace Sveit.ViewModels
             DateOfBirth = DateTime.Today.AddYears(-16);
             Genders = new ObservableCollection<Gender>();
             Task.Run(() => LoadGenders());
+            Task.Run(() => LoadPlayer());
         }
 
         private async Task LoadGenders()
@@ -153,6 +149,7 @@ namespace Sveit.ViewModels
             }
             var player = new Player
             {
+                PlayerId = _playerId,
                 Username = Username,
                 Email = Email,
                 Password = Utils.SHA2Utilities.ComputeSha256Hash(Password),
@@ -239,6 +236,20 @@ namespace Sveit.ViewModels
             if (Gender == null)
                 return false;
             return true;
+        }
+
+        private async Task LoadPlayer()
+        {
+            if (_playerId == 0) return;
+
+            var player = await _playerService.GetPlayerById(_playerId);
+            if (player == null) return;
+
+            Name = player.Name;
+            Nickname = player.Nickname;
+            AvatarSource = player.AvatarSource;
+            DateOfBirth = player.DateOfBirth;
+            Gender = Genders.Where(g => g.GenderId == player.Gender.GenderId).FirstOrDefault();
         }
     }
 }

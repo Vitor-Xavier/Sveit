@@ -20,7 +20,9 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Apply> Applies { get; set; }
 
-        public IAsyncCommand<Apply> ApplyCommand => new AsyncCommand<Apply>(ApplyCommandExecute);
+        public IAsyncCommand<Apply> ApplyCommand => new AsyncCommand<Apply>(ApplyCommandExecute); 
+
+        public IAsyncCommand<Apply> UpdateApplyCommand => new AsyncCommand<Apply>(UpdateApplyCommandExecute);
 
         public AppliesPlayerViewModel(INavigation navigation, IRequestService requestService, int playerId)
         {
@@ -52,6 +54,11 @@ namespace Sveit.ViewModels
         public async Task ApplyCommandExecute(Apply apply)
         {
             await _navigation.PushModalAsync(new Views.ApplyPage(_requestService, apply));
+        }
+        
+        public async Task UpdateApplyCommandExecute(Apply apply)
+        {
+            await _navigation.PushModalAsync(new Views.ApplyRegisterPage(_requestService, apply.Vacancy, apply.ApplyId));
         }
     }
 }

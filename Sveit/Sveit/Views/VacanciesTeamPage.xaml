@@ -18,14 +18,21 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource AccentColor}"/>
-            <controls:CustomListView Grid.Row="1" 
+            <controls:CustomListView x:Name="listView" 
+                                     Grid.Row="1" 
                                      ItemsSource="{Binding Vacancies}" 
                                      ItemTappedCommand="{Binding VacancyCommand}"
                                      Margin="0, 5, 0, 5" 
                                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell x:Name="viewCell">
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="{i18n:Translate EditVacancy}" 
+                                          BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}" 
+                                          Command="{Binding UpdateVacancyCommand}" 
+                                          CommandParameter="{Binding Source={x:Reference viewCell}, Path=BindingContext}" />
+                            </ViewCell.ContextActions>
                             <Frame Padding="10, 5, 10, 5" 
                                    BackgroundColor="Transparent" 
                                    OutlineColor="Transparent">

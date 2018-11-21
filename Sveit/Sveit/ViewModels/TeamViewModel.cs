@@ -1,11 +1,13 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Requests;
 using Sveit.Services.Team;
+using Sveit.Utils;
+using Sveit.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -20,12 +22,16 @@ namespace Sveit.ViewModels
 
         private readonly int _teamId;
 
-        private bool isOwner = true;
+        private bool isOwner;
 
         public bool IsOwner
         {
             get { return isOwner; }
-            set { isOwner = value; OnPropertyChanged(); }
+            set
+            {
+                isOwner = value;
+                OnPropertyChanged();
+            }
         }
 
         private Team team;
@@ -45,6 +51,10 @@ namespace Sveit.ViewModels
         public IAsyncCommand VacanciesCommand => new AsyncCommand(VacanciesCommandExecute);
 
         public IAsyncCommand AddVacancyCommand => new AsyncCommand(AddVacancyCommandExecute);
+
+        public IAsyncCommand DeleteCommand => new AsyncCommand(DeleteCommandExecute);
+
+        public IAsyncCommand<Player> RemovePlayerCommand => new AsyncCommand<Player>(RemovePlayerCommandExecute);
 
         private bool tabMembers;
 
@@ -80,8 +90,6 @@ namespace Sveit.ViewModels
             else
                 _teamService = new FakeTeamService();
             Members = new ObservableCollection<Player>();
-            //TODO: Restritions
-            //IsOwner = App.LoggedPlayer.PlayerId == Team.
 
             Task.Run(() => DescriptionCommandExecute());
         }
@@ -102,12 +110,55 @@ namespace Sveit.ViewModels
 
         private async Task VacanciesCommandExecute()
         {
-            await _navigation.PushAsync(new Views.VacanciesTeamPage(_requestService, _teamId));
+            await _navigation.PushAsync(new VacanciesTeamPage(_requestService, _teamId));
+        }
+
+        private async Task UpdateCommandExecute()
+        {
+            await _navigation.PushAsync(new TeamRegisterPage(_requestService, Team.TeamId));
+        }
+
+        private async Task RemovePlayerCommandExecute(Player player)
+        {
+            if (!IsOwner) return;
+            try
+            {
+                var result = false; //await _teamService.DeleteTeamPlayerAsync(Team.TeamId, player.PlayerId);
+                if (result)
+                    await LoadMembers();
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.PlayerLeaveFailed);
+
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.PlayerLeaveFailed);
+            }
+        }
+
+        private async Task DeleteCommandExecute()
+        {
+            try
+            {
+                bool result = await _teamService.DeleteTeam(Team.TeamId);
+                if (result)
+                {
+                    App.Current.MainPage = new MasterMainPage(_requestService);
+                    return;
+                }
+                else
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.DeleteTeamFailed);
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.DeleteTeamFailed);
+            }
         }
 
         private async Task LoadProfile()
         {
             Team = await _teamService.GetById(_teamId);
+            IsOwner = App.LoggedPlayer.PlayerId == Team.OwnerId;
         }
 
         private async Task LoadMembers()

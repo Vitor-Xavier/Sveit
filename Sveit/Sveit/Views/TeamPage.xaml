@@ -18,6 +18,15 @@
                                       Order="Secondary" 
                                       IsVisible="{Binding IsOwner}"
                                       Command="{Binding AddVacancyCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate EditTeam}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsOwner}"             
+                                      Command="{Binding UpdateCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate DeleteTeam}" 
+                                      Order="Secondary" 
+                                      IsDestructive="True"
+                                      IsVisible="{Binding IsOwner}"
+                                      Command="{Binding DeleteCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -181,12 +190,19 @@
                   Grid.Row="1" 
                   Grid.ColumnSpan="2"
                   IsVisible="{Binding TabMembers}">
-                <controls:CustomListView HasUnevenRows="True" 
-                                         Margin="6" 
-                                         ItemsSource="{Binding Members}">
+                <controls:CustomListView x:Name="listView" 
+                                         ItemsSource="{Binding Members}" 
+                                         HasUnevenRows="True" 
+                                         Margin="6">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <ViewCell x:Name="viewCell">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="{i18n:Translate RemovePlayer}" 
+                                              BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}" 
+                                              Command="{Binding RemovePlayerCommand}" 
+                                              CommandParameter="{Binding Source={x:Reference viewCell}, Path=BindingContext}" />
+                                </ViewCell.ContextActions>
                                 <Frame Padding="6"
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">

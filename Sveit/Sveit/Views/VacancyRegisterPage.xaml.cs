@@ -15,14 +15,14 @@ namespace Sveit.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class VacancyRegisterPage : ContentPage
     {
-		public VacancyRegisterPage (IRequestService requestService, Team team)
+		public VacancyRegisterPage (IRequestService requestService, Team team, int vacancyId = 0)
 		{
             Resources = new ResourceDictionary();
             Resources.Add("SkillValidatorFactory", new Func<string, object>(
                 (arg) => (BindingContext as VacancyRegisterViewModel)?.ValidateAndReturn(arg)));
 
             InitializeComponent ();
-            BindingContext = new VacancyRegisterViewModel(Navigation, requestService, team);
+            BindingContext = new VacancyRegisterViewModel(Navigation, requestService, team, vacancyId);
 		}
     }
 }

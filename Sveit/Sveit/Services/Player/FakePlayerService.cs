@@ -74,7 +74,7 @@ namespace Sveit.Services.Player
             {
                 Name = "Vitor Xavier de Souza",
                 Nickname = "vitorxs",
-                Gender = new Models.Gender { Name = "Masculino" },
+                Gender = new Models.Gender { GenderId = 1, Name = "Masculino" },
                 AvatarSource = "https://i.pinimg.com/originals/c8/0a/09/c80a0933df51f9f5be92d033c6db65b2.jpg",
                 Deleted = false,
                 DateOfBirth = new System.DateTime(1997, 01, 06),
@@ -102,9 +102,9 @@ namespace Sveit.Services.Player
             return Task.FromResult(player);
         }
 
-        public Task<bool> PostPlayerSkill(PlayerSkill playerSkill)
+        public Task<Models.PlayerSkill> PostPlayerSkill(Models.PlayerSkill playerSkill)
         {
-            return Task.FromResult(false);
+            return Task.FromResult(playerSkill);
         }
 
         public Task<Models.Contact> PostPlayerContact(int playerId, Models.Contact contact)
@@ -152,6 +152,11 @@ namespace Sveit.Services.Player
                 }
             };
             return Task.FromResult(contacts);
+        }
+
+        public Task<bool> DeleteTeamPlayer(int playerId, int teamId)
+        {
+            return Task.FromResult(false);
         }
     }
 }

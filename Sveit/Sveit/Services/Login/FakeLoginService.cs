@@ -8,10 +8,10 @@ namespace Sveit.Services.Login
     {
         public async Task<Models.Player> CheckLogIn()
         {
-            var storagedEmail = await SecureStorage.GetAsync("Sveit-Email");
+            var storagedUsername = await SecureStorage.GetAsync("Sveit-Username");
             var storagedPassword = await SecureStorage.GetAsync("Sveit-Password");
 
-            if (storagedEmail != null && storagedPassword != null)
+            if (storagedUsername != null && storagedPassword != null)
             {
                 var player = new Models.Player
                 {
@@ -66,7 +66,7 @@ namespace Sveit.Services.Login
         {
             try
             {
-                var username = SecureStorage.Remove("Sveit-Email");
+                var username = SecureStorage.Remove("Sveit-Username");
                 var password = SecureStorage.Remove("Sveit-Password");
                 var oauthToken = SecureStorage.Remove("Sveit-OAuthToken");
                 var tokenTime = SecureStorage.Remove("Sveit-DateTime");

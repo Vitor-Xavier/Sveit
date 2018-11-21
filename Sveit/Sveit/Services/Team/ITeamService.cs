@@ -29,6 +29,8 @@ namespace Sveit.Services.Team
 
         Task<Models.Team> PostTeam(Models.Team team);
 
+        Task<bool> DeleteTeamPlayer(int teamId, int playerId);
+
         Task<bool> DeleteTeam(int teamId);
     }
 }

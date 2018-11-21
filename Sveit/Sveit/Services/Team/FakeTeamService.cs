@@ -156,5 +156,9 @@ namespace Sveit.Services.Team
             return Task.FromResult(contacts);
         }
 
+        public Task<bool> DeleteTeamPlayer(int teamId, int playerId)
+        {
+            return Task.FromResult(false);
+        }
     }
 }

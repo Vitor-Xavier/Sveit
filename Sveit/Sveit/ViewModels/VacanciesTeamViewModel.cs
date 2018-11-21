@@ -22,6 +22,8 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
+        public IAsyncCommand<Vacancy> UpdateVacancyCommand => new AsyncCommand<Vacancy>(UpdateVacancyCommandExecute);
+
         public VacanciesTeamViewModel(INavigation navigation, IRequestService requestService, int teamId)
         {
             _navigation = navigation;
@@ -48,6 +50,11 @@ namespace Sveit.ViewModels
         public async Task VacancyCommandExecute(Vacancy vacancy)
         {
             await _navigation.PushAsync(new Views.AppliesTeamPage(_requestService, vacancy));
+        }
+
+        public async Task UpdateVacancyCommandExecute(Vacancy vacancy)
+        {
+            await _navigation.PushAsync(new Views.VacancyRegisterPage(_requestService, vacancy.Team, vacancy.VacancyId));
         }
     }
 }

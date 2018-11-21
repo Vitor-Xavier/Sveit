@@ -1,5 +1,6 @@
 ﻿using Sveit.Models;
 using Sveit.Services.Requests;
+using Sveit.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,5 @@ namespace Sveit.Views
                 ToolbarItems.Remove(toolbarItem);
             }
         }
-	}
+    }
 }

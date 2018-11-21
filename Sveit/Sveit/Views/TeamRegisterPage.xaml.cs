@@ -8,10 +8,10 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TeamRegisterPage : ContentPage
     {
-        public TeamRegisterPage(IRequestService requestService)
+        public TeamRegisterPage(IRequestService requestService, int teamId = 0)
         {
             InitializeComponent();
-            BindingContext = new TeamRegisterViewModel(Navigation, requestService);
+            BindingContext = new TeamRegisterViewModel(Navigation, requestService, teamId);
         }
     }
 }

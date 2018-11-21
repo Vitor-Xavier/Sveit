@@ -26,6 +26,15 @@
                                       Order="Secondary" 
                                       IsVisible="{Binding IsCurrentPlayer}"             
                                       Command="{Binding ContactsCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate EditPlayer}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsCurrentPlayer}"             
+                                      Command="{Binding UpdateCommand}"/>
+        <controls:HideableToolbarItem Text="{i18n:Translate DeleteProfile}" 
+                                      Order="Secondary" 
+                                      IsDestructive="True"
+                                      IsVisible="{Binding IsCurrentPlayer}"             
+                                      Command="{Binding DeleteCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -221,13 +230,20 @@
                   Grid.Column="0"
                   Grid.ColumnSpan="3"
                   IsVisible="{Binding Team}">
-                <controls:CustomListView ItemsSource="{Binding Teams}" 
+                <controls:CustomListView x:Name="listView" 
+                                         ItemsSource="{Binding Teams}" 
                                          ItemTappedCommand="{Binding TeamCommand}" 
                                          Margin="6" 
                                          HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <ViewCell x:Name="viewCell">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="{i18n:Translate LeaveTeam}" 
+                                              BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}" 
+                                              Command="{Binding LeaveTeamCommand}" 
+                                              CommandParameter="{Binding Source={x:Reference viewCell}, Path=BindingContext}" />
+                                </ViewCell.ContextActions>
                                 <Frame Padding="6"
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">
