@@ -83,9 +83,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", genre);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -101,16 +101,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var genre = new Genre { GenreId = genreId, Deleted = true };
+                var genre = AppServices.Utils.ModelsDefault.GetDefaultGenre();
+                genre.GenreId = genreId;
+                genre.Deleted = true;
                 _context.Genres.Attach(genre);
                 _context.Entry(genre).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

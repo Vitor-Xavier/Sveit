@@ -116,9 +116,9 @@ namespace Sveit.API.Controllers
                 _context.SaveChanges();
                 return Created("Ok", game);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -150,9 +150,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", game);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -168,16 +168,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var game = new Game { GameId = gameId, Deleted = true };
+                var game = AppServices.Utils.ModelsDefault.GetDefaultGame();
+                game.GameId = gameId;
+                game.Deleted = true;
                 _context.Games.Attach(game);
                 _context.Entry(game).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 

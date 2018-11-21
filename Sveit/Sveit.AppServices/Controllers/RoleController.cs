@@ -94,16 +94,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var role = new Role { RoleId = roleId, Deleted = true };
+                var role = AppServices.Utils.ModelsDefault.GetDefaultRole();
+                role.RoleId = roleId;
+                role.Deleted = true;
                 _context.Roles.Attach(role);
                 _context.Entry(role).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

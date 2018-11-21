@@ -100,10 +100,6 @@ namespace Sveit.API.Context
             context.Platforms.Add(new Platform { PlatformId = 9, Name = "Android", IconSource = "ic_android.png" });
             context.Platforms.Add(new Platform { PlatformId = 10, Name = "iOS", IconSource = "ic_ios.png" });
 
-            context.Genders.Add(new Gender { GenderId = 1, Name = "Masculino" });
-            context.Genders.Add(new Gender { GenderId = 2, Name = "Feminino" });
-            context.Genders.Add(new Gender { GenderId = 3, Name = "Outros" });
-
             context.Tags.Add(new Tag { TagId = 01, Name = "campeonato" });
             context.Tags.Add(new Tag { TagId = 02, Name = "torneio" });
             context.Tags.Add(new Tag { TagId = 03, Name = "esl" });

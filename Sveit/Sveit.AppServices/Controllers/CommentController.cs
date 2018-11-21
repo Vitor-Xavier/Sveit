@@ -98,9 +98,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", comment);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -116,16 +116,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var comment = new Comment { CommentId = commentId, Deleted = true };
+                var comment = AppServices.Utils.ModelsDefault.GetDefaultComment();
+                comment.CommentId = commentId;
+                comment.Deleted = true;
                 _context.Comments.Attach(comment);
                 _context.Entry(comment).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

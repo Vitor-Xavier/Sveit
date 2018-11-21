@@ -48,16 +48,18 @@ namespace Sveit.AppServices.Controllers
         {
             try
             {
-                var contact = new Contact { ContactId = contactId, Deleted = true };
+                var contact = AppServices.Utils.ModelsDefault.GetDefaultContact();
+                contact.ContactId = contactId;
+                contact.Deleted = true;
                 _context.Contacts.Attach(contact);
                 _context.Entry(contact).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

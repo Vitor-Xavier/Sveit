@@ -4,6 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Http;
 using Sveit.API.Context;
+using Sveit.AppServices.Utils;
 using Sveit.Models;
 
 namespace Sveit.API.Controllers
@@ -83,9 +84,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", gender);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -101,16 +102,20 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var gender = new Gender { GenderId = genderId, Deleted = true };
+                var gender = ModelsDefault.GetDefaultGender();
+                gender.GenderId = genderId;
+                gender.Deleted = true;
+
                 _context.Genders.Attach(gender);
                 _context.Entry(gender).Property(x => x.Deleted).IsModified = true;
+
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

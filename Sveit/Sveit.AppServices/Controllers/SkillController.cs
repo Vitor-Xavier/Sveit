@@ -85,7 +85,7 @@ namespace Sveit.API.Controllers
             }
             catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -101,16 +101,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var skill = new Skill { SkillId = skillId, Deleted = true };
+                var skill = AppServices.Utils.ModelsDefault.GetDefaultSkill();
+                skill.SkillId = skillId;
+                skill.Deleted = true;
                 _context.Skills.Attach(skill);
                 _context.Entry(skill).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Created("Ok", skill);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

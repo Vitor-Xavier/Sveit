@@ -4,6 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Http;
 using Sveit.API.Context;
+using Sveit.AppServices.Utils;
 using Sveit.Models;
 
 namespace Sveit.API.Controllers
@@ -91,10 +92,12 @@ namespace Sveit.API.Controllers
         [Route("Player/Teams/{playerId:int}")]
         public IEnumerable<Team> GetTeams(int playerId)
         {
-            return (from ps in _context.TeamPlayers
-                    where ps.PlayerId == playerId &&
-                    ps.Deleted == false
-                    select ps.Team).AsEnumerable();
+            return (from tp in _context.TeamPlayers
+                    where tp.PlayerId == playerId &&
+                    tp.Player.Deleted == false &&
+                    tp.Team.Deleted == false &&
+                    tp.Deleted == false
+                    select tp.Team).AsEnumerable();
         }
 
         /// <summary>
@@ -151,9 +154,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", playerSkill);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -180,9 +183,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", contact);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -209,6 +212,32 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
+        /// Inativa associação de jogador a equipe na base de dados.
+        /// </summary>
+        /// <param name="playerId">Identificação do jogador</param>
+        /// <param name="teamId">Identificação da equipe</param>
+        /// <returns>Sucesso da operação</returns>
+        [Authorize]
+        [HttpDelete]
+        [Route("Player/Team/{playerId:int}/{teamId:int}")]
+        public IHttpActionResult DeleteTeamPlayer(int playerId, int teamId)
+        {
+            try
+            {
+                var teamPlayer = new TeamPlayer { PlayerId = playerId, TeamId = teamId, Deleted = true };
+                _context.TeamPlayers.Attach(teamPlayer);
+                _context.Entry(teamPlayer).Property(x => x.Deleted).IsModified = true;
+
+                _context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        /// <summary>
         /// Inativa jogador na base de dados.
         /// </summary>
         /// <param name="playerId">Identificação do jogador</param>
@@ -220,16 +249,19 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var player = new Player { PlayerId = playerId, Deleted = true };
+                var player = ModelsDefault.GetDefaultPlayer();
+                player.PlayerId = playerId;
+                player.Deleted = true;
+
                 _context.Players.Attach(player);
                 _context.Entry(player).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

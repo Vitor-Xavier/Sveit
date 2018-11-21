@@ -80,9 +80,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", apply);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -98,15 +98,17 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var apply = new Apply { ApplyId = applyId, Deleted = true };
+                var apply = AppServices.Utils.ModelsDefault.GetDefaultApply();
+                apply.ApplyId = applyId;
+                apply.Deleted = true;
                 _context.Applies.Attach(apply);
                 _context.Entry(apply).Property(x => x.Deleted).IsModified = true;
 
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

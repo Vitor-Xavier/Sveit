@@ -110,9 +110,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", content);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -147,9 +147,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", content);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -165,16 +165,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var content = new Content { ContentId = contentId, Deleted = true };
+                var content = AppServices.Utils.ModelsDefault.GetDefaultContent();
+                content.ContentId = contentId;
+                content.Deleted = true;
                 _context.Contents.Attach(content);
                 _context.Entry(content).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

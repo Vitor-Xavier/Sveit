@@ -98,9 +98,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", platform);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -116,16 +116,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var platform = new Platform { PlatformId = platformId, Deleted = true };
+                var platform = AppServices.Utils.ModelsDefault.GetDefaultPlatform();
+                platform.PlatformId = platformId;
+                platform.Deleted = true;
                 _context.Platforms.Attach(platform);
                 _context.Entry(platform).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

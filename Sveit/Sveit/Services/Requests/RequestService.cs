@@ -60,7 +60,7 @@ namespace Sveit.Services.Requests
             HttpResponseMessage response = await HttpClient.DeleteAsync(uri).ConfigureAwait(false);
             await HandleResponse(response);
 
-            return Convert.ToBoolean(await response.Content.ReadAsStringAsync());
+            return response.IsSuccessStatusCode;
         }
 
         private async Task HandleResponse(HttpResponseMessage response)

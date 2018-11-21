@@ -83,9 +83,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", contactType);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -101,16 +101,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var contactType = new ContactType { ContactTypeId = contactTypeId, Deleted = true };
+                var contactType = AppServices.Utils.ModelsDefault.GetDefaultContactType();
+                contactType.ContactTypeId = contactTypeId;
+                contactType.Deleted = true;
                 _context.ContactTypes.Attach(contactType);
                 _context.Entry(contactType).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

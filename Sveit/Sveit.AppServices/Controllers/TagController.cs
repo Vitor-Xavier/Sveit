@@ -83,9 +83,9 @@ namespace Sveit.API.Controllers
 
                 return Created("Ok", tag);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
@@ -101,16 +101,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var tag = new Tag { TagId = tagId, Deleted = true };
+                var tag = AppServices.Utils.ModelsDefault.GetDefaultTag();
+                tag.TagId = tagId;
+                tag.Deleted = true;
                 _context.Tags.Attach(tag);
                 _context.Entry(tag).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
     }

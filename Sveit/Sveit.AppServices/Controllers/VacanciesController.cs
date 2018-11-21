@@ -50,6 +50,7 @@ namespace Sveit.API.Controllers
         {
             return (from v in _context.Vacancies
                     where v.TeamId == teamId &&
+                    v.Team.Deleted == false &&
                     v.Deleted == false
                     select v).AsEnumerable();
         }
@@ -65,6 +66,7 @@ namespace Sveit.API.Controllers
         {
             return (from v in _context.Vacancies
                     where v.Team.GamePlatform_GameId == gameId &&
+                    v.Team.Deleted == false &&
                     v.Deleted == false
                     select v).AsEnumerable();
         }
@@ -118,16 +120,18 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                var vacancy = new Vacancy { VacancyId = vacancyId, Deleted = true };
+                var vacancy = AppServices.Utils.ModelsDefault.GetDefaultVacancy();
+                vacancy.VacancyId = vacancyId;
+                vacancy.Deleted = true;
                 _context.Vacancies.Attach(vacancy);
                 _context.Entry(vacancy).Property(x => x.Deleted).IsModified = true;
 
                 _context.SaveChanges();
                 return Ok(vacancy);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
