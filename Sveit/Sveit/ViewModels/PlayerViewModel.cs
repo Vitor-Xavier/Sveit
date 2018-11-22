@@ -183,7 +183,8 @@ namespace Sveit.ViewModels
 
         public async Task TeamCommandExecute(Team team)
         {
-            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId));
+            bool isOwner = Player.PlayerId == team.OwnerId;
+            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId, isOwner));
         }
 
         private async Task ContactsCommandExecute()
@@ -201,7 +202,7 @@ namespace Sveit.ViewModels
             if (!IsCurrentPlayer) return;
             try
             {
-                var result = false; //await _playerService.DeleteTeamPlayerAsync(Player.PlayerId, team.TeamId);
+                var result = await _playerService.DeleteTeamPlayer(Player.PlayerId, team.TeamId);
                 if (result)
                     await LoadTeams();
                 else
@@ -222,10 +223,7 @@ namespace Sveit.ViewModels
 
             Skills.Clear();
             foreach (Skill skill in skills)
-                Skills.Add(skill);
-
-            await Task.Delay(100);
-            
+                Skills.Add(skill);    
         }
 
         private async Task LoadTeams()

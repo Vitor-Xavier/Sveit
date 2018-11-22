@@ -10,15 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <COMReference Include="{bee4bfec-6683-3e67-9167-3c0cbc68f40a}">
-      <Guid>bee4bfec-6683-3e67-9167-3c0cbc68f40a</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>4</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
     <PackageReference Include="DLToolkit.Forms.Controls.TagEntryView" Version="1.0.5" />
     <PackageReference Include="Forms.Controls.FlexButton" Version="0.9.0" />

@@ -442,12 +442,33 @@
     <value>Edit apply</value>
   </data>
   <data name="EditPlayer" xml:space="preserve">
-    <value>Edit player</value>
+    <value>Edit profile</value>
   </data>
   <data name="EditTeam" xml:space="preserve">
     <value>Edit team</value>
   </data>
   <data name="EditVacancy" xml:space="preserve">
     <value>Edit vacancy</value>
+  </data>
+  <data name="PrimaryRole" xml:space="preserve">
+    <value>Primary Role</value>
+  </data>
+  <data name="SecondaryRole" xml:space="preserve">
+    <value>Secondary Role</value>
+  </data>
+  <data name="Aggressive" xml:space="preserve">
+    <value>Aggressive</value>
+  </data>
+  <data name="DPS" xml:space="preserve">
+    <value>DPS</value>
+  </data>
+  <data name="Objective" xml:space="preserve">
+    <value>Objective</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="Tank" xml:space="preserve">
+    <value>Tank</value>
   </data>
 </root>

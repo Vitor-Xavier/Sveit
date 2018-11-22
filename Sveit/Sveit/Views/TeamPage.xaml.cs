@@ -15,10 +15,10 @@ namespace Sveit.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TeamPage : ContentPage
 	{
-		public TeamPage (IRequestService requestService, int teamId)
+		public TeamPage (IRequestService requestService, int teamId, bool isOwner = true)
 		{
 			InitializeComponent ();
-            BindingContext = new ViewModels.TeamViewModel(Navigation, requestService, teamId);
+            BindingContext = new ViewModels.TeamViewModel(Navigation, requestService, teamId, isOwner);
 
             List<ToolbarItem> items = new List<ToolbarItem>();
             foreach (Sveit.Controls.HideableToolbarItem toolbarItem in ToolbarItems)

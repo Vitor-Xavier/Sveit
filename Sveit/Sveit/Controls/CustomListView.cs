@@ -38,6 +38,7 @@ namespace Sveit.Controls
 
                 if (ItemTappedCommand.CanExecute(e.SelectedItem))
                     ItemTappedCommand.Execute(e.SelectedItem);
+                SelectedItem = null;
             };
         }
     }

@@ -50,10 +50,11 @@ namespace Sveit.ViewModels
         public ApplyViewModel(INavigation navigation, IRequestService requestService, Apply apply, bool isEvaluation)
         {
             IsEvaluation = isEvaluation;
-            if (Apply.Approved != null)
-                IsEvaluation = false;
             _navigation = navigation;
             Apply = apply;
+            if (Apply?.Approved != null)
+                IsEvaluation = false;
+
             if (AppSettings.ApiStatus)
             {
                 _applyService = new ApplyService(requestService);

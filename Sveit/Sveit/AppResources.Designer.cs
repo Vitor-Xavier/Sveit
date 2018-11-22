@@ -133,6 +133,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aggressive.
+        /// </summary>
+        internal static string Aggressive {
+            get {
+                return ResourceManager.GetString("Aggressive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A minute ago.
         /// </summary>
         internal static string AMinAgo {
@@ -340,6 +349,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DPS.
+        /// </summary>
+        internal static string DPS {
+            get {
+                return ResourceManager.GetString("DPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit apply.
         /// </summary>
         internal static string EditApply {
@@ -349,7 +367,7 @@ namespace Sveit {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit player.
+        ///   Looks up a localized string similar to Edit profile.
         /// </summary>
         internal static string EditPlayer {
             get {
@@ -655,6 +673,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Objective.
+        /// </summary>
+        internal static string Objective {
+            get {
+                return ResourceManager.GetString("Objective", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         internal static string Ok {
@@ -772,6 +799,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Primary Role.
+        /// </summary>
+        internal static string PrimaryRole {
+            get {
+                return ResourceManager.GetString("PrimaryRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
         internal static string Profile {
@@ -853,6 +889,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Secondary Role.
+        /// </summary>
+        internal static string SecondaryRole {
+            get {
+                return ResourceManager.GetString("SecondaryRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} seconds ago.
         /// </summary>
         internal static string SecsAgo {
@@ -930,6 +975,24 @@ namespace Sveit {
         internal static string StoreCredencials {
             get {
                 return ResourceManager.GetString("StoreCredencials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        internal static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tank.
+        /// </summary>
+        internal static string Tank {
+            get {
+                return ResourceManager.GetString("Tank", resourceCulture);
             }
         }
         

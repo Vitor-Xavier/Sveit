@@ -122,9 +122,10 @@ namespace Sveit.ViewModels
         {
             var roles = await _roleService.GetRolesAsync();
 
-            RoleTypes = roles.OrderBy(p => p.Name)
-               .GroupBy(p => p.RoleType)
-               .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
+            if (roles != null)
+                RoleTypes = roles.OrderBy(p => p.Name)
+                    .GroupBy(p => p.RoleType)
+                    .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
         }
 
         private async Task LoadGenders()

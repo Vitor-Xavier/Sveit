@@ -20,7 +20,7 @@ namespace Sveit.Services.Gender
         {
             yield return new Models.Gender { GenderId = 1, Name = "Male" };
             yield return new Models.Gender { GenderId = 2, Name = "Female" };
-            yield return new Models.Gender { GenderId = 3, Name = "Outhers" };
+            yield return new Models.Gender { GenderId = 3, Name = "Others" };
         }
 
         public Task<bool> AddGenderAsync(Models.Gender gender)

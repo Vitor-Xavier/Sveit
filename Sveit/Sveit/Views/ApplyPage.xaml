@@ -12,6 +12,8 @@
             <i18n:DateOfBirthToAgeConverter x:Key="DateOfBirthToAge"/>
             <i18n:GenderTransalteConverter x:Key="GenderTransalte"/>
             <i18n:SkillsToStringConverter x:Key="SkillsToString"/>
+            <i18n:RoleTranslateConverter x:Key="RoleTranslate"/>
+            <i18n:RoleTypeTranslateConverter x:Key="RoleTypeTranslate"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -79,7 +81,7 @@
                                     <ViewCell>
                                         <StackLayout Orientation="Horizontal" Spacing="8">
                                             <Image Source="{Binding Key.IconSource}" HeightRequest="24"/>
-                                            <Label Text="{Binding Key.Name}" 
+                                            <Label Text="{Binding Key.Name, Converter={StaticResource RoleTypeTranslate}}" 
                                                    TextColor="{StaticResource SecondaryText}" 
                                                    FontSize="Medium"/>
                                         </StackLayout>
@@ -90,7 +92,8 @@
                                 <DataTemplate>
                                     <ViewCell>
                                         <StackLayout>
-                                            <Label Text="{Binding Name}" TextColor="{StaticResource SecondaryText}"/>
+                                            <Label Text="{Binding Name, Converter={StaticResource RoleTranslate}}" 
+                                                   TextColor="{StaticResource SecondaryText}"/>
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>

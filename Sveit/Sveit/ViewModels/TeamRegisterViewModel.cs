@@ -106,7 +106,11 @@ namespace Sveit.ViewModels
             Platforms = new ObservableCollection<Platform>();
             IconSource = "http://liquipedia.net/commons/images/thumb/1/1d/Immortals_org.png/600px-Immortals_org.png";
 
-            Task.Run(() => LoadGames());
+            Task.Run(async () => 
+            {
+                await LoadGames();
+                await LoadTeam();
+            });
         }
 
         private async void HandlePlatformSelected(object sender, Xamarin.Forms.ItemTappedEventArgs e)
@@ -260,7 +264,7 @@ namespace Sveit.ViewModels
             Name = team.Name;
             IconSource = team.IconSource;
             Game = Games.Where(g => team.GamePlatform_GameId == g.GameId).FirstOrDefault();
-            Platform = Platforms.Where(p => team.GamePlatform_PlatformId == p.PlatformId).FirstOrDefault();
+            Platform = team.GamePlatform.Platform;
         }
     }
 }

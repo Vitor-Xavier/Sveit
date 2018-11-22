@@ -8,6 +8,7 @@ using Sveit.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -27,11 +28,7 @@ namespace Sveit.ViewModels
         public bool IsOwner
         {
             get { return isOwner; }
-            set
-            {
-                isOwner = value;
-                OnPropertyChanged();
-            }
+            set { isOwner = value; OnPropertyChanged(); }
         }
 
         private Team team;
@@ -42,6 +39,8 @@ namespace Sveit.ViewModels
             set { team = value; OnPropertyChanged(); }
         }
 
+        public event EventHandler<BoolChangedEventArgs> IsOwnerChanged;
+
         public ObservableCollection<Player> Members { get; set; }
 
         public IAsyncCommand DescriptionCommand => new AsyncCommand(DescriptionCommandExecute);
@@ -51,6 +50,8 @@ namespace Sveit.ViewModels
         public IAsyncCommand VacanciesCommand => new AsyncCommand(VacanciesCommandExecute);
 
         public IAsyncCommand AddVacancyCommand => new AsyncCommand(AddVacancyCommandExecute);
+
+        public IAsyncCommand UpdateCommand => new AsyncCommand(UpdateCommandExecute); 
 
         public IAsyncCommand DeleteCommand => new AsyncCommand(DeleteCommandExecute);
 
@@ -80,8 +81,9 @@ namespace Sveit.ViewModels
             }
         }
 
-        public TeamViewModel(INavigation navigation, IRequestService requestService, int teamId)
+        public TeamViewModel(INavigation navigation, IRequestService requestService, int teamId, bool isOwner)
         {
+            IsOwner = isOwner;
             _navigation = navigation;
             _requestService = requestService;
             _teamId = teamId;
@@ -123,7 +125,7 @@ namespace Sveit.ViewModels
             if (!IsOwner) return;
             try
             {
-                var result = false; //await _teamService.DeleteTeamPlayerAsync(Team.TeamId, player.PlayerId);
+                var result = await _teamService.DeleteTeamPlayer(Team.TeamId, player.PlayerId);
                 if (result)
                     await LoadMembers();
                 else
@@ -159,6 +161,7 @@ namespace Sveit.ViewModels
         {
             Team = await _teamService.GetById(_teamId);
             IsOwner = App.LoggedPlayer.PlayerId == Team.OwnerId;
+            IsOwnerChanged?.Invoke(this, new BoolChangedEventArgs(!IsOwner, IsOwner));
         }
 
         private async Task LoadMembers()

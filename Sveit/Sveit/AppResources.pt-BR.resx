@@ -450,4 +450,25 @@
   <data name="EditVacancy" xml:space="preserve">
     <value>Editar vaga</value>
   </data>
+  <data name="PrimaryRole" xml:space="preserve">
+    <value>Papel primário</value>
+  </data>
+  <data name="SecondaryRole" xml:space="preserve">
+    <value>Papel secundário</value>
+  </data>
+  <data name="Aggressive" xml:space="preserve">
+    <value>Agressivo</value>
+  </data>
+  <data name="DPS" xml:space="preserve">
+    <value>DPS</value>
+  </data>
+  <data name="Objective" xml:space="preserve">
+    <value>Objetivo</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Suporte</value>
+  </data>
+  <data name="Tank" xml:space="preserve">
+    <value>Tanque</value>
+  </data>
 </root>
