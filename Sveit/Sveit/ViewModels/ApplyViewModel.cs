@@ -86,6 +86,7 @@ namespace Sveit.ViewModels
 
         private async Task AcceptCommandExecute()
         {
+            if (!IsEvaluation) return;
             Apply.Approved = true;
             try
             {
@@ -109,6 +110,7 @@ namespace Sveit.ViewModels
 
         private async Task DeclineCommandExecute()
         {
+            if (!IsEvaluation) return;
             Apply.Approved = false;
             try
             {

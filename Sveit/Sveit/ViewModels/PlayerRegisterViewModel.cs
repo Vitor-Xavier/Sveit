@@ -157,12 +157,15 @@ namespace Sveit.ViewModels
                 Nickname = Nickname,
                 AvatarSource = AvatarSource,
                 DateOfBirth = DateOfBirth,
-                GenderId = Gender.GenderId,
-                Gender = Gender
+                GenderId = Gender.GenderId
             };
             try
             {
-                var result = await _playerService.PostPlayerAsync(player);
+                Player result;
+                if (player.PlayerId == 0)
+                    result = await _playerService.PostPlayerAsync(player);
+                else
+                    result = await _playerService.UpdatePlayer(player);
                 if (result != null)
                 {
                     var loggedPlayer = await _loginService.LogIn(player.Username, player.Password);

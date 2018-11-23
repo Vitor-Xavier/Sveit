@@ -471,4 +471,7 @@
   <data name="Tank" xml:space="preserve">
     <value>Tank</value>
   </data>
+  <data name="EditComment" xml:space="preserve">
+    <value>Edit comment</value>
+  </data>
 </root>

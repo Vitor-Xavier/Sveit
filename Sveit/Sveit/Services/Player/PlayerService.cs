@@ -96,10 +96,18 @@ namespace Sveit.Services.Player
             return _requestService.PostAsync<Models.Player, Models.Player>(uri, player);
         }
 
+        public async Task<Models.Player> UpdatePlayer(Models.Player player)
+        {
+            UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
+            string uri = builder.ToString();
+
+            var token = await _loginService.GetOAuthToken();
+            return await _requestService.PutAsync<Models.Player, Models.Player>(uri, player, token);
+        }
+
         public async Task<bool> DeleteTeamPlayer(int playerId, int teamId)
         {
             UriBuilder builder = new UriBuilder(AppSettings.PlayersEndpoint);
-            builder.AppendToPath("Player");
             builder.AppendToPath("Team");
             builder.AppendToPath(playerId.ToString());
             builder.AppendToPath(teamId.ToString());

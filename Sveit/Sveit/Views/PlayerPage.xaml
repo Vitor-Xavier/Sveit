@@ -284,7 +284,7 @@
                 </Grid.Triggers>
             </Grid>
 
-            <!--Comments Tab-->
+            <!--Comments Tab--> 
             <Grid Grid.Row="1" 
                   Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -322,7 +322,13 @@
                           Margin="6">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <ViewCell x:Name="viewCell">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="{i18n:Translate EditComment}" 
+                                              BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}" 
+                                              Command="{Binding UpdateCommentCommand}" 
+                                              CommandParameter="{Binding Source={x:Reference viewCell}, Path=BindingContext}" />
+                                </ViewCell.ContextActions>
                                 <Frame Padding="6" 
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">

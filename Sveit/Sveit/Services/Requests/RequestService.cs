@@ -80,6 +80,7 @@ namespace Sveit.Services.Requests
         {
             HttpClient.DefaultRequestHeaders.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpClient.Timeout = TimeSpan.FromSeconds(15);
 
             if (!string.IsNullOrWhiteSpace(token))
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

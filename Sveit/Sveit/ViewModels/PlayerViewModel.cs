@@ -5,9 +5,7 @@ using Sveit.Services.Comment;
 using Sveit.Services.Login;
 using Sveit.Services.Player;
 using Sveit.Services.Requests;
-using Sveit.Utils;
 using Sveit.Views;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -94,6 +92,8 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Team> LeaveTeamCommand => new AsyncCommand<Team>(LeaveTeamCommandExecute);
 
+        public IAsyncCommand<Comment> UpdateCommentCommand => new AsyncCommand<Comment>(UpdateCommentCommandExecute);
+
         public PlayerViewModel(INavigation navigation, IRequestService requestService, int? playerId = null)
         {
             _navigation = navigation;
@@ -155,7 +155,6 @@ namespace Sveit.ViewModels
                     var loginService = new LoginService(_requestService);
                     loginService.LogOut();
                     App.Current.MainPage = new MasterMainPage(_requestService);
-                    return;
                 }
                 else
                     DependencyService.Get<IMessage>().ShortAlert(AppResources.DeleteProfileFailed);
@@ -187,6 +186,15 @@ namespace Sveit.ViewModels
             await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId, isOwner));
         }
 
+        private async Task UpdateCommentCommandExecute(Comment comment)
+        {
+            if (comment == null) return;
+            if (comment.FromPlayerId == App.LoggedPlayer?.PlayerId)
+            {
+                await _navigation.PushModalAsync(new CommentRegisterPage(_requestService, Player, comment.CommentId));
+            }
+        }
+
         private async Task ContactsCommandExecute()
         {
             await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, Player));
@@ -200,6 +208,7 @@ namespace Sveit.ViewModels
         private async Task LeaveTeamCommandExecute(Team team)
         {
             if (!IsCurrentPlayer) return;
+            if (Player.PlayerId == team.OwnerId) return;
             try
             {
                 var result = await _playerService.DeleteTeamPlayer(Player.PlayerId, team.TeamId);
@@ -223,7 +232,7 @@ namespace Sveit.ViewModels
 
             Skills.Clear();
             foreach (Skill skill in skills)
-                Skills.Add(skill);    
+                Skills.Add(skill);
         }
 
         private async Task LoadTeams()

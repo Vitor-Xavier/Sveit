@@ -10,6 +10,10 @@
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{Binding Team.Name}">
     <ContentPage.ToolbarItems>
+        <controls:HideableToolbarItem Text="{i18n:Translate Contacts}" 
+                                      Order="Secondary" 
+                                      IsVisible="{Binding IsOwner}"
+                                      Command="{Binding ContactsCommand}"/>
         <controls:HideableToolbarItem Text="{i18n:Translate Vacancies}" 
                                       Order="Secondary" 
                                       IsVisible="{Binding IsOwner}"
@@ -192,6 +196,7 @@
                   IsVisible="{Binding TabMembers}">
                 <controls:CustomListView x:Name="listView" 
                                          ItemsSource="{Binding Members}" 
+                                         ItemTappedCommand="{Binding PlayerCommand}"
                                          HasUnevenRows="True" 
                                          Margin="6">
                     <ListView.ItemTemplate>

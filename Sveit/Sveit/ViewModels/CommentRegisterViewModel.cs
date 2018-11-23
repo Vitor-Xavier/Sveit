@@ -10,6 +10,8 @@ namespace Sveit.ViewModels
 {
     public class CommentRegisterViewModel : BaseViewModel
     {
+        private readonly int _commentId;
+
         private readonly INavigation _navigation;
 
         private readonly ICommentService _commentService;
@@ -32,7 +34,7 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
 
-        public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player)
+        public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player, int commentId)
         {
             _navigation = navigation;
             if (AppSettings.ApiStatus)
@@ -40,6 +42,8 @@ namespace Sveit.ViewModels
             else
                 _commentService = new FakeCommentService();
             PlayerTo = player;
+
+            Task.Run(() => LoadComment());
         }
 
         private async Task FinalizeCommandExecute()
@@ -51,13 +55,14 @@ namespace Sveit.ViewModels
             }
             var comment = new Comment
             {
+                CommentId = _commentId,
                 ToPlayerId = PlayerTo.PlayerId,
                 FromPlayerId = App.LoggedPlayer.PlayerId,
                 Text = Text
             };
 
-            bool registered = await _commentService.PostComment(comment);
-            if (registered)
+            var registered = await _commentService.PostComment(comment);
+            if (registered != null)
                 await _navigation.PopModalAsync();
             else
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.CommentFailed);
@@ -68,6 +73,22 @@ namespace Sveit.ViewModels
             if (string.IsNullOrWhiteSpace(Text) && Text.Length <= 60)
                 return false;
             return true;
+        }
+
+        private async Task LoadComment()
+        {
+            if (_commentId != 0) return;
+
+            try
+            {
+                var comment = await _commentService.GetById(_commentId);
+                if (comment == null) return;
+                Text = comment.Text;
+            }
+            catch
+            {
+
+            }
         }
     }
 }

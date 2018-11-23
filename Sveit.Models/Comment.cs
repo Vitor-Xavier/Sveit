@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sveit.Models
 {
@@ -7,8 +8,10 @@ namespace Sveit.Models
         public int CommentId { get; set; }
         [Required, StringLength(300)]
         public string Text { get; set; }
+        [ForeignKey("FromPlayer")]
         public int FromPlayerId { get; set; }
         public virtual Player FromPlayer { get; set; }
+        [ForeignKey("ToPlayer")]
         public int ToPlayerId { get; set; }
         public virtual Player ToPlayer { get; set; }
 

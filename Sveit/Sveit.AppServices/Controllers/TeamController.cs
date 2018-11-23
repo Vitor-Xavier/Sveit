@@ -241,13 +241,13 @@ namespace Sveit.API.Controllers
         /// <summary>
         /// Inativa associação de jogador a equipe na base de dados.
         /// </summary>
-        /// <param name="playerId">Identificação do jogador</param>
         /// <param name="teamId">Identificação da equipe</param>
+        /// <param name="playerId">Identificação do jogador</param>
         /// <returns>Sucesso da operação</returns>
         [Authorize]
         [HttpDelete]
         [Route("Team/Player/{teamId:int}/{playerId:int}")]
-        public IHttpActionResult DeleteTeamPlayer(int playerId, int teamId)
+        public IHttpActionResult DeleteTeamPlayer(int teamId, int playerId)
         {
             try
             {

@@ -8,7 +8,6 @@ using Sveit.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -51,9 +50,13 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand AddVacancyCommand => new AsyncCommand(AddVacancyCommandExecute);
 
-        public IAsyncCommand UpdateCommand => new AsyncCommand(UpdateCommandExecute); 
+        public IAsyncCommand ContactsCommand => new AsyncCommand(ContactsCommandExecute);
+
+        public IAsyncCommand UpdateCommand => new AsyncCommand(UpdateCommandExecute);
 
         public IAsyncCommand DeleteCommand => new AsyncCommand(DeleteCommandExecute);
+
+        public IAsyncCommand<Player> PlayerCommand => new AsyncCommand<Player>(PlayerCommandExecute);
 
         public IAsyncCommand<Player> RemovePlayerCommand => new AsyncCommand<Player>(RemovePlayerCommandExecute);
 
@@ -115,14 +118,25 @@ namespace Sveit.ViewModels
             await _navigation.PushAsync(new VacanciesTeamPage(_requestService, _teamId));
         }
 
+        private async Task ContactsCommandExecute()
+        {
+            await _navigation.PushModalAsync(new ContactsTeamRegisterPage(_requestService, Team));
+        }
+
         private async Task UpdateCommandExecute()
         {
             await _navigation.PushAsync(new TeamRegisterPage(_requestService, Team.TeamId));
         }
 
+        private async Task PlayerCommandExecute(Player player)
+        {
+            await _navigation.PushAsync(new PlayerPage(_requestService, player.PlayerId));
+        }
+
         private async Task RemovePlayerCommandExecute(Player player)
         {
             if (!IsOwner) return;
+            if (Team.OwnerId == App.LoggedPlayer.PlayerId) return;
             try
             {
                 var result = await _teamService.DeleteTeamPlayer(Team.TeamId, player.PlayerId);

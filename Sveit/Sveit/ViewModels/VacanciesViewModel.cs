@@ -76,8 +76,8 @@ namespace Sveit.ViewModels
             foreach (Game game in games)
                 Games.Add(game);
 
-            if (Games.Count > 0)
-                Position = 0;
+            //if (Games.Count > 0)
+                //Position = 0;
             IsLoading = false;
         }
 

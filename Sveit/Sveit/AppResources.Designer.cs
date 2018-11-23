@@ -367,6 +367,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit comment.
+        /// </summary>
+        internal static string EditComment {
+            get {
+                return ResourceManager.GetString("EditComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit profile.
         /// </summary>
         internal static string EditPlayer {

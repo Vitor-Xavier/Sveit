@@ -190,6 +190,29 @@ namespace Sveit.API.Controllers
         }
 
         /// <summary>
+        /// Altera jogador na base de dados.
+        /// </summary>
+        /// <param name="player">Dados do jogador</param>
+        /// <returns>Sucesso da operação</returns>
+        [Authorize]
+        [HttpPut]
+        [Route("Player")]
+        public IHttpActionResult PutPlayer([FromBody] Player player)
+        {
+            try
+            {
+                _context.Players.Attach(player);
+                _context.SaveChanges();
+
+                return Ok(player);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        /// <summary>
         /// Adiciona ou altera jogador na base de dados.
         /// </summary>
         /// <param name="player">Dados do jogador</param>

@@ -10,6 +10,8 @@ namespace Sveit.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
+        private readonly IRequestService _requestService;
+
         private bool storeCredentials;
 
         public bool StoreCredentials
@@ -19,7 +21,7 @@ namespace Sveit.ViewModels
             {
                 storeCredentials = value;
                 OnPropertyChanged();
-                ChangeStoreCredrentialsStatus();
+                ChangeStoreCredentialsStatus(value);
             }
         }
 
@@ -45,12 +47,14 @@ namespace Sveit.ViewModels
 
         public SettingsViewModel(IRequestService requestService)
         {
+            _requestService = requestService;
             Languages = new ObservableCollection<string>
             {
                 "English",
                 "Português"
             };
             Language = AppResources.Culture.IetfLanguageTag.Equals("en-US") ? "English" : "Português";
+            StoreCredentials = AppSettings.CredentialStatus;
         }
 
         private void ChangeLanguage(string language)
@@ -59,12 +63,17 @@ namespace Sveit.ViewModels
             {
                 CrossMultilingual.Current.CurrentCultureInfo = new CultureInfo("en-US");
                 AppResources.Culture = CrossMultilingual.Current.CurrentCultureInfo;
+                AppSettings.Language = CrossMultilingual.Current.CurrentCultureInfo.IetfLanguageTag;
+                App.Current.MainPage = new Views.MasterMainPage(_requestService);
             }
             else if (language.Equals("Português") && !AppResources.Culture.IetfLanguageTag.Equals("pt-BR"))
             {
                 CrossMultilingual.Current.CurrentCultureInfo = new CultureInfo("pt-BR");
                 AppResources.Culture = CrossMultilingual.Current.CurrentCultureInfo;
+                AppSettings.Language = CrossMultilingual.Current.CurrentCultureInfo.IetfLanguageTag;
+                App.Current.MainPage = new Views.MasterMainPage(_requestService);
             }
+
         }
 
         private void TwitterCommandExecute()
@@ -110,9 +119,9 @@ namespace Sveit.ViewModels
             Device.OpenUri(new Uri("https://github.com/Vitor-Xavier"));
         }
 
-        private void ChangeStoreCredrentialsStatus()
+        private void ChangeStoreCredentialsStatus(bool value)
         {
-            AppSettings.CredentialStatus = StoreCredentials;
+            AppSettings.CredentialStatus = value;
         }
     }
 }

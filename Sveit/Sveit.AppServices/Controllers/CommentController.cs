@@ -52,8 +52,8 @@ namespace Sveit.API.Controllers
         {
             return (from c in _context.Comments
                     where (initialDate != null ? initialDate <= c.CreatedAt : true) &&
-                    (finalDate != null ? finalDate >= c.CreatedAt : true) && 
-                    c.ToPlayer.PlayerId == playerId &&
+                    (finalDate != null ? finalDate >= c.CreatedAt : true) &&
+                    c.ToPlayerId == playerId &&
                     c.Deleted == false
                     orderby c.CreatedAt descending
                     select c).AsEnumerable();
@@ -75,7 +75,7 @@ namespace Sveit.API.Controllers
             return (from c in _context.Comments
                     where (initialDate != null ? initialDate <= c.CreatedAt : true) &&
                     (finalDate != null ? finalDate >= c.CreatedAt : true) && 
-                    c.FromPlayer.PlayerId == playerId &&
+                    c.FromPlayerId == playerId &&
                     c.Deleted == false
                     orderby c.CreatedAt descending
                     select c).AsEnumerable();

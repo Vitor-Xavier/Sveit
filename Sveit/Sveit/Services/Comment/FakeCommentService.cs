@@ -43,9 +43,9 @@ namespace Sveit.Services.Comment
             return Task.FromResult(Comments);
         }
 
-        public Task<bool> PostComment(Models.Comment comment)
+        public Task<Models.Comment> PostComment(Models.Comment comment)
         {
-            return Task.FromResult(false);
+            return Task.FromResult(comment);
         }
     }
 }

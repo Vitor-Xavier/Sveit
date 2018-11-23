@@ -3,7 +3,9 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Plugin.Multilingual;
 using Sveit.Models;
+using Sveit.Services.Login;
 using Sveit.Services.Requests;
+using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,10 +19,19 @@ namespace Sveit
         public App()
         {
             InitializeComponent();
-            
-            AppResources.Culture = CrossMultilingual.Current.DeviceCultureInfo;
 
-            MainPage = new Sveit.Views.MasterMainPage(new RequestService());
+            if (string.IsNullOrWhiteSpace(AppSettings.Language))
+                AppSettings.Language = CrossMultilingual.Current.DeviceCultureInfo.IetfLanguageTag;
+            AppResources.Culture = new CultureInfo(AppSettings.Language);
+
+            var requestService = new RequestService();
+            if (!AppSettings.CredentialStatus)
+            {
+                var loginService = new LoginService(requestService);
+                loginService.LogOut();
+            }
+
+            MainPage = new Sveit.Views.MasterMainPage(requestService);
         }
 
         protected override void OnStart()

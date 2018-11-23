@@ -59,13 +59,13 @@ namespace Sveit.Services.Comment
             return _requestService.GetAsync<IEnumerable<Models.Comment>>(uri);
         }
 
-        public async Task<bool> PostComment(Models.Comment comment)
+        public async Task<Models.Comment> PostComment(Models.Comment comment)
         {
             UriBuilder builder = new UriBuilder(AppSettings.CommentsEndpoint);
             string uri = builder.ToString();
 
             var token = await _loginService.GetOAuthToken();
-            return await _requestService.PostAsync<Models.Comment, bool>(uri, comment, token);
+            return await _requestService.PostAsync<Models.Comment, Models.Comment>(uri, comment, token);
         }
 
         public async Task<bool> DeleteComment(int commentId)

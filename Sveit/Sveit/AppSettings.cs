@@ -1,13 +1,11 @@
 ﻿using Plugin.Settings;
 using Plugin.Settings.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sveit
 {
     public static class AppSettings
     {
+        private const string DefaultLanguage = "";
         private const string DefaultAuthEndpoint = "Token";
         private const string DefaultBaseEndpoint = "http://192.168.31.27:45455/";
         private const string DefaultAppliesEndpoint = "Apply";
@@ -32,6 +30,12 @@ namespace Sveit
         private const bool DefaultCredentialStatus = true;
 
         private static ISettings Settings => CrossSettings.Current;
+
+        public static string Language
+        {
+            get => Settings.GetValueOrDefault(nameof(Language), DefaultLanguage);
+            set => Settings.AddOrUpdateValue(nameof(Language), value);
+        }
 
         public static bool ApiStatus
         {
@@ -128,7 +132,7 @@ namespace Sveit
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(PlayersEndpoint), DefaultPlayersEndpoint);
             set => Settings.AddOrUpdateValue(nameof(PlayersEndpoint), value);
         }
-        
+
         public static string RolesEndpoint
         {
             get => BaseEndpoint + Settings.GetValueOrDefault(nameof(RolesEndpoint), DefaultRolesEndpoint);

@@ -13,7 +13,7 @@ namespace Sveit.Services.Comment
 
         Task<IEnumerable<Models.Comment>> GetCommentsFromPlayer(int playerId, DateTime? initialDate = null, DateTime? finalDate = null);
 
-        Task<bool> PostComment(Models.Comment comment);
+        Task<Models.Comment> PostComment(Models.Comment comment);
 
         Task<bool> DeleteComment(int commentId);
     }

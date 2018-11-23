@@ -13,7 +13,7 @@ namespace Sveit.Models
         [StringLength(300)]
         public string Text { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
-        public bool? Approved { get; set; }
+        public bool? Approved { get; set; } = null;
 
         public Apply()
         {

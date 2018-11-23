@@ -97,6 +97,11 @@ namespace Sveit.Services.Player
             return Task.FromResult(GetFakeSkills());
         }
 
+        public Task<Models.Player> UpdatePlayer(Models.Player player)
+        {
+            return Task.FromResult(player);
+        }
+
         public Task<Models.Player> PostPlayerAsync(Models.Player player)
         {
             return Task.FromResult(player);
