@@ -43,38 +43,39 @@ namespace Sveit.AppServices.Controllers
             }
             //Get File extension
             //GetImageFormat(content.Contents[0].Headers.ContentType.MediaType)
-            filename = String.Concat(filename, ".jpeg");
+            //filename = String.Concat(filename, ".jpeg");
 
-            // Save file locally
-            Image img = Image.FromStream(await content.Contents[0].ReadAsStreamAsync());
-            string filepath = System.IO.Path.GetTempPath() + "\\" + filename;
-            img.Save(filepath, ImageFormat.Jpeg);
-            return Ok(filepath);
+            //// Save file locally
+            //Image img = Image.FromStream(await content.Contents[0].ReadAsStreamAsync());
+            //string filepath = System.IO.Path.GetTempPath() + "\\" + filename;
+            //img.Save(filepath, ImageFormat.Jpeg);
+            //return Ok(filepath);
 
             // Save file to Azure Blob Storage
-                //var storageConnectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
-                //var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-                //var blobClient = storageAccount.CreateCloudBlobClient();
-                //var container = blobClient.GetContainerReference("images");
-                //container.CreateIfNotExists();
+            filename = String.Concat(filename, GetImageFormat(content.Contents[0].Headers.ContentType.MediaType));
+            var storageConnectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
+            var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
+            var blobClient = storageAccount.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference("images");
+            container.CreateIfNotExists();
 
-                //var blockBlob = container.GetBlockBlobReference(filename);
-                //blockBlob.Properties.ContentType = content.Contents[0].Headers.ContentType.ToString();
-                //using (var fileStream = await content.Contents[0].ReadAsStreamAsync())
-                //{
-                //    blockBlob.UploadFromStream(fileStream);
-                //}
+            var blockBlob = container.GetBlockBlobReference(filename);
+            blockBlob.Properties.ContentType = content.Contents[0].Headers.ContentType.ToString();
+            using (var fileStream = await content.Contents[0].ReadAsStreamAsync())
+            {
+                blockBlob.UploadFromStream(fileStream);
+            }
 
-                //return Ok(blockBlob.Uri.AbsoluteUri);
+            return Ok(blockBlob.Uri.AbsoluteUri);
         }
 
         private string GetImageFormat(string mediaType)
         {
             switch (mediaType)
             {
-                case "image/jpeg": return "jpg";
-                case "image/png": return "png";
-                case "image/bmp": return "bmp";
+                case "image/jpeg": return ".jpg";
+                case "image/png": return ".png";
+                case "image/bmp": return ".bmp";
                 default: return string.Empty;
             }
         }

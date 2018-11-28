@@ -36,6 +36,7 @@ namespace Sveit.ViewModels
 
         public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player, int commentId)
         {
+            _commentId = commentId;
             _navigation = navigation;
             if (AppSettings.ApiStatus)
                 _commentService = new CommentService(requestService);

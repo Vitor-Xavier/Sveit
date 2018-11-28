@@ -92,7 +92,12 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <forms:CachedImage Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Aspect="AspectFill" Source="https://www.kitsuga.com/wp-content/uploads/2017/02/ESPORTS.jpg">
+            <forms:CachedImage Grid.Row="0" 
+                               Grid.RowSpan="2" 
+                               Grid.Column="0" 
+                               Grid.ColumnSpan="3" 
+                               Aspect="AspectFill" 
+                               Source="player_background.jpg">
                 <forms:CachedImage.Transformations>
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>

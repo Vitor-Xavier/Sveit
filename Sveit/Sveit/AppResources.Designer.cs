@@ -484,6 +484,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to upload image.
+        /// </summary>
+        internal static string ImageFailed {
+            get {
+                return ResourceManager.GetString("ImageFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fields with invalid values, please check.
         /// </summary>
         internal static string InvalidValues {

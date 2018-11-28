@@ -33,6 +33,7 @@ namespace Sveit.API
                         //
                         c.SingleApiVersion("v1", "Project Sveit API");
                         c.IncludeXmlComments($"{System.AppDomain.CurrentDomain.BaseDirectory}\\bin\\Swagger.xml");
+
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();

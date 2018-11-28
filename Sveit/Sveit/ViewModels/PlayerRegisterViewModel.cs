@@ -200,15 +200,15 @@ namespace Sveit.ViewModels
                 }
                 var file = await CrossMedia.Current.PickPhotoAsync();
                 if (file == null) return;
-                //TODO: Change file name
-                //AvatarSource = await _imageService.PostImage("tst", file.Path);
-                //var image = ImageSource.FromStream(() =>
-                //{
-                //    var stream = file.GetStream();
-                //    file.Dispose();
-                //    return stream;
-                //});
 
+                try
+                {
+                    AvatarSource = await _imageService.PostImage(Guid.NewGuid().ToString("N"), file.Path);
+                }
+                catch
+                {
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.ImageFailed);
+                }
             }
             else
             {
@@ -252,7 +252,8 @@ namespace Sveit.ViewModels
             Nickname = player.Nickname;
             AvatarSource = player.AvatarSource;
             DateOfBirth = player.DateOfBirth;
-            Gender = Genders.Where(g => g.GenderId == player.Gender.GenderId).FirstOrDefault();
+            if (Genders?.Count > 0)
+                Gender = Genders.Where(g => g.GenderId == player.Gender.GenderId).FirstOrDefault();
         }
     }
 }

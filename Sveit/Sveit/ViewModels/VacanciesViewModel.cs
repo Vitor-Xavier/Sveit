@@ -72,12 +72,12 @@ namespace Sveit.ViewModels
             IsLoading = true;
             var games = await _gameService.GetTrendGamesAsync();
 
-            Games.Clear();
-            foreach (Game game in games)
-                Games.Add(game);
-
-            //if (Games.Count > 0)
-                //Position = 0;
+            Device.BeginInvokeOnMainThread(() => 
+            {
+                Games.Clear();
+                foreach (Game game in games)
+                    Games.Add(game);
+            });
             IsLoading = false;
         }
 

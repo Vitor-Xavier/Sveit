@@ -119,22 +119,150 @@ namespace Sveit.API.Context
 
             context.SaveChanges();
 
-            context.Games.Add(new Game { GameId = 01, Name = "Counter Strike: Global Offensive",  Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 02, Name = "Playerunknow's Battlegorunds", Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) } });
-            context.Games.Add(new Game { GameId = 03, Name = "League of Legends", Genres = new List<Genre> { GetGenre(context, 11) } });
-            context.Games.Add(new Game { GameId = 04, Name = "DOTA 2", Genres = new List<Genre> { GetGenre(context, 11) } });
-            context.Games.Add(new Game { GameId = 05, Name = "Overwatch", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 06, Name = "Battlefield 1", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 07, Name = "Call of Duty: World War 2", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 08, Name = "FIFA 19", Genres = new List<Genre> { GetGenre(context, 12) } });
-            context.Games.Add(new Game { GameId = 09, Name = "Mortal Kombat X", Genres = new List<Genre> { GetGenre(context, 13) } });
-            context.Games.Add(new Game { GameId = 10, Name = "Injustice 2", Genres = new List<Genre> { GetGenre(context, 13) } });
-            context.Games.Add(new Game { GameId = 11, Name = "Forza Motorsport 7", Genres = new List<Genre> { GetGenre(context, 14) } });
-            context.Games.Add(new Game { GameId = 12, Name = "Gran Turismo", Genres = new List<Genre> { GetGenre(context, 14) } });
-            context.Games.Add(new Game { GameId = 13, Name = "Dead by Daylight", Genres = new List<Genre> { GetGenre(context, 4) } });
-            context.Games.Add(new Game { GameId = 14, Name = "Grand Theft Auto V", Genres = new List<Genre> { GetGenre(context, 7), GetGenre(context, 1), GetGenre(context, 2), GetGenre(context, 14), GetGenre(context, 5) } });
-            context.Games.Add(new Game { GameId = 15, Name = "Rainbow Six Siege", Genres = new List<Genre> { GetGenre(context, 1) } });
-            context.Games.Add(new Game { GameId = 16, Name = "Fortnite", Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) } });
+            context.Games.Add(new Game
+            {
+                GameId = 01,
+                Name = "Counter Strike: Global Offensive",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/csgo_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/csgo_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/csgo_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 1) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 02,
+                Name = "Playerunknow's Battlegorunds",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/pubg_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/pubg_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/pubg_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 03,
+                Name = "League of Legends",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/lol_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/lol_image.png",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/lol_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 11) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 04,
+                Name = "DOTA 2",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/dota2_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/dota2_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/dota2_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 11) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 05,
+                Name = "Overwatch",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/overwatch_logo.jpg",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/overwatch_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/overwatch_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 1) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 06,
+                Name = "Battlefield 5",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/bf5_icon.jpeg",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/bf5_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/bf5_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 1) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 07,
+                Name = "Call of Duty: Black Ops 4",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/bo4_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/bo4_image.png",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/bo4_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 1) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 08,
+                Name = "FIFA 19",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/fifa19_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/fifa19_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/fifa19_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 12) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 09,
+                Name = "Mortal Kombat X",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/mkx_icon.png",
+                ImageSource = "",
+                BackgroundSource = "",
+                Genres = new List<Genre> { GetGenre(context, 13) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 10,
+                Name = "Injustice 2",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/injustice2_icon.jpeg",
+                ImageSource = "",
+                BackgroundSource = "",
+                Genres = new List<Genre> { GetGenre(context, 13) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 11,
+                Name = "Forza Motorsport 7",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/forza7_icon.jpg",
+                ImageSource = "",
+                BackgroundSource = "",
+                Genres = new List<Genre> { GetGenre(context, 14) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 12,
+                Name = "Gran Turismo",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/gt_icon.png",
+                ImageSource = "",
+                BackgroundSource = "",
+                Genres = new List<Genre> { GetGenre(context, 14) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 13,
+                Name = "Dead by Daylight",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/dbd_icon.png",
+                ImageSource = "",
+                BackgroundSource = "",
+                Genres = new List<Genre> { GetGenre(context, 4) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 14,
+                Name = "Grand Theft Auto V",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/gtav_icon.png",
+                ImageSource = "",
+                BackgroundSource = "",
+                Genres = new List<Genre> { GetGenre(context, 7), GetGenre(context, 1), GetGenre(context, 2), GetGenre(context, 14), GetGenre(context, 5) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 15,
+                Name = "Rainbow Six Siege",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/r6_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/r6_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/r6_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 1) }
+            });
+            context.Games.Add(new Game
+            {
+                GameId = 16,
+                Name = "Fortnite",
+                IconSource = "https://sveitblob.blob.core.windows.net/images/fortnite_icon.png",
+                ImageSource = "https://sveitblob.blob.core.windows.net/images/fortnite_image.jpg",
+                BackgroundSource = "https://sveitblob.blob.core.windows.net/images/fortnite_background.jpg",
+                Genres = new List<Genre> { GetGenre(context, 5), GetGenre(context, 1), GetGenre(context, 2) }
+            });
 
             context.SaveChanges();
 

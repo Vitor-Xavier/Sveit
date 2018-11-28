@@ -474,4 +474,7 @@
   <data name="EditComment" xml:space="preserve">
     <value>Editar comentário</value>
   </data>
+  <data name="ImageFailed" xml:space="preserve">
+    <value>Não foi possível enviar a imagem</value>
+  </data>
 </root>

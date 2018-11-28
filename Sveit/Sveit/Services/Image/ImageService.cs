@@ -32,7 +32,7 @@ namespace Sveit.Services.Image
                 var fileBytes = File.ReadAllBytes(filepath);
 
                 ByteArrayContent byteArray = new ByteArrayContent(fileBytes);
-                byteArray.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                byteArray.Headers.ContentType = MediaTypeHeaderValue.Parse(GetImageFormat(Path.GetExtension(filepath)));
 
                 return _requestService.PostMimeAsync(uri, new ByteArrayContent[] { byteArray });
             }
@@ -40,6 +40,18 @@ namespace Sveit.Services.Image
             {
                 Crashes.TrackError(e);
                 return Task.FromResult(string.Empty);
+            }
+        }
+
+        private string GetImageFormat(string extension)
+        {
+            switch (extension)
+            {
+                case ".jpg": return "image/jpeg";
+                case ".jpeg": return "image/jpeg";
+                case ".png": return "image/png";
+                case ".bmp": return "image/bmp";
+                default: return "image/jpeg";
             }
         }
     }

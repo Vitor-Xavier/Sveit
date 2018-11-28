@@ -21,7 +21,7 @@ namespace Sveit.Models
         public virtual Gender Gender { get; set; }
         [Required, StringLength(30)]
         public string Nickname { get; set; }
-        [StringLength(300)]
+        [StringLength(150)]
         public string AvatarSource { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
 

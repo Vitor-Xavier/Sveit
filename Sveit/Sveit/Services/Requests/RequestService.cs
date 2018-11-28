@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -115,8 +116,20 @@ namespace Sveit.Services.Requests
             foreach(ByteArrayContent byteArray in byteArrays)
                 content.Add(byteArray);
 
-            HttpResponseMessage response = await HttpClient.PostAsync(uri, content).ConfigureAwait(false);
-            return await response.Content.ReadAsStringAsync();
+            try
+            {
+                HttpResponseMessage response = await HttpClient.PostAsync(uri, content).ConfigureAwait(false);
+                await HandleResponse(response);
+                string responseContent = await response.Content.ReadAsStringAsync();
+                responseContent = responseContent.Replace("\"", "");
+                return responseContent;
+            }
+            catch (Exception e)
+            {
+                Crashes.TrackError(e);
+            }
+            return null;
+            
         }
     }
 }

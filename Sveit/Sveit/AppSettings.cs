@@ -7,7 +7,7 @@ namespace Sveit
     {
         private const string DefaultLanguage = "";
         private const string DefaultAuthEndpoint = "Token";
-        private const string DefaultBaseEndpoint = "http://192.168.31.27:45455/";
+        private const string DefaultBaseEndpoint = "https://sveit.azurewebsites.net/";
         private const string DefaultAppliesEndpoint = "Apply";
         private const string DefaultCommentsEndpoint = "Comment";
         private const string DefaultContactsEndpoint = "Contact";

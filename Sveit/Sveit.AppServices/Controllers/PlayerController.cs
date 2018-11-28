@@ -201,7 +201,7 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                _context.Players.Attach(player);
+                _context.Players.AddOrUpdate(player);
                 _context.SaveChanges();
 
                 return Ok(player);
@@ -223,7 +223,7 @@ namespace Sveit.API.Controllers
         {
             try
             {
-                _context.Players.AddOrUpdate(player);
+                _context.Players.Add(player);
                 _context.SaveChanges();
 
                 return Created("Ok", player);

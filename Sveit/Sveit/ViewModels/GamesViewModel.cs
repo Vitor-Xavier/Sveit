@@ -52,9 +52,12 @@ namespace Sveit.ViewModels
             IsLoading = true;
             var games = await _gameService.GetGamesAsync();
 
-            Games.Clear();
-            foreach (Game g in games)
-                Games.Add(g);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Games.Clear();
+                foreach (Game game in games)
+                    Games.Add(game);
+            });
             IsLoading = false;
         }
 
