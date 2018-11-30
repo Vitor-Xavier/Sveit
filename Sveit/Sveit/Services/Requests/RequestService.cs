@@ -81,7 +81,7 @@ namespace Sveit.Services.Requests
         {
             HttpClient.DefaultRequestHeaders.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpClient.Timeout = TimeSpan.FromSeconds(15);
+            HttpClient.Timeout = TimeSpan.FromSeconds(7);
 
             if (!string.IsNullOrWhiteSpace(token))
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -91,6 +91,7 @@ namespace Sveit.Services.Requests
         {
             HttpClient.DefaultRequestHeaders.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+            HttpClient.Timeout = TimeSpan.FromSeconds(25);
 
             HttpResponseMessage response =
                 await HttpClient.PostAsync(uri, new StringContent(data, Encoding.UTF8, "text/plain"))
@@ -107,6 +108,7 @@ namespace Sveit.Services.Requests
         {
             HttpClient.DefaultRequestHeaders.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+            HttpClient.Timeout = TimeSpan.FromSeconds(25);
 
             if (!string.IsNullOrWhiteSpace(token))
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

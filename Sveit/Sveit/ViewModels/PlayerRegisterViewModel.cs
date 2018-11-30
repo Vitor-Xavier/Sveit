@@ -105,6 +105,8 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand ContinueCommand => new AsyncCommand(ContinueCommandExecute);
 
+        public IAsyncCommand GenderCommand => new AsyncCommand(GenderCommandExecute);
+
         public PlayerRegisterViewModel(INavigation navigation, IRequestService requestService, int playerId)
         {
             _playerId = playerId;
@@ -113,10 +115,10 @@ namespace Sveit.ViewModels
             _requestService = requestService;
             if (AppSettings.ApiStatus)
             {
-                _playerService = new PlayerService(_requestService);
-                _genderService = new GenderService(_requestService);
-                _imageService = new ImageService(_requestService);
+                _playerService = new PlayerService(new RequestService());
                 _loginService = new LoginService(_requestService);
+                _genderService = new GenderService(new RequestService());
+                _imageService = new ImageService(_requestService);
             }
             else
             {
@@ -131,13 +133,28 @@ namespace Sveit.ViewModels
             Task.Run(() => LoadPlayer());
         }
 
+        private async Task GenderCommandExecute()
+        {
+            await LoadGenders();
+        }
+
         private async Task LoadGenders()
         {
-            var genders = await _genderService.GetGendersAsync();
+            try
+            {
+                var genders = await _genderService.GetGendersAsync();
 
-            Genders.Clear();
-            foreach (var g in genders)
-                Genders.Add(g);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Genders.Clear();
+                    foreach (var g in genders)
+                        Genders.Add(g);
+                });
+            }
+            catch (Exception e)
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.Gender);
+            }
         }
 
         private async Task ContinueCommandExecute()

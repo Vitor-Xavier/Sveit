@@ -21,7 +21,8 @@
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
-            <forms:CarouselViewControl ItemsSource="{Binding Games}" 
+            <forms:CarouselViewControl x:Name="carouselView"
+                                       ItemsSource="{Binding Games}" 
                                        Position="{Binding Position}"
                                        VerticalOptions="FillAndExpand"
                                        HorizontalOptions="FillAndExpand">
@@ -36,6 +37,7 @@
                             </Grid.ColumnDefinitions>
                             <ffimage:CachedImage Aspect="Fill" 
                                                  Source="{Binding ImageSource}"
+                                                 DownsampleToViewSize="True"
                                                  HorizontalOptions="FillAndExpand">
                                 <ffimage:CachedImage.Transformations>
                                     <transformations:BlurredTransformation Radius="180" />
@@ -43,10 +45,17 @@
                             </ffimage:CachedImage>
                             <StackLayout BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
                             <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                                <ffimage:CachedImage Source="{Binding IconSource}" HeightRequest="92" >
+                                <ffimage:CachedImage Source="{Binding IconSource}" 
+                                                     HeightRequest="92"
+                                                     DownsampleWidth="92"
+                                                     DownsampleToViewSize="True">
                                     <ffimage:CachedImage.Transformations>
                                         <transformations:RoundedTransformation Radius="240" />
                                     </ffimage:CachedImage.Transformations>
+                                    <ffimage:CachedImage.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.GameCommand, Source={x:Reference Name=carouselView}}" 
+                                                              CommandParameter="{Binding}"/>
+                                    </ffimage:CachedImage.GestureRecognizers>
                                 </ffimage:CachedImage>
                                 <Label Text="{Binding Name}" 
                                    TextColor="{StaticResource PrimaryText}" 

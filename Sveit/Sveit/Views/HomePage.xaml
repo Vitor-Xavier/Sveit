@@ -15,8 +15,11 @@
     <ContentPage.Content>
         <StackLayout>
             <controls:CustomListView ItemsSource="{Binding News}" 
+                                     ItemTappedCommand="{Binding ContentCommand}"
                                      HasUnevenRows="True" 
+                                     IsPullToRefreshEnabled="True"
                                      RefreshCommand="{Binding RefreshCommand}" 
+                                     IsRefreshing="{Binding IsLoading}"
                                      Margin="6" 
                                      SeparatorVisibility="None">
                 <ListView.ItemTemplate>

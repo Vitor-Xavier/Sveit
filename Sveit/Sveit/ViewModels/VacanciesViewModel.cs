@@ -36,6 +36,8 @@ namespace Sveit.ViewModels
 
         public ObservableCollection<Game> Games { get; set; }
 
+        public IAsyncCommand RefreshCommand => new AsyncCommand(RefreshCommandExecute);
+
         public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
         public VacanciesViewModel(INavigation navigation, IRequestService requestService)
@@ -58,17 +60,32 @@ namespace Sveit.ViewModels
             Task.Run(() => LoadGames());
         }
 
+        private async Task RefreshCommandExecute()
+        {
+            await LoadByGame(Position);
+        }
+
         private async Task LoadByGame(int pos)
         {
-            var vacancies = await _vacancyService.GetVacanciesByGameAsync(Games[pos].GameId);
-            Vacancies.Clear();
-            foreach (Vacancy vacancy in vacancies)
-                Vacancies.Add(vacancy);
+            if (IsLoading) return;
+            IsLoading = true;
+            try
+            {
+                var vacancies = await _vacancyService.GetVacanciesByGameAsync(Games[pos].GameId);
+                Vacancies.Clear();
+                foreach (Vacancy vacancy in vacancies)
+                    Vacancies.Add(vacancy);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async Task LoadGames()
         {
             if (IsLoading) return;
+            if (Games == null) return;
             IsLoading = true;
             var games = await _gameService.GetTrendGamesAsync();
 

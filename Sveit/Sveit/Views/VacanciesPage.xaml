@@ -21,10 +21,14 @@
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
 
-            <forms:CarouselViewControl ItemsSource="{Binding Games}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Position="{Binding Position}">
+            <forms:CarouselViewControl ItemsSource="{Binding Games}" 
+                                       Position="{Binding Position}"
+                                       VerticalOptions="FillAndExpand" 
+                                       HorizontalOptions="FillAndExpand">
                 <forms:CarouselViewControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <Grid VerticalOptions="FillAndExpand" 
+                              HorizontalOptions="FillAndExpand">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
@@ -33,14 +37,20 @@
                             </Grid.ColumnDefinitions>
                             <ffimage:CachedImage Aspect="Fill" 
                                                  Source="{Binding ImageSource}"
+                                                 DownsampleToViewSize="True"
                                                  HorizontalOptions="FillAndExpand">
                                 <ffimage:CachedImage.Transformations>
                                     <transformations:BlurredTransformation Radius="180" />
                                 </ffimage:CachedImage.Transformations>
                             </ffimage:CachedImage>
-                            <StackLayout BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <StackLayout BackgroundColor="#A6000000" 
+                                         VerticalOptions="FillAndExpand" 
+                                         HorizontalOptions="FillAndExpand"/>
+                            <StackLayout VerticalOptions="CenterAndExpand" 
+                                         HorizontalOptions="CenterAndExpand">
                                 <ffimage:CachedImage Source="{Binding IconSource}" 
+                                                     DownsampleToViewSize="True"
+                                                     DownsampleWidth="92"
                                                      HeightRequest="92" >
                                     <ffimage:CachedImage.Transformations>
                                         <transformations:RoundedTransformation Radius="240" />
@@ -58,6 +68,9 @@
             <controls:CustomListView Grid.Row="1" 
                                      ItemsSource="{Binding Vacancies}" 
                                      ItemTappedCommand="{Binding VacancyCommand}"
+                                     IsPullToRefreshEnabled="True"
+                                     IsRefreshing="{Binding IsLoading}"
+                                     RefreshCommand="{Binding RefreshCommand}"
                                      Margin="0, 5, 0, 5" 
                                      HasUnevenRows="True">
                 <ListView.ItemTemplate>

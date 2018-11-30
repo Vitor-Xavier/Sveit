@@ -6,6 +6,7 @@ using Sveit.Models;
 using Sveit.Services.Login;
 using Sveit.Services.Requests;
 using System.Globalization;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,6 +25,11 @@ namespace Sveit
                 AppSettings.Language = CrossMultilingual.Current.DeviceCultureInfo.IetfLanguageTag;
             AppResources.Culture = new CultureInfo(AppSettings.Language);
 
+            InitializeNavigation();
+        }
+
+        protected void InitializeNavigation()
+        {
             var requestService = new RequestService();
             if (!AppSettings.CredentialStatus)
             {
@@ -31,7 +37,7 @@ namespace Sveit
                 loginService.LogOut();
             }
 
-            MainPage = new Sveit.Views.MasterMainPage(requestService);
+            MainPage = new Sveit.Views.MasterMainPage(new RequestService());
         }
 
         protected override void OnStart()

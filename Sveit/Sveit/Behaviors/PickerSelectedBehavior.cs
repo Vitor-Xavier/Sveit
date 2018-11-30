@@ -20,7 +20,9 @@ namespace Sveit.Behaviors
             {
                 bool IsValid = picker.SelectedItem != null;
 
-                ((CustomPicker)sender).LineColor = IsValid ? Color.Default : Color.FromHex("#B00020");
+                ((CustomPicker)sender).LineColor = IsValid ?
+                    (Color)App.Current.Resources["AccentColor"] :
+                    Color.FromHex("#B00020");
             }
         }
 

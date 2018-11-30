@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Controls;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Requests;
 using Sveit.Services.Vacancy;
@@ -23,6 +24,8 @@ namespace Sveit.ViewModels
         public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
         public IAsyncCommand<Vacancy> UpdateVacancyCommand => new AsyncCommand<Vacancy>(UpdateVacancyCommandExecute);
+
+        public IAsyncCommand<Vacancy> CloseVacancyCommand => new AsyncCommand<Vacancy>(CloseVacancyCommandExecute);
 
         public VacanciesTeamViewModel(INavigation navigation, IRequestService requestService, int teamId)
         {
@@ -50,6 +53,23 @@ namespace Sveit.ViewModels
         public async Task VacancyCommandExecute(Vacancy vacancy)
         {
             await _navigation.PushAsync(new Views.AppliesTeamPage(_requestService, vacancy));
+        }
+
+        private async Task CloseVacancyCommandExecute(Vacancy vacancy)
+        {
+            try
+            {
+                vacancy.Available = false;
+                vacancy.Deleted = true;
+                var result = await _vacancyService.PostVacancyAsync(vacancy);
+                if (result == null)
+                    DependencyService.Get<IMessage>().ShortAlert(AppResources.VacancyFailed);
+                await LoadVacancies();
+            }
+            catch
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.VacancyFailed);
+            }
         }
 
         public async Task UpdateVacancyCommandExecute(Vacancy vacancy)

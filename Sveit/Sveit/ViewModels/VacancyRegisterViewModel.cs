@@ -6,6 +6,7 @@ using Sveit.Services.Requests;
 using Sveit.Services.Role;
 using Sveit.Services.Skill;
 using Sveit.Services.Vacancy;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -73,7 +74,7 @@ namespace Sveit.ViewModels
 
         public MultiSelectObservableCollection<Gender> Genders { get; set; }
 
-        public List<MultiSelectObservableGroupCollection<RoleType, Role>> RoleTypes { get; set; }
+        public ObservableCollection<MultiSelectObservableGroupCollection<RoleType, Role>> RoleTypes { get; set; }
 
         public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
 
@@ -96,6 +97,7 @@ namespace Sveit.ViewModels
                 _genderService = new FakeGenderService();
             }
 
+            RoleTypes = new ObservableCollection<MultiSelectObservableGroupCollection<RoleType, Role>>();
             Genders = new MultiSelectObservableCollection<Gender>();
             Skills = new ObservableCollection<Skill>();
 
@@ -120,21 +122,43 @@ namespace Sveit.ViewModels
 
         private async Task LoadRoles()
         {
-            var roles = await _roleService.GetRolesAsync();
+            try
+            {
+                var roles = await _roleService.GetRolesAsync();
 
-            if (roles != null)
-                RoleTypes = roles.OrderBy(p => p.Name)
-                    .GroupBy(p => p.RoleType)
-                    .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (roles != null)
+                    {
+                        var roleTypes = roles.OrderBy(p => p.Name)
+                            .GroupBy(p => p.RoleType)
+                            .Select(p => new MultiSelectObservableGroupCollection<RoleType, Role>(p)).ToList();
+                        foreach (var rt in roleTypes)
+                        {
+                            RoleTypes.Add(rt);
+                        }
+                    }
+                        
+                });
+                
+            }
+            catch (Exception e)
+            {
+                DependencyService.Get<IMessage>().ShortAlert(AppResources.Roles);
+            }
+            
         }
 
         private async Task LoadGenders()
         {
             var genders = await _genderService.GetGendersAsync();
 
-            Genders.Clear();
-            foreach (Gender g in genders)
-                Genders.Add(g);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Genders.Clear();
+                foreach (Gender g in genders)
+                    Genders.Add(g);
+            }); 
         }
 
         private async Task FinalizeCommandExecute()

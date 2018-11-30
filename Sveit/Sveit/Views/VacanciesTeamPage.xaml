@@ -32,6 +32,10 @@
                                           BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}" 
                                           Command="{Binding UpdateVacancyCommand}" 
                                           CommandParameter="{Binding Source={x:Reference viewCell}, Path=BindingContext}" />
+                                <MenuItem Text="{i18n:Translate CloseVacancy}" 
+                                          BindingContext="{Binding Source={x:Reference listView}, Path=BindingContext}" 
+                                          Command="{Binding CloseVacancyCommand}" 
+                                          CommandParameter="{Binding Source={x:Reference viewCell}, Path=BindingContext}" />
                             </ViewCell.ContextActions>
                             <Frame Padding="10, 5, 10, 5" 
                                    BackgroundColor="Transparent" 
@@ -40,10 +44,17 @@
                                              Padding="10" 
                                              BackgroundColor="{StaticResource CardColor}">
                                     <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
-                                        <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Skills, Converter={StaticResource SkillCountToString}}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                        <Label Text="{Binding Title}" 
+                                               TextColor="{StaticResource PrimaryText}" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Skills, Converter={StaticResource SkillCountToString}}" 
+                                               TextColor="{StaticResource DisabledText}"
+                                               Margin="0, 0, 4, 0"/>
                                     </StackLayout>
                                     <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
                                 </StackLayout>

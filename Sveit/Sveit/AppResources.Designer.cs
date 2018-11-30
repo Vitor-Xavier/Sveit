@@ -205,6 +205,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close vacancy.
+        /// </summary>
+        internal static string CloseVacancy {
+            get {
+                return ResourceManager.GetString("CloseVacancy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to register comment.
         /// </summary>
         internal static string CommentFailed {

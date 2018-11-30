@@ -49,6 +49,7 @@ namespace Sveit.ViewModels
         private async Task LoadGames()
         {
             if (IsLoading) return;
+            if (Games == null) return;
             IsLoading = true;
             var games = await _gameService.GetGamesAsync();
 

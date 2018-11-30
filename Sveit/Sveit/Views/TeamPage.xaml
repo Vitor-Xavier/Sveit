@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:i18n="clr-namespace:Sveit.Helpers" 
+             xmlns:converters="clr-namespace:Sveit.Helpers"
              xmlns:controls="clr-namespace:Sveit.Controls"
              xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
@@ -34,6 +35,8 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:ContactsToStringConverter x:Key="contactsToString"/>
+            
             <Style x:Key="TabHeader" TargetType="Label">
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
@@ -149,6 +152,15 @@
                         <StackLayout Margin="10">
                             <Label Text="{i18n:Translate Platform}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
                             <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        </StackLayout>
+                        <StackLayout Margin="10">
+                            <Label Text="{i18n:Translate Contacts}" 
+                                   TextColor="{StaticResource SecondaryText}" 
+                                   FontSize="Medium"/>
+                            <Label Text="{Binding Team.Contacts, Converter={StaticResource contactsToString}}" 
+                                   TextColor="{StaticResource PrimaryText}" 
+                                   FontSize="Medium" 
+                                   Margin="2"/>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

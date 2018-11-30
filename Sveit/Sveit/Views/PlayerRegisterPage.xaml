@@ -140,17 +140,24 @@
                     <StackLayout>
                         <Label Text="{i18n:Translate DateOfBirth}" TextColor="{StaticResource SecondaryText}"/>
                         <DatePicker Date="{Binding DateOfBirth}" 
-                                    MinimumDate="01/01/1900" 
+                                    MinimumDate="01/01/1930" 
                                     MaximumDate="10/18/2018" 
                                     TextColor="{StaticResource SecondaryText}"/>
                     </StackLayout>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Gender}" TextColor="{StaticResource SecondaryText}"/>
+                        <Label Text="{i18n:Translate Gender}" 
+                               TextColor="{StaticResource SecondaryText}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GenderCommand}" 
+                                                      NumberOfTapsRequired="2"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <controls:CustomPicker Title="{i18n:Translate Gender}" 
                                                ItemDisplayBinding="{Binding Name, Converter={StaticResource GenderTransalte}}"
                                                TextColor="{StaticResource SecondaryText}" 
                                                ItemsSource="{Binding Genders}" 
-                                               SelectedItem="{Binding Gender}">
+                                               SelectedItem="{Binding Gender}"
+                                               LineColor="{StaticResource AccentColor}">
                             <controls:CustomPicker.Behaviors>
                                 <behaviors:PickerSelectedBehavior/>
                             </controls:CustomPicker.Behaviors>

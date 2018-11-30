@@ -477,4 +477,7 @@
   <data name="ImageFailed" xml:space="preserve">
     <value>Não foi possível enviar a imagem</value>
   </data>
+  <data name="CloseVacancy" xml:space="preserve">
+    <value>Fechar vaga</value>
+  </data>
 </root>
