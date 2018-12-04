@@ -33,15 +33,29 @@ namespace Sveit.ViewModels
 
         private async Task RefreshCommandExecute()
         {
+            await LoadContent();
+        }
+
+        private async Task LoadContent(int count = 0)
+        {
+            if (count > 1) return;
             if (IsLoading) return;
             IsLoading = true;
             try
             {
                 var contents = await _contentService.GetContentsAsync();
 
-                News.Clear();
-                foreach (Content content in contents)
-                    News.Add(content);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    News.Clear();
+                    foreach (Content content in contents)
+                        News.Add(content);
+                });
+                
+            }
+            catch
+            {
+                await LoadContent(count + 1);
             }
             finally
             {

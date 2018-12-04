@@ -1,10 +1,4 @@
-﻿
-using Sveit.Models;
-using Sveit.Services.Login;
-using Sveit.Services.Requests;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using Sveit.Services.Requests;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

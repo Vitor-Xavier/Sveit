@@ -191,12 +191,12 @@ namespace Sveit.ViewModels
             try
             {
                 var result = await _vacancyService.PostVacancyAsync(vacancy);
-                if (result != null)
-                    await _navigation.PopAsync();
-                else
+                if (result == null)
                     DependencyService.Get<IMessage>().ShortAlert(AppResources.VacancyFailed);
+                else
+                    await _navigation.PopModalAsync();
             }
-            catch
+            catch (Exception e)
             {
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.VacancyFailed);
             }

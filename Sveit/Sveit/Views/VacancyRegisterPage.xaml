@@ -77,7 +77,8 @@
                                 HeightRequest="100"/>
                     </StackLayout>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Age}" TextColor="{StaticResource SecondaryText}"/>
+                        <Label Text="{i18n:Translate Age}" 
+                               TextColor="{StaticResource SecondaryText}"/>
                         <StackLayout Orientation="Horizontal" Margin="8">
                             <Entry Placeholder="{i18n:Translate MinAge}" 
                                    Text="{Binding MinAge}" 
@@ -99,8 +100,9 @@
                            FontSize="Medium"/>
                         <dltag:TagEntryView TagItems="{Binding Skills}" 
                                             TagValidatorFactory="{StaticResource SkillValidatorFactory}"
-                                            Margin="-4, 4"
-                                            AllowKeyboardReturnToAddNewTag="True">
+                                            AllowKeyboardReturnToAddNewTag="True"
+                                            ShowEntryBox="True"
+                                            Margin="-4, 4">
                             <dltag:TagEntryView.TagItemTemplate>
                                 <DataTemplate>
                                     <StackLayout BackgroundColor="{StaticResource AccentColor}" 
