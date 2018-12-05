@@ -30,40 +30,59 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center">
-                <forms:CachedImage Source="{Binding Vacancy.Team.IconSource}" HeightRequest="92" >
+            <StackLayout Grid.Row="0" BackgroundColor="{StaticResource TranslucentBlackColor}" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" 
+                         VerticalOptions="Center" 
+                         HorizontalOptions="Center">
+                <forms:CachedImage Source="{Binding Vacancy.Team.IconSource}" 
+                                   HeightRequest="92" >
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <Label Text="{Binding Vacancy.Team.Name}" 
-                   TextColor="{StaticResource PrimaryText}" 
-                   FontSize="Large"
-                   HorizontalOptions="Center"/>
+                       TextColor="{StaticResource PrimaryText}" 
+                       FontSize="Large" 
+                       HorizontalOptions="Center"/>
             </StackLayout>
 
             <ScrollView Grid.Row="1">
                 <StackLayout Margin="10" 
                          Spacing="8">
                     <StackLayout Margin="10">
-                        <Label Text="{Binding Vacancy.Title}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Vacancy.Description}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{Binding Vacancy.Title}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Vacancy.Description}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Age}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Vacancy, Converter={StaticResource ageToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Age}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Vacancy, Converter={StaticResource ageToString}}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Gender}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Vacancy.Genders, Converter={StaticResource gendersToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Gender}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Vacancy.Genders, Converter={StaticResource gendersToString}}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Requirements}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Vacancy.Skills, Converter={StaticResource skillsToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Requirements}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Vacancy.Skills, Converter={StaticResource skillsToString}}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout VerticalOptions="End">
-                        <flex:FlexButton Text="{i18n:Translate Apply}" ClickedCommand="{Binding ApplyCommand}" HeightRequest="60" Margin="14" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="#FFFFFF" CornerRadius="8"/>
+                        <flex:FlexButton Text="{i18n:Translate Apply}" 
+                                         ClickedCommand="{Binding ApplyCommand}" 
+                                         HeightRequest="60" 
+                                         Margin="14" 
+                                         BackgroundColor="{StaticResource AccentColor}" 
+                                         ForegroundColor="{StaticResource PrimaryText}" 
+                                         CornerRadius="8"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

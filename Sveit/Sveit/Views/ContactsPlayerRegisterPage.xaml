@@ -27,9 +27,17 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-                <forms:CachedImage Source="{Binding Player.AvatarSource}" HeightRequest="100">
+            <StackLayout Grid.Row="0" 
+                         Grid.RowSpan="2" 
+                         Grid.Column="0" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"
+                         BackgroundColor="{StaticResource TranslucentBlackColor}"/>
+            <StackLayout Grid.Row="0" 
+                         VerticalOptions="CenterAndExpand" 
+                         HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="{Binding Player.AvatarSource}" 
+                                   HeightRequest="100">
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>

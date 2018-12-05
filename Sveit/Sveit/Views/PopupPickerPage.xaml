@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:i18n="clr-namespace:Sveit.Helpers"
                  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  x:Class="Sveit.Views.PopupPickerPage"
                  Padding="30"
                  CloseWhenBackgroundIsClicked="True">
     <popup:PopupPage.Content>
-        <StackLayout BackgroundColor="White">
-            <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" Margin="12, 12, 0, 0"/>
+        <StackLayout BackgroundColor="{StaticResource BackgroundColor}">
+            <Label Text="{Binding Title}" 
+                   TextColor="{StaticResource PrimaryText}"
+                   FontSize="Medium" 
+                   FontAttributes="Bold" 
+                   Margin="12, 12, 0, 0"/>
             <ListView ItemsSource="{Binding Items}" 
                       HasUnevenRows="True"
                       Margin="16"
@@ -15,15 +20,23 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Margin="8" Orientation="Horizontal" Spacing="8">
-                                <Image Source="{Binding IconSource}" HeightRequest="42"/>
-                                <Label Text="{Binding Name}"/>
+                            <StackLayout Margin="8" 
+                                         Orientation="Horizontal" 
+                                         Spacing="8">
+                                <Image Source="{Binding IconSource}" 
+                                       HeightRequest="42"/>
+                                <Label Text="{Binding Name}"
+                                       TextColor="{StaticResource PrimaryText}"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button BackgroundColor="Transparent" Text="CANCEL" Command="{Binding CancelCommand}" HorizontalOptions="End"/>
+            <Button  Text="{i18n:Translate Cancel}" 
+                     TextColor="{StaticResource PrimaryText}"
+                     Command="{Binding CancelCommand}" 
+                     HorizontalOptions="End" 
+                     BackgroundColor="Transparent"/>
         </StackLayout>
     </popup:PopupPage.Content>
 </popup:PopupPage>

@@ -27,7 +27,7 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="{StaticResource TranslucentBlackColor}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
             <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
                 <forms:CachedImage Source="{Binding Team.IconSource}" HeightRequest="100">
                     <forms:CachedImage.Transformations>

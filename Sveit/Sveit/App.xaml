@@ -16,7 +16,18 @@
             <Color x:Key="SecondaryText">#B3FFFFFF</Color>
             <Color x:Key="DisabledText">#80FFFFFF</Color>
 
+            <Color x:Key="TranslucentBlackColor">#A6000000</Color>
+
             <!--Styles-->
+            <Style x:Key="LabelTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource SecondaryText}"/>
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+            <Style x:Key="LabelContentStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryText}"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="Margin" Value="2"/>
+            </Style>
             <Style x:Key="SearchBarStyle" TargetType="SearchBar">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
                 <Setter Property="PlaceholderColor" Value="{StaticResource PrimaryText}" />

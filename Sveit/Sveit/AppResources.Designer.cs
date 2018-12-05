@@ -205,6 +205,15 @@ namespace Sveit {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CANCEL.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close vacancy.
         /// </summary>
         internal static string CloseVacancy {
@@ -286,7 +295,7 @@ namespace Sveit {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to days ago.
+        ///   Looks up a localized string similar to {0} days ago.
         /// </summary>
         internal static string DaysAgo {
             get {

@@ -139,7 +139,7 @@
     <value>Contacts</value>
   </data>
   <data name="DaysAgo" xml:space="preserve">
-    <value>days ago</value>
+    <value>{0} days ago</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -479,5 +479,8 @@
   </data>
   <data name="CloseVacancy" xml:space="preserve">
     <value>Close vacancy</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>CANCEL</value>
   </data>
 </root>

@@ -43,7 +43,7 @@
                                     <transformations:BlurredTransformation Radius="180" />
                                 </ffimage:CachedImage.Transformations>
                             </ffimage:CachedImage>
-                            <StackLayout BackgroundColor="#A6000000" 
+                            <StackLayout BackgroundColor="{StaticResource TranslucentBlackColor}" 
                                          VerticalOptions="FillAndExpand" 
                                          HorizontalOptions="FillAndExpand"/>
                             <StackLayout VerticalOptions="CenterAndExpand" 
@@ -83,12 +83,22 @@
                                              Padding="10" 
                                              BackgroundColor="{StaticResource CardColor}">
                                     <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
-                                        <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Skills, Converter={StaticResource SkillCountToString}}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                        <Label Text="{Binding Title}" 
+                                               TextColor="{StaticResource PrimaryText}" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Skills, Converter={StaticResource SkillCountToString}}" 
+                                               TextColor="{StaticResource DisabledText}" 
+                                               Margin="0, 0, 4, 0"/>
                                     </StackLayout>
-                                    <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
+                                    <Image Source="{Binding Team.IconSource}" 
+                                           WidthRequest="64" 
+                                           HeightRequest="64" 
+                                           HorizontalOptions="End"/>
                                 </StackLayout>
                             </Frame>
                         </ViewCell>

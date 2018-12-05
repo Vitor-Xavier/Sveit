@@ -31,44 +31,61 @@
                     <transformations:BlurredTransformation Radius="180" />
                 </forms:CachedImage.Transformations>
             </forms:CachedImage>
-            <StackLayout Grid.Row="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center">
-                <forms:CachedImage Source="{Binding Apply.Vacancy.Team.IconSource}" HeightRequest="92" >
+            <StackLayout Grid.Row="0" 
+                         BackgroundColor="{StaticResource TranslucentBlackColor}" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"/>
+            <StackLayout Grid.Row="0" 
+                         VerticalOptions="Center" 
+                         HorizontalOptions="Center">
+                <forms:CachedImage Source="{Binding Apply.Vacancy.Team.IconSource}" 
+                                   HeightRequest="92" >
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <Label Text="{Binding Apply.Vacancy.Team.Name}" 
-                   TextColor="{StaticResource PrimaryText}" 
-                   FontSize="Large"
-                   HorizontalOptions="Center"/>
+                       TextColor="{StaticResource PrimaryText}" 
+                       FontSize="Large" 
+                       HorizontalOptions="Center"/>
             </StackLayout>
 
             <ScrollView Grid.Row="1">
                 <StackLayout Margin="10" 
                          Spacing="8">
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Text}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Apply.Text}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Text}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Apply.Text}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Player}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Apply.Player.Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Player}"
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Apply.Player.Nickname}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Age}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Apply.Player.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Age}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Apply.Player.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Gender}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Apply.Player.Gender.Name, Converter={StaticResource GenderTransalte}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Gender}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Apply.Player.Gender.Name, Converter={StaticResource GenderTransalte}}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Skills}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                        <Label Text="{Binding Skills, Converter={StaticResource SkillsToString}}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                        <Label Text="{i18n:Translate Skills}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
+                        <Label Text="{Binding Skills, Converter={StaticResource SkillsToString}}" 
+                               Style="{StaticResource LabelContentStyle}"/>
                     </StackLayout>
                     <StackLayout Margin="10">
-                        <Label Text="{i18n:Translate Roles}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
+                        <Label Text="{i18n:Translate Roles}" 
+                               Style="{StaticResource LabelTitleStyle}"/>
                         <ListView ItemsSource="{Binding RoleTypes}"
                                   HasUnevenRows="True"
                                   IsGroupingEnabled="True"

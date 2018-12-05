@@ -12,7 +12,9 @@
                 <RowDefinition Height="56"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <BoxView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource AccentColor}"/>
+            <BoxView HorizontalOptions="FillAndExpand" 
+                     VerticalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}"/>
             <controls:CustomListView x:Name="listView" 
                                      Grid.Row="1" 
                                      ItemsSource="{Binding Applies}" 
@@ -35,12 +37,22 @@
                                              Padding="10" 
                                              BackgroundColor="{StaticResource CardColor}">
                                     <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
-                                        <Label Text="{Binding Vacancy.Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Vacancy.Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Vacancy.Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Vacancy.Team.Name}" TextColor="{StaticResource DisabledText}" Margin="0, 0, 4, 0"/>
+                                        <Label Text="{Binding Vacancy.Title}" 
+                                               TextColor="{StaticResource PrimaryText}" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Vacancy.Team.GamePlatform.Game.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Vacancy.Team.GamePlatform.Platform.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Vacancy.Team.Name}" 
+                                               TextColor="{StaticResource DisabledText}" 
+                                               Margin="0, 0, 4, 0"/>
                                     </StackLayout>
-                                    <Image Source="{Binding Vacancy.Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
+                                    <Image Source="{Binding Vacancy.Team.IconSource}" 
+                                           WidthRequest="64" 
+                                           HeightRequest="64" 
+                                           HorizontalOptions="End"/>
                                 </StackLayout>
                             </Frame>
                         </ViewCell>

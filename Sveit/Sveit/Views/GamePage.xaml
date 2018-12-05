@@ -28,10 +28,18 @@
                                Source="{Binding Game.BackgroundSource}" 
                                Opacity="1">
             </forms:CachedImage>
-            <StackLayout BackgroundColor="#00000000" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+            <StackLayout Grid.Row="0" 
+                         Grid.Column="0" 
+                         Grid.RowSpan="2" 
+                         BackgroundColor="#00000000">
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Margin="16">
-                    <Label Text="{Binding Game.Name}" FontSize="Large" FontAttributes="Bold" TextColor="#FFFFFF"/>
-                    <Label Text="{Binding Game.Genres, Converter={StaticResource GenresToString}}" HorizontalTextAlignment="Center" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding Game.Name}" 
+                           TextColor="{StaticResource PrimaryText}"
+                           FontSize="Large" 
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding Game.Genres, Converter={StaticResource GenresToString}}" 
+                           TextColor="{StaticResource SecondaryText}"
+                           HorizontalTextAlignment="Center" />
                 </StackLayout>
             </StackLayout>
             <controls:CustomListView Grid.Row="1" 
@@ -49,12 +57,19 @@
                                              Padding="10" 
                                              BackgroundColor="{StaticResource CardColor}">
                                     <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
-                                        <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource SecondaryText}"/>
-                                        <Label Text="{Binding Skills, Converter={StaticResource SkillsCountToString}}" TextColor="{StaticResource DisabledText}"/>
+                                        <Label Text="{Binding Title}" TextColor="#FFFFFF" 
+                                               FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Team.GamePlatform.Game.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Team.GamePlatform.Platform.Name}" 
+                                               TextColor="{StaticResource SecondaryText}"/>
+                                        <Label Text="{Binding Skills, Converter={StaticResource SkillsCountToString}}" 
+                                               TextColor="{StaticResource DisabledText}"/>
                                     </StackLayout>
-                                    <Image Source="{Binding Team.IconSource}" WidthRequest="64" HeightRequest="64" HorizontalOptions="End"/>
+                                    <Image Source="{Binding Team.IconSource}" 
+                                           WidthRequest="64" 
+                                           HeightRequest="64" 
+                                           HorizontalOptions="End"/>
                                 </StackLayout>
                             </Frame>
                         </ViewCell>

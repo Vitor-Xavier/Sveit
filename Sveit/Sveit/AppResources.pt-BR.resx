@@ -480,4 +480,7 @@
   <data name="CloseVacancy" xml:space="preserve">
     <value>Fechar vaga</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>CANCELAR</value>
+  </data>
 </root>

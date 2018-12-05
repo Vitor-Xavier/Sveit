@@ -20,7 +20,6 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
-
             <forms:CarouselViewControl x:Name="carouselView"
                                        ItemsSource="{Binding Games}" 
                                        Position="{Binding Position}"
@@ -43,8 +42,11 @@
                                     <transformations:BlurredTransformation Radius="180" />
                                 </ffimage:CachedImage.Transformations>
                             </ffimage:CachedImage>
-                            <StackLayout BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-                            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <StackLayout BackgroundColor="{StaticResource TranslucentBlackColor}" 
+                                         VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand"/>
+                            <StackLayout VerticalOptions="CenterAndExpand" 
+                                         HorizontalOptions="CenterAndExpand">
                                 <ffimage:CachedImage Source="{Binding IconSource}" 
                                                      HeightRequest="92"
                                                      DownsampleWidth="92"
@@ -77,11 +79,19 @@
                             <Frame Padding="10, 5, 10, 5" 
                                    OutlineColor="Transparent" 
                                    BackgroundColor="Transparent">
-                                <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
-                                    <Image Source="{Binding IconSource}" WidthRequest="64" HeightRequest="64"/>
+                                <StackLayout Orientation="Horizontal" 
+                                             Padding="10" 
+                                             BackgroundColor="{StaticResource CardColor}">
+                                    <Image Source="{Binding IconSource}" 
+                                           WidthRequest="64" 
+                                           HeightRequest="64"/>
                                     <StackLayout>
-                                        <Label Text="{Binding Name}" TextColor="{StaticResource PrimaryText}" FontAttributes="Bold"/>
-                                        <Label Text="{Binding Genres, Converter={StaticResource genresToString}}" TextColor="{StaticResource SecondaryText}" Margin="4, 0"/>
+                                        <Label Text="{Binding Name}" 
+                                               TextColor="{StaticResource PrimaryText}" 
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Genres, Converter={StaticResource genresToString}}" 
+                                               TextColor="{StaticResource SecondaryText}" 
+                                               Margin="4, 0"/>
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

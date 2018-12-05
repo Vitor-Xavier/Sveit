@@ -8,15 +8,22 @@
              Title="{i18n:Translate Settings}">
     <StackLayout Padding="10">
         <StackLayout Margin="10">
-            <Label Text="{i18n:Translate Settings}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
-                <Label Text="{i18n:Translate StoreCredencials}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" VerticalOptions="Center"/>
-                <Switch IsToggled="{Binding StoreCredentials}" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+            <Label Text="{i18n:Translate Settings}" 
+                   Style="{StaticResource LabelTitleStyle}"/>
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center">
+                <Label Text="{i18n:Translate StoreCredencials}" 
+                       Style="{StaticResource LabelContentStyle}"
+                       VerticalOptions="Center"/>
+                <Switch IsToggled="{Binding StoreCredentials}" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center" 
+                         Margin="2">
                 <Label Text="{i18n:Translate Language}" 
-                       TextColor="{StaticResource PrimaryText}" 
-                       FontSize="Medium"
+                       Style="{StaticResource LabelContentStyle}"
                        VerticalOptions="Center"
                        HorizontalOptions="Start"/>
                 <Picker ItemsSource="{Binding Languages}" 
@@ -28,21 +35,38 @@
             </StackLayout>
         </StackLayout>
         <StackLayout Margin="10">
-            <Label Text="{i18n:Translate About}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
-                <Label Text="{i18n:Translate Version}" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
-                <Label Text="Alpha 0.1" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium" HorizontalOptions="EndAndExpand"/>
+            <Label Text="{i18n:Translate About}" 
+                   Style="{StaticResource LabelTitleStyle}"/>
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center">
+                <Label Text="{i18n:Translate Version}" 
+                       Style="{StaticResource LabelContentStyle}"/>
+                <Label Text="Alpha 0.7" 
+                       VerticalOptions="Center" 
+                       Style="{StaticResource LabelContentStyle}"
+                       HorizontalOptions="EndAndExpand"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
-                <Label Text="Xamarin.Forms 3.4" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center">
+                <Label Text="Xamarin.Forms 3.4" 
+                       VerticalOptions="Center" 
+                       Style="{StaticResource LabelContentStyle}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="2">
-                <Label Text="Visual Studio 2017" VerticalOptions="Center" TextColor="{StaticResource PrimaryText}" FontSize="Medium"/>
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center">
+                <Label Text="Visual Studio 2017"
+                       Style="{StaticResource LabelContentStyle}"
+                       VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>
         <StackLayout Margin="10">
-            <Label Text="{i18n:Translate Social}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" Margin="20, 12" Spacing="20" HorizontalOptions="CenterAndExpand">
+            <Label Text="{i18n:Translate Social}" 
+                   Style="{StaticResource LabelTitleStyle}"/>
+            <StackLayout Orientation="Horizontal" 
+                         VerticalOptions="Center" 
+                         Margin="20, 12" 
+                         Spacing="20" 
+                         HorizontalOptions="CenterAndExpand">
                 <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"

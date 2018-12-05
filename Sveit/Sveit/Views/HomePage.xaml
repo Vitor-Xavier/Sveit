@@ -25,14 +25,26 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame Padding="6" OutlineColor="Transparent" BackgroundColor="Transparent">
-                                <StackLayout Padding="10" Spacing="10" BackgroundColor="{StaticResource CardColor}">
-                                    <Image Source="{Binding ImageSource}" Aspect="AspectFill"/>
-                                    <Label Text="{Binding Title}" TextColor="{StaticResource PrimaryText}"/>
-                                    <Label Text="{Binding Description}" TextColor="{StaticResource SecondaryText}"/>
-                                    <StackLayout Orientation="Horizontal" Margin="4">
-                                        <Label Text="{Binding CreatedAt, Converter={StaticResource RelativeDateTimeConverter}}" TextColor="{StaticResource DisabledText}" HorizontalOptions="StartAndExpand"/>
-                                        <Label Text="{Binding Source}" TextColor="{StaticResource DisabledText}" HorizontalOptions="End" />
+                            <Frame Padding="6" 
+                                   OutlineColor="Transparent" 
+                                   BackgroundColor="Transparent">
+                                <StackLayout Padding="10" 
+                                             Spacing="10" 
+                                             BackgroundColor="{StaticResource CardColor}">
+                                    <Image Source="{Binding ImageSource}" 
+                                           Aspect="AspectFill"/>
+                                    <Label Text="{Binding Title}" 
+                                           TextColor="{StaticResource PrimaryText}"/>
+                                    <Label Text="{Binding Description}" 
+                                           TextColor="{StaticResource SecondaryText}"/>
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Margin="4">
+                                        <Label Text="{Binding CreatedAt, Converter={StaticResource RelativeDateTimeConverter}}" 
+                                               TextColor="{StaticResource DisabledText}" 
+                                               HorizontalOptions="StartAndExpand"/>
+                                        <Label Text="{Binding Source}" 
+                                               TextColor="{StaticResource DisabledText}" 
+                                               HorizontalOptions="End" />
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

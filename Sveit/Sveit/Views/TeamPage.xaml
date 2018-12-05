@@ -78,8 +78,17 @@
                 <transformations:BlurredTransformation Radius="180" />
             </forms:CachedImage.Transformations>
         </forms:CachedImage>
-        <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-        <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <StackLayout Grid.Row="0" 
+                     Grid.RowSpan="2" 
+                     Grid.Column="0" 
+                     BackgroundColor="{StaticResource TranslucentBlackColor}" 
+                     VerticalOptions="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand"/>
+        <StackLayout Grid.Row="0" 
+                     Grid.RowSpan="2" 
+                     Grid.Column="0" 
+                     VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="CenterAndExpand">
             <forms:CachedImage Source="{Binding Team.IconSource}" HeightRequest="92" >
                 <forms:CachedImage.Transformations>
                     <transformations:RoundedTransformation Radius="240" />
@@ -138,29 +147,34 @@
                 <ScrollView>
                     <StackLayout Margin="10">
                         <StackLayout Margin="10">
-                            <Label Text="{i18n:Translate Name}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                            <Label Text="{Binding Team.Name}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                            <Label Text="{i18n:Translate Name}" 
+                                   Style="{StaticResource LabelTitleStyle}"/>
+                            <Label Text="{Binding Team.Name}" 
+                                   Style="{StaticResource LabelContentStyle}"/>
                         </StackLayout>
                         <StackLayout Margin="10">
-                            <Label Text="{i18n:Translate Owner}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                            <Label Text="{Binding Team.Owner.Name}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                            <Label Text="{i18n:Translate Owner}" 
+                                   Style="{StaticResource LabelTitleStyle}"/>
+                            <Label Text="{Binding Team.Owner.Name}" 
+                                   Style="{StaticResource LabelContentStyle}"/>
                         </StackLayout>
                         <StackLayout Margin="10">
-                            <Label Text="{i18n:Translate Game}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                            <Label Text="{Binding Team.GamePlatform.Game.Name}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                            <Label Text="{i18n:Translate Game}" 
+                                   Style="{StaticResource LabelTitleStyle}"/>
+                            <Label Text="{Binding Team.GamePlatform.Game.Name}" 
+                                   Style="{StaticResource LabelContentStyle}"/>
                         </StackLayout>
                         <StackLayout Margin="10">
-                            <Label Text="{i18n:Translate Platform}" TextColor="{StaticResource SecondaryText}" FontSize="Medium"/>
-                            <Label Text="{Binding Team.GamePlatform.Platform.Name}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" Margin="2"/>
+                            <Label Text="{i18n:Translate Platform}" 
+                                   Style="{StaticResource LabelTitleStyle}"/>
+                            <Label Text="{Binding Team.GamePlatform.Platform.Name}" 
+                                   Style="{StaticResource LabelContentStyle}"/>
                         </StackLayout>
                         <StackLayout Margin="10">
                             <Label Text="{i18n:Translate Contacts}" 
-                                   TextColor="{StaticResource SecondaryText}" 
-                                   FontSize="Medium"/>
+                                   Style="{StaticResource LabelTitleStyle}"/>
                             <Label Text="{Binding Team.Contacts, Converter={StaticResource contactsToString}}" 
-                                   TextColor="{StaticResource PrimaryText}" 
-                                   FontSize="Medium" 
-                                   Margin="2"/>
+                                   Style="{StaticResource LabelContentStyle}"/>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>
@@ -223,11 +237,19 @@
                                 <Frame Padding="6"
                                        OutlineColor="Transparent"
                                        BackgroundColor="Transparent">
-                                    <StackLayout Orientation="Horizontal" Padding="10" BackgroundColor="{StaticResource CardColor}">
-                                        <Image Source="{Binding AvatarSource}" HeightRequest="64"/>
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Padding="10" 
+                                                 BackgroundColor="{StaticResource CardColor}">
+                                        <Image Source="{Binding AvatarSource}" 
+                                               HeightRequest="64"/>
                                         <StackLayout Margin="6">
-                                            <Label Text="{Binding Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Medium" FontAttributes="Bold"/>
-                                            <Label Text="{Binding Gender.Name}" TextColor="{StaticResource SecondaryText}" Margin="6, 0"/>
+                                            <Label Text="{Binding Nickname}" 
+                                                   TextColor="{StaticResource PrimaryText}" 
+                                                   FontSize="Medium" 
+                                                   FontAttributes="Bold"/>
+                                            <Label Text="{Binding Gender.Name}" 
+                                                   TextColor="{StaticResource SecondaryText}" 
+                                                   Margin="6, 0"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
@@ -244,8 +266,6 @@
                     </Trigger>
                 </Grid.Triggers>
             </Grid>
-
-
         </Grid>
     </Grid>
 </ContentPage>

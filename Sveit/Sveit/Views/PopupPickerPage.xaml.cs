@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using Rg.Plugins.Popup.Extensions;
+using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,11 @@ namespace Sveit.Views
 		{
 			InitializeComponent ();
 		}
-	}
+
+        protected override bool OnBackButtonPressed()
+        {
+            Navigation.PopAllPopupAsync();
+            return base.OnBackButtonPressed();
+        }
+    }
 }

@@ -15,41 +15,60 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout>
-        <StackLayout IsVisible="{Binding IsLogged}" Padding="20, 20, 20, 45" BackgroundColor="{StaticResource AppBarColor}">
-            <StackLayout Orientation="Horizontal"  Spacing="15">
-                <forms:CachedImage Source="{Binding LoggedPlayer.AvatarSource}" CacheDuration="2" HeightRequest="72" >
+        <StackLayout Padding="20, 20, 20, 45" 
+                     IsVisible="{Binding IsLogged}" 
+                     BackgroundColor="{StaticResource AppBarColor}">
+            <StackLayout Orientation="Horizontal" 
+                         Spacing="15">
+                <forms:CachedImage Source="{Binding LoggedPlayer.AvatarSource}" 
+                                   CacheDuration="2" 
+                                   HeightRequest="72" >
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <StackLayout Spacing="4">
-                    <Label Text="{Binding LoggedPlayer.Nickname}" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
-                    <Label Text="{Binding LoggedPlayer.Name}" TextColor="{StaticResource SecondaryText}"/>
-                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.Nickname}" 
+                           TextColor="{StaticResource PrimaryText}" 
+                           FontSize="Large"/>
+                    <Label Text="{Binding LoggedPlayer.Name}" 
+                           TextColor="{StaticResource SecondaryText}"/>
+                    <Label Text="{Binding LoggedPlayer.DateOfBirth, Converter={StaticResource DateOfBirthToAge}}" 
+                           TextColor="{StaticResource SecondaryText}"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>
-        <StackLayout IsVisible="{Binding IsLogged, Converter={StaticResource BooleanInverter}}" Padding="20, 20, 20, 45" BackgroundColor="{StaticResource AppBarColor}">
-            <StackLayout Orientation="Horizontal"  Spacing="15">
-                <forms:CachedImage Source="icon.png" HeightRequest="72" >
+        <StackLayout Padding="20, 20, 20, 45" 
+                     IsVisible="{Binding IsLogged, Converter={StaticResource BooleanInverter}}" 
+                     BackgroundColor="{StaticResource AppBarColor}">
+            <StackLayout Orientation="Horizontal" 
+                         Spacing="15">
+                <forms:CachedImage Source="icon.png" 
+                                   HeightRequest="72" >
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <StackLayout Spacing="4">
-                    <Label Text="Project Sveit" TextColor="{StaticResource PrimaryText}" FontSize="Large"/>
+                    <Label Text="Project Sveit" 
+                           TextColor="{StaticResource PrimaryText}" 
+                           FontSize="Large"/>
                 </StackLayout>
             </StackLayout>
         </StackLayout>
         <ListView x:Name="MenuItemsListView"
-                HasUnevenRows="True"
-                ItemsSource="{Binding MenuItems}">
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding MenuItems}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="8">
-                            <Image Source="{Binding Icon}" Margin="6"/>
-                            <Label Text="{Binding Title}" TextColor="#FFFFFF" FontSize="Large"/>
+                        <StackLayout Orientation="Horizontal" 
+                                     Padding="8">
+                            <Image Source="{Binding Icon}" 
+                                   Margin="6"/>
+                            <Label Text="{Binding Title}" 
+                                   TextColor="{StaticResource PrimaryText}" 
+                                   FontSize="Large"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

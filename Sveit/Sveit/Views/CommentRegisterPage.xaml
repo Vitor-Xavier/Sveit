@@ -30,7 +30,7 @@
             <StackLayout Grid.Row="0" 
                          Grid.RowSpan="2" 
                          Grid.Column="0" 
-                         BackgroundColor="#A6000000" 
+                         BackgroundColor="{StaticResource TranslucentBlackColor}" 
                          VerticalOptions="FillAndExpand" 
                          HorizontalOptions="FillAndExpand"/>
             <StackLayout Grid.Row="0" 

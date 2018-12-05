@@ -16,22 +16,39 @@
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="5.7*"/>
             </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" BackgroundColor="#A6000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
-                <forms:CachedImage Source="icon.jpg" HeightRequest="120" WidthRequest="120" Aspect="AspectFill">
+            <StackLayout Grid.Row="0" 
+                         Grid.Column="0" 
+                         Grid.RowSpan="3" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="FillAndExpand"
+                         BackgroundColor="{StaticResource TranslucentBlackColor}" />
+            <StackLayout Grid.Row="0" 
+                         VerticalOptions="CenterAndExpand" 
+                         HorizontalOptions="CenterAndExpand" >
+                <forms:CachedImage Source="icon.jpg" 
+                                   HeightRequest="120" 
+                                   WidthRequest="120" 
+                                   Aspect="AspectFill">
                     <forms:CachedImage.Transformations>
                         <transformations:RoundedTransformation Radius="240"/>
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
             </StackLayout>
-            <ScrollView Grid.Row="1" Grid.RowSpan="2" Margin="16, 0, 16, 16" VerticalOptions="FillAndExpand">
-                <StackLayout Padding="16" Spacing="10" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource CardColor}">
+            <ScrollView Grid.Row="1" 
+                        Grid.RowSpan="2" 
+                        Margin="16, 0, 16, 16" 
+                        VerticalOptions="FillAndExpand">
+                <StackLayout Padding="16" 
+                             Spacing="10" 
+                             VerticalOptions="FillAndExpand" 
+                             BackgroundColor="{StaticResource CardColor}">
                     <Label TextColor="{StaticResource SecondaryText}" 
                            HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{i18n:Translate NewHere}"/>
-                                <Span Text="{i18n:Translate SignUp}" ForegroundColor="{StaticResource AccentColor}">
+                                <Span Text="{i18n:Translate SignUp}" 
+                                      ForegroundColor="{StaticResource AccentColor}">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
                                     </Span.GestureRecognizers>
@@ -41,7 +58,8 @@
                         
                     </Label>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Username}" TextColor="{StaticResource SecondaryText}"/>
+                        <Label Text="{i18n:Translate Username}" 
+                               TextColor="{StaticResource SecondaryText}"/>
                         <controls:CustomEntry Placeholder="{i18n:Translate Username}" 
                                               Text="{Binding Username}" 
                                               TextColor="{StaticResource SecondaryText}" 
@@ -54,7 +72,8 @@
                         </controls:CustomEntry>
                     </StackLayout>
                     <StackLayout>
-                        <Label Text="{i18n:Translate Password}" TextColor="{StaticResource SecondaryText}"/>
+                        <Label Text="{i18n:Translate Password}" 
+                               TextColor="{StaticResource SecondaryText}"/>
                         <controls:CustomEntry Placeholder="{i18n:Translate Password}" 
                                               Text="{Binding Password}" 
                                               TextColor="{StaticResource SecondaryText}" 
@@ -67,7 +86,12 @@
                         </controls:CustomEntry>
                     </StackLayout>
                     <StackLayout VerticalOptions="EndAndExpand">
-                        <flex:FlexButton Text="{i18n:Translate LogIn}" BackgroundColor="{StaticResource AccentColor}" ForegroundColor="{StaticResource PrimaryText}" CornerRadius="8" HeightRequest="40" ClickedCommand="{Binding LogInCommand}"/>
+                        <flex:FlexButton Text="{i18n:Translate LogIn}" 
+                                         ClickedCommand="{Binding LogInCommand}"
+                                         BackgroundColor="{StaticResource AccentColor}" 
+                                         ForegroundColor="{StaticResource PrimaryText}" 
+                                         CornerRadius="8" 
+                                         HeightRequest="40"/>
                     </StackLayout>
                 </StackLayout>
             </ScrollView>

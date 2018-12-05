@@ -204,7 +204,7 @@ namespace Sveit.ViewModels
                 BindingContext = new PopupPickerViewModel<Game>(_navigation, Games)
             };
             (popupPlatform.BindingContext as PopupPickerViewModel<Game>).ItemSelected += HandleGameSelected;
-            (popupPlatform.BindingContext as PopupPickerViewModel<Game>).Title = AppResources.Platform;
+            (popupPlatform.BindingContext as PopupPickerViewModel<Game>).Title = AppResources.Game;
             await _navigation.PushPopupAsync(popupPlatform);
         }
 
