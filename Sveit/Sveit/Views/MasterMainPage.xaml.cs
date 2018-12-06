@@ -67,7 +67,7 @@ namespace Sveit.Views
                 {
                     Detail = new NavigationPage(page)
                     {
-                        BarBackgroundColor = item.TransparentNavBar ? Color.Transparent : (Color)Application.Current.Resources["AccentColor"],
+                        BarBackgroundColor =(Color)Application.Current.Resources["AccentColor"],
                         BarTextColor = Color.FromHex("#FFFFFF"),
                     };
                 }

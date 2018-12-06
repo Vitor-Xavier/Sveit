@@ -24,7 +24,7 @@ namespace Sveit
             if (string.IsNullOrWhiteSpace(AppSettings.Language))
                 AppSettings.Language = CrossMultilingual.Current.DeviceCultureInfo.IetfLanguageTag;
             AppResources.Culture = new CultureInfo(AppSettings.Language);
-
+            CrossMultilingual.Current.CurrentCultureInfo = new CultureInfo(AppSettings.Language);
             InitializeNavigation();
         }
 
