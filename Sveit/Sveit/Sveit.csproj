@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
     <PackageReference Include="DLToolkit.Forms.Controls.TagEntryView" Version="1.0.5" />
     <PackageReference Include="Forms.Controls.FlexButton" Version="0.9.0" />
@@ -45,6 +46,9 @@
     </Compile>
     <Compile Update="Views\ContactsTeamRegisterPage.xaml.cs">
       <DependentUpon>ContactsTeamRegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MasterDetailMainPage.xaml.cs">
+      <DependentUpon>MasterDetailMainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -92,7 +96,7 @@
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MasterMainPage.xaml">
+    <EmbeddedResource Update="Views\MasterDetailMainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MasterMainPageMaster.xaml">

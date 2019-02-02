@@ -10,10 +10,10 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PlayerPage : ContentPage
     {
-        public PlayerPage(IRequestService requestService, int? playerId)
+        public PlayerPage()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.PlayerViewModel(Navigation, requestService, playerId);
+            //BindingContext = new ViewModels.PlayerViewModel(requestService, playerId);
             //(BindingContext as ViewModels.PlayerViewModel).ToolbarIsVisibleChanged += this.ToolbarIsVisibleChanged;
             List<ToolbarItem> items = new List<ToolbarItem>();
             foreach (Sveit.Controls.HideableToolbarItem toolbarItem in ToolbarItems)
@@ -29,7 +29,7 @@ namespace Sveit.Views
             }
         }
 
-        public PlayerPage(IRequestService requestService) : this(requestService, null) { }
+        //public PlayerPage(IRequestService requestService) : this(requestService, null) { }
 
         public void ToolbarIsVisibleChanged(object sender, BoolChangedEventArgs e)
         {

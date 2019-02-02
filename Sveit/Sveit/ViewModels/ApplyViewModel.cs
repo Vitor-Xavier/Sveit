@@ -1,4 +1,5 @@
-﻿using Sveit.Controls;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Apply;

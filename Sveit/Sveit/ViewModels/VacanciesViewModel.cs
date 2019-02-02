@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Game;
 using Sveit.Services.Requests;
@@ -11,8 +12,6 @@ namespace Sveit.ViewModels
 {
     public class VacanciesViewModel : BaseViewModel
     {
-        private readonly INavigation _navigation;
-
         private readonly IRequestService _requestService;
 
         private readonly IVacancyService _vacancyService;
@@ -40,20 +39,10 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
-        public VacanciesViewModel(INavigation navigation, IRequestService requestService)
+        public VacanciesViewModel(IVacancyService vacancyService, IGameService gameService)
         {
-            _navigation = navigation;
-            _requestService = requestService;
-            if (AppSettings.ApiStatus)
-            {
-                _vacancyService = new VacancyService(requestService);
-                _gameService = new GameService(requestService);
-            }
-            else
-            {
-                _vacancyService = new FakeVacancyService();
-                _gameService = new FakeGameService();
-            }
+            _vacancyService = vacancyService;
+            _gameService = gameService;
 
             Games = new ObservableCollection<Game>();
             Vacancies = new ObservableCollection<Vacancy>();
@@ -100,7 +89,8 @@ namespace Sveit.ViewModels
 
         public async Task VacancyCommandExecute(Vacancy vacancy)
         {
-            await _navigation.PushModalAsync(new Views.VacancyPage(_requestService, vacancy));
+            await NavigationService.NavigateToAsync<VacancyViewModel>(vacancy);
+            //await _navigation.PushModalAsync(new Views.VacancyPage(_requestService, vacancy));
         }
     }
 }

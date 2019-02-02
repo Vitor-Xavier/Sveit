@@ -1,4 +1,5 @@
-﻿using Sveit.Controls;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Comment;
@@ -14,8 +15,6 @@ namespace Sveit.ViewModels
 {
     public class PlayerViewModel : BaseViewModel
     {
-        private readonly INavigation _navigation;
-
         private readonly IRequestService _requestService;
 
         private readonly IPlayerService _playerService;
@@ -94,9 +93,8 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Comment> UpdateCommentCommand => new AsyncCommand<Comment>(UpdateCommentCommandExecute);
 
-        public PlayerViewModel(INavigation navigation, IRequestService requestService, int? playerId = null)
+        public PlayerViewModel(IRequestService requestService, int? playerId = null)
         {
-            _navigation = navigation;
             _requestService = requestService;
             Skills = new ObservableCollection<Skill>();
             Teams = new ObservableCollection<Team>();
@@ -154,7 +152,7 @@ namespace Sveit.ViewModels
                 {
                     var loginService = new LoginService(_requestService);
                     loginService.LogOut();
-                    App.Current.MainPage = new MasterMainPage(_requestService);
+                    //App.Current.MainPage = new MasterDetailMainPage(_requestService);
                 }
                 else
                     DependencyService.Get<IMessage>().ShortAlert(AppResources.DeleteProfileFailed);
@@ -167,23 +165,28 @@ namespace Sveit.ViewModels
 
         private async Task AddTeamCommandExecute()
         {
-            await _navigation.PushModalAsync(new TeamRegisterPage(_requestService));
+            await NavigationService.NavigateToAsync<TeamRegisterViewModel>();
+            //await _navigation.PushModalAsync(new TeamRegisterPage(_requestService));
         }
 
         private async Task AddCommentCommandExecute()
         {
-            await _navigation.PushModalAsync(new CommentRegisterPage(_requestService, Player));
+            await NavigationService.NavigateToAsync<CommentRegisterViewModel>(Player);
+            //await _navigation.PushModalAsync(new CommentRegisterPage(_requestService, Player));
         }
 
         private async Task AppliesCommandExecute()
         {
-            await _navigation.PushAsync(new AppliesPlayerPage(_requestService, _playerId));
+            await NavigationService.NavigateToAsync<AppliesPlayerViewModel>(_playerId);
+            //await _navigation.PushAsync(new AppliesPlayerPage(_requestService, _playerId));
         }
 
         public async Task TeamCommandExecute(Team team)
         {
             bool isOwner = Player.PlayerId == team.OwnerId;
-            await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId, isOwner));
+            await NavigationService.NavigateToAsync<TeamViewModel>(team.TeamId);
+            //TODO: t
+            //await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId, isOwner));
         }
 
         private async Task UpdateCommentCommandExecute(Comment comment)
@@ -191,18 +194,22 @@ namespace Sveit.ViewModels
             if (comment == null) return;
             if (comment.FromPlayerId == App.LoggedPlayer?.PlayerId)
             {
-                await _navigation.PushModalAsync(new CommentRegisterPage(_requestService, Player, comment.CommentId));
+                await NavigationService.NavigateToAsync<CommentRegisterViewModel>();
+                //TODO: t
+                //await _navigation.PushModalAsync(new CommentRegisterPage(_requestService, Player, comment.CommentId));
             }
         }
 
         private async Task ContactsCommandExecute()
         {
-            await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, Player));
+            await NavigationService.NavigateToAsync<ContactsPlayerRegisterViewModel>(Player);
+            //await _navigation.PushModalAsync(new ContactsPlayerRegisterPage(_requestService, Player));
         }
 
         private async Task UpdateCommandExecute()
         {
-            await _navigation.PushAsync(new PlayerRegisterPage(_requestService, Player.PlayerId));
+            await NavigationService.NavigateToAsync<PlayerRegisterViewModel>(_playerId);
+            //await _navigation.PushAsync(new PlayerRegisterPage(_requestService, Player.PlayerId));
         }
 
         private async Task LeaveTeamCommandExecute(Team team)

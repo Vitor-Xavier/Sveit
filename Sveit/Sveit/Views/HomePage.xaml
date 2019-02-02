@@ -13,8 +13,16 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <controls:CustomListView ItemsSource="{Binding News}" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <BoxView HorizontalOptions="FillAndExpand" 
+                     VerticalOptions="FillAndExpand" 
+                     BackgroundColor="{StaticResource AccentColor}"/>
+            <controls:CustomListView Grid.Row="1" 
+                                     ItemsSource="{Binding News}" 
                                      ItemTappedCommand="{Binding ContentCommand}"
                                      HasUnevenRows="True" 
                                      IsPullToRefreshEnabled="True"
@@ -52,6 +60,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </controls:CustomListView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

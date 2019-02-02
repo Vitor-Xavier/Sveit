@@ -1,4 +1,5 @@
 ﻿using Rg.Plugins.Popup.Extensions;
+using Sveit.Base.ViewModels;
 using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
@@ -129,7 +130,7 @@ namespace Sveit.ViewModels
 
         private void FinalizeCommandExecute()
         {
-            App.Current.MainPage = new Views.MasterMainPage(_requestService);
+            //App.Current.MainPage = new Views.MasterDetailMainPage(_requestService);
         }
 
         private async Task ContactTypeCommandExecute()

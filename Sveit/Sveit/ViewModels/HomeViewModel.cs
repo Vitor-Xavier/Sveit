@@ -1,4 +1,5 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Content;
 using Sveit.Services.Requests;
@@ -12,20 +13,18 @@ namespace Sveit.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        public ObservableCollection<Content> News { get; set; }
-
         private readonly IContentService _contentService;
+
+        public ObservableCollection<Content> News { get; set; }
 
         public ICommand ContentCommand => new Command<Content>(ContentCommandExecute);
 
         public IAsyncCommand RefreshCommand => new AsyncCommand(RefreshCommandExecute);
 
-        public HomeViewModel(IRequestService requestService)
+        public HomeViewModel(IContentService contentService)
         {
-            if (AppSettings.ApiStatus)
-                _contentService = new ContentService(new RequestService());
-            else
-                _contentService = new FakeContentService();
+            _contentService = contentService;
+
             News = new ObservableCollection<Content>();
             
             Task.Run(() => RefreshCommand.ExecuteAsync());

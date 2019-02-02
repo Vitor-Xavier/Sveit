@@ -1,4 +1,5 @@
 ﻿using Plugin.Multilingual;
+using Sveit.Base.ViewModels;
 using Sveit.Services.Requests;
 using System;
 using System.Collections.ObjectModel;
@@ -10,8 +11,6 @@ namespace Sveit.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly IRequestService _requestService;
-
         private bool storeCredentials;
 
         public bool StoreCredentials
@@ -45,9 +44,8 @@ namespace Sveit.ViewModels
             set { _language = value; ChangeLanguage(_language); OnPropertyChanged(); }
         }
 
-        public SettingsViewModel(IRequestService requestService)
+        public SettingsViewModel()
         {
-            _requestService = requestService;
             Languages = new ObservableCollection<string>
             {
                 "English",
@@ -64,14 +62,14 @@ namespace Sveit.ViewModels
                 CrossMultilingual.Current.CurrentCultureInfo = new CultureInfo("en-US");
                 AppResources.Culture = CrossMultilingual.Current.CurrentCultureInfo;
                 AppSettings.Language = CrossMultilingual.Current.CurrentCultureInfo.IetfLanguageTag;
-                App.Current.MainPage = new Views.MasterMainPage(_requestService);
+                NavigationService.NavigateToAsync<MasterDetailMainViewModel>();
             }
             else if (language.Equals("Português") && !AppResources.Culture.IetfLanguageTag.Equals("pt-BR"))
             {
                 CrossMultilingual.Current.CurrentCultureInfo = new CultureInfo("pt-BR");
                 AppResources.Culture = CrossMultilingual.Current.CurrentCultureInfo;
                 AppSettings.Language = CrossMultilingual.Current.CurrentCultureInfo.IetfLanguageTag;
-                App.Current.MainPage = new Views.MasterMainPage(_requestService);
+                NavigationService.NavigateToAsync<MasterDetailMainViewModel>();
             }
 
         }

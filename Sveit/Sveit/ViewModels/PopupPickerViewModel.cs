@@ -8,6 +8,7 @@ using Sveit.Models;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using Sveit.Extensions;
+using Sveit.Base.ViewModels;
 
 namespace Sveit.ViewModels
 {

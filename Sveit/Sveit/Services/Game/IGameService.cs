@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Sveit.Services.Game
 {
-    interface IGameService
+    public interface IGameService
     {
         Task<Models.Game> GetGameAsync(int gameId);
 

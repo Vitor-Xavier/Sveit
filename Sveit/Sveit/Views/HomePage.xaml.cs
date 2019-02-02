@@ -9,10 +9,10 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
-        public HomePage(IRequestService requestService)
+        public HomePage()
         {
             InitializeComponent();
-            BindingContext = new HomeViewModel(requestService);
+            //BindingContext = new HomeViewModel(requestService);
         }
     }
 }

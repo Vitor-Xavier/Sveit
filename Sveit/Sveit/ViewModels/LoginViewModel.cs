@@ -1,4 +1,5 @@
-﻿using Sveit.Controls;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Services.Login;
 using Sveit.Services.Requests;
@@ -66,7 +67,7 @@ namespace Sveit.ViewModels
             }
             else
             {
-                App.Current.MainPage = new Views.MasterMainPage(_requestService);
+                //App.Current.MainPage = new Views.MasterDetailMainPage(_requestService);
             }
         }
 

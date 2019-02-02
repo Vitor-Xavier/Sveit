@@ -1,4 +1,5 @@
-﻿using Sveit.Controls;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Comment;
@@ -34,7 +35,7 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand FinalizeCommand => new AsyncCommand(FinalizeCommandExecute);
 
-        public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player, int commentId)
+        public CommentRegisterViewModel(INavigation navigation, IRequestService requestService, Player player, int commentId = 0)
         {
             _commentId = commentId;
             _navigation = navigation;

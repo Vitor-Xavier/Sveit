@@ -4,7 +4,10 @@ using Microsoft.AppCenter.Crashes;
 using Plugin.Multilingual;
 using Sveit.Models;
 using Sveit.Services.Login;
+using Sveit.Services.Navigation;
 using Sveit.Services.Requests;
+using Sveit.ViewModels;
+using Sveit.ViewModels.Base;
 using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -21,6 +24,8 @@ namespace Sveit
         {
             InitializeComponent();
 
+            BuildDependencies();
+
             if (string.IsNullOrWhiteSpace(AppSettings.Language))
                 AppSettings.Language = CrossMultilingual.Current.DeviceCultureInfo.IetfLanguageTag;
             AppResources.Culture = new CultureInfo(AppSettings.Language);
@@ -28,16 +33,28 @@ namespace Sveit
             InitializeNavigation();
         }
 
+        public static void BuildDependencies()
+        {
+            Locator.Instance.Build();
+        }
+
         protected void InitializeNavigation()
         {
-            var requestService = new RequestService();
-            if (!AppSettings.CredentialStatus)
-            {
-                var loginService = new LoginService(requestService);
-                loginService.LogOut();
-            }
+            //var requestService = new RequestService();
+            //if (!AppSettings.CredentialStatus)
+            //{
+            //    var loginService = new LoginService(requestService);
+            //    loginService.LogOut();
+            //}
 
-            MainPage = new Sveit.Views.MasterMainPage(new RequestService());
+            //MainPage = new Sveit.Views.MasterMainPage(new RequestService());
+
+
+
+            //var navigationService = Locator.Instance.Resolve<INavigationService>();
+            //return navigationService.NavigateToAsync<MasterMainViewModel>();
+            var navigationService = Locator.Instance.Resolve<INavigationService>();
+            navigationService.NavigateToAsync<MasterDetailMainViewModel>();
         }
 
         protected override void OnStart()

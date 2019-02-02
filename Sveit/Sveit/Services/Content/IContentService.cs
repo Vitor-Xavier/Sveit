@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Sveit.Services.Content
 {
-    interface IContentService
+    public interface IContentService
     {
         Task<IEnumerable<Models.Content>> GetContentsAsync(DateTime? initialDate = null, DateTime? finalDate = null);
 

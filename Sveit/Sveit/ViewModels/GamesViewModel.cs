@@ -1,14 +1,10 @@
-﻿using Sveit.Extensions;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Game;
 using Sveit.Services.Requests;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Sveit.ViewModels
@@ -33,14 +29,9 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Game> GameCommand => new AsyncCommand<Game>(GameCommandExecute);
 
-        public GamesViewModel(INavigation navigation, IRequestService requestService)
+        public GamesViewModel(IGameService gameService)
         {
-            _navigation = navigation;
-            _requestService = requestService;
-            if (AppSettings.ApiStatus)
-                _gameService = new GameService(requestService);
-            else
-                _gameService = new FakeGameService();
+            _gameService = gameService;
 
             Games = new ObservableCollection<Game>();
             Task.Run(() => LoadGames());
@@ -64,7 +55,8 @@ namespace Sveit.ViewModels
 
         public async Task GameCommandExecute(Game game)
         {
-            await _navigation.PushAsync(new Views.GamePage(_requestService, game));
+            await NavigationService.NavigateToAsync<GameViewModel>(game);
+            //await _navigation.PushAsync(new Views.GamePage(_requestService, game));
         }
     }
 }

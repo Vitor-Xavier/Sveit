@@ -6,68 +6,77 @@
              x:Class="Sveit.Views.SettingsPage"
              BackgroundColor="{StaticResource BackgroundColor}"
              Title="{i18n:Translate Settings}">
-    <StackLayout Padding="10">
-        <StackLayout Margin="10">
-            <Label Text="{i18n:Translate Settings}" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <BoxView HorizontalOptions="FillAndExpand" 
+                 VerticalOptions="FillAndExpand" 
+                 BackgroundColor="{StaticResource AccentColor}"/>
+        <StackLayout Grid.Row="1"
+                     Padding="10">
+            <StackLayout Margin="10">
+                <Label Text="{i18n:Translate Settings}" 
                    Style="{StaticResource LabelTitleStyle}"/>
-            <StackLayout Orientation="Horizontal" 
+                <StackLayout Orientation="Horizontal" 
                          VerticalOptions="Center">
-                <Label Text="{i18n:Translate StoreCredencials}" 
+                    <Label Text="{i18n:Translate StoreCredencials}" 
                        Style="{StaticResource LabelContentStyle}"
                        VerticalOptions="Center"/>
-                <Switch IsToggled="{Binding StoreCredentials}" 
+                    <Switch IsToggled="{Binding StoreCredentials}" 
                         VerticalOptions="Center" 
                         HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" 
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" 
                          VerticalOptions="Center" 
                          Margin="2">
-                <Label Text="{i18n:Translate Language}" 
+                    <Label Text="{i18n:Translate Language}" 
                        Style="{StaticResource LabelContentStyle}"
                        VerticalOptions="Center"
                        HorizontalOptions="Start"/>
-                <Picker ItemsSource="{Binding Languages}" 
+                    <Picker ItemsSource="{Binding Languages}" 
                         SelectedItem="{Binding Language}"
                         TextColor="{StaticResource PrimaryText}" 
                         FontSize="Medium" 
                         VerticalOptions="Center"
                         HorizontalOptions="EndAndExpand" />
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
-        <StackLayout Margin="10">
-            <Label Text="{i18n:Translate About}" 
+            <StackLayout Margin="10">
+                <Label Text="{i18n:Translate About}" 
                    Style="{StaticResource LabelTitleStyle}"/>
-            <StackLayout Orientation="Horizontal" 
+                <StackLayout Orientation="Horizontal" 
                          VerticalOptions="Center">
-                <Label Text="{i18n:Translate Version}" 
+                    <Label Text="{i18n:Translate Version}" 
                        Style="{StaticResource LabelContentStyle}"/>
-                <Label Text="Alpha 0.7" 
+                    <Label Text="Alpha 0.7" 
                        VerticalOptions="Center" 
                        Style="{StaticResource LabelContentStyle}"
                        HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" 
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" 
                          VerticalOptions="Center">
-                <Label Text="Xamarin.Forms 3.4" 
+                    <Label Text="Xamarin.Forms 3.4" 
                        VerticalOptions="Center" 
                        Style="{StaticResource LabelContentStyle}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" 
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" 
                          VerticalOptions="Center">
-                <Label Text="Visual Studio 2017"
+                    <Label Text="Visual Studio 2017"
                        Style="{StaticResource LabelContentStyle}"
                        VerticalOptions="Center" />
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
-        <StackLayout Margin="10">
-            <Label Text="{i18n:Translate Social}" 
+            <StackLayout Margin="10">
+                <Label Text="{i18n:Translate Social}" 
                    Style="{StaticResource LabelTitleStyle}"/>
-            <StackLayout Orientation="Horizontal" 
+                <StackLayout Orientation="Horizontal" 
                          VerticalOptions="Center" 
                          Margin="20, 12" 
                          Spacing="20" 
                          HorizontalOptions="CenterAndExpand">
-                <flex:FlexButton
+                    <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"
                                 CornerRadius="8"
@@ -78,7 +87,7 @@
                                 BackgroundColor="#04A9F4"
                                 HighlightBackgroundColor="#FFFFFF"
                                 ClickedCommand="{Binding TwitterCommand}"/>
-                <flex:FlexButton
+                    <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"
                                 CornerRadius="8"
@@ -89,7 +98,7 @@
                                 BackgroundColor="#385D98"
                                 HighlightBackgroundColor="#FFFFFF"
                                 ClickedCommand="{Binding FacebookCommand}"/>
-                <flex:FlexButton
+                    <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"
                                 CornerRadius="8"
@@ -100,7 +109,7 @@
                                 BackgroundColor="#0072c6"
                                 HighlightBackgroundColor="#FFFFFF"
                                 ClickedCommand="{Binding OutlookCommand}"/>
-                <flex:FlexButton
+                    <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"
                                 CornerRadius="8"
@@ -111,7 +120,7 @@
                                 BackgroundColor="#4B74A0"
                                 HighlightBackgroundColor="#FFFFFF"
                                 ClickedCommand="{Binding LinkedInCommand}"/>
-                <flex:FlexButton
+                    <flex:FlexButton
                                 WidthRequest="40"
                                 HeightRequest="40"
                                 CornerRadius="8"
@@ -122,7 +131,8 @@
                                 BackgroundColor="#000000"
                                 HighlightBackgroundColor="#FFFFFF"
                                 ClickedCommand="{Binding GithubCommand}"/>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </Grid>
 </ContentPage>

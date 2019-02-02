@@ -1,4 +1,5 @@
-﻿using Sveit.Controls;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Controls;
 using Sveit.Models;
 using Sveit.Services.Login;
 using Sveit.Services.Requests;
@@ -14,7 +15,7 @@ namespace Sveit.ViewModels
 {
     public class MasterMainViewModel : BaseViewModel
     {
-        private ILoginService _loginService;
+        private readonly ILoginService _loginService;
 
         public ObservableCollection<Views.MasterMenuItem> MenuItems { get; set; }
 
@@ -34,12 +35,9 @@ namespace Sveit.ViewModels
             set { isLogged = value; OnPropertyChanged(); }
         }
 
-        public MasterMainViewModel(IRequestService requestService)
+        public MasterMainViewModel(ILoginService loginService)
         {
-            if (AppSettings.ApiStatus)
-                _loginService = new LoginService(requestService);
-            else
-                _loginService = new FakeLoginService();
+            _loginService = loginService;
             MenuItems = new ObservableCollection<Views.MasterMenuItem>();
             Task.Run(() => LoadItems());
         }
@@ -58,22 +56,27 @@ namespace Sveit.ViewModels
             {
                 if (LoggedPlayer == null)
                 {
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 0, Title = AppResources.LogIn, Icon = "baseline_settings_white_24", TargetType = typeof(LoginPage), TransparentNavBar = true });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 1, Title = AppResources.News, Icon = "baseline_fiber_new_white_24", TargetType = typeof(HomePage) });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 3, Title = AppResources.Games, Icon = "baseline_gamepad_white_24", TargetType = typeof(GamesPage), TransparentNavBar = true });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesPage), TransparentNavBar = true });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsPage) });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 0, Title = AppResources.LogIn, Icon = "baseline_settings_white_24", TargetType = typeof(LoginViewModel), TransparentNavBar = true });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 1, Title = AppResources.News, Icon = "baseline_fiber_new_white_24", TargetType = typeof(HomeViewModel) });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 3, Title = AppResources.Games, Icon = "baseline_gamepad_white_24", TargetType = typeof(GamesViewModel), TransparentNavBar = true });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesViewModel), TransparentNavBar = true });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsViewModel) });
                 }
                 else
                 {
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 1, Title = AppResources.News, Icon = "baseline_fiber_new_white_24", TargetType = typeof(HomePage) });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 2, Title = AppResources.Profile, Icon = "baseline_account_box_white_24", TargetType = typeof(PlayerPage), TransparentNavBar = true });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 3, Title = AppResources.Games, Icon = "baseline_gamepad_white_24", TargetType = typeof(GamesPage), TransparentNavBar = true });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesPage), TransparentNavBar = true });
-                    MenuItems.Add(new Views.MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsPage) });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 1, Title = AppResources.News, Icon = "baseline_fiber_new_white_24", TargetType = typeof(HomeViewModel) });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 2, Title = AppResources.Profile, Icon = "baseline_account_box_white_24", TargetType = typeof(PlayerViewModel), TransparentNavBar = true });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 3, Title = AppResources.Games, Icon = "baseline_gamepad_white_24", TargetType = typeof(GamesViewModel), TransparentNavBar = true });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 4, Title = AppResources.Vacancies, Icon = "baseline_work_white_24", TargetType = typeof(VacanciesViewModel), TransparentNavBar = true });
+                    MenuItems.Add(new Views.MasterMenuItem { Id = 5, Title = AppResources.Settings, Icon = "baseline_settings_white_24", TargetType = typeof(SettingsViewModel) });
                     MenuItems.Add(new Views.MasterMenuItem { Id = 6, Title = AppResources.Exit, Icon = "exit_to_app_white" });
                 }
             }
+        }
+
+        public async Task ItemSelected(MasterMenuItem menuItem)
+        {
+            await NavigationService.NavigateToAsync(menuItem.TargetType, menuItem);
         }
     }
 }

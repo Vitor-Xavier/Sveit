@@ -1,4 +1,5 @@
-﻿using Sveit.Controls;
+﻿using Sveit.Base.ViewModels;
+using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Requests;
@@ -130,7 +131,7 @@ namespace Sveit.ViewModels
 
         private async Task PlayerCommandExecute(Player player)
         {
-            await _navigation.PushAsync(new PlayerPage(_requestService, player.PlayerId));
+            //await _navigation.PushAsync(new PlayerPage(_requestService, player.PlayerId));
         }
 
         private async Task RemovePlayerCommandExecute(Player player)
@@ -159,7 +160,7 @@ namespace Sveit.ViewModels
                 bool result = await _teamService.DeleteTeam(Team.TeamId);
                 if (result)
                 {
-                    App.Current.MainPage = new MasterMainPage(_requestService);
+                    //App.Current.MainPage = new MasterDetailMainPage(_requestService);
                     return;
                 }
                 else
@@ -189,7 +190,7 @@ namespace Sveit.ViewModels
 
         private async Task AddVacancyCommandExecute()
         {
-            await _navigation.PushModalAsync(new Views.VacancyRegisterPage(_requestService, Team));
+            await _navigation.PushModalAsync(new VacancyRegisterPage(_requestService, Team));
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Sveit.Services.Vacancy
 {
-    interface IVacancyService
+    public interface IVacancyService
     {
         Task<Models.Vacancy> GetVacancyAsync(int vacancyId);
 

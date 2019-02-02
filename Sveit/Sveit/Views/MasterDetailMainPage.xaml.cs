@@ -1,22 +1,21 @@
-﻿
+﻿using Sveit.Controls;
+using Sveit.Services.Login;
+using Sveit.Services.Requests;
 using Sveit.ViewModels;
+using System;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Sveit.Views.MasterMainPageMaster;
 
 namespace Sveit.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterMainPageMaster : ContentPage
+    public partial class MasterDetailMainPage : MasterDetailPage
     {
-        public ListView ListView;
-
-        public MasterMainPageMaster()
+        public MasterDetailMainPage()
         {
             InitializeComponent();
-
-            //BindingContext = new ViewModels.MasterMainViewModel(requestService);
-            ListView = MenuItemsListView;
-            ListView.ItemSelected += ListView_ItemSelected;
         }
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -24,8 +23,6 @@ namespace Sveit.Views
             if (!(e.SelectedItem is MasterMenuItem item))
                 return;
             await (BindingContext as MasterMainViewModel).ItemSelected(item);
-
-            ListView.SelectedItem = null;
         }
     }
 }

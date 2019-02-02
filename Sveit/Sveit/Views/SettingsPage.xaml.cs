@@ -15,10 +15,9 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        public SettingsPage(IRequestService requestService)
+        public SettingsPage()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.SettingsViewModel(requestService);
         }
     }
 }
