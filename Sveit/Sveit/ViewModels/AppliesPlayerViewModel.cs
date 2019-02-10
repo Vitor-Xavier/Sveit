@@ -11,13 +11,9 @@ namespace Sveit.ViewModels
 {
     public class AppliesPlayerViewModel : BaseViewModel
     {
-        private readonly int _playerId;
-
-        private readonly INavigation _navigation;
-
-        private readonly IRequestService _requestService;
-
         private readonly IApplyService _applyService;
+
+        private int _playerId;
 
         public ObservableCollection<Apply> Applies { get; set; }
 
@@ -25,18 +21,17 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Apply> UpdateApplyCommand => new AsyncCommand<Apply>(UpdateApplyCommandExecute);
 
-        public AppliesPlayerViewModel(INavigation navigation, IRequestService requestService, int playerId)
+        public AppliesPlayerViewModel(IApplyService applyService)
         {
-            _playerId = playerId;
-            _navigation = navigation;
-            _requestService = requestService;
-            if (AppSettings.ApiStatus)
-                _applyService = new ApplyService(new RequestService());
-            else
-                _applyService = new FakeApplyService();
-            Applies = new ObservableCollection<Apply>();
+            _applyService = applyService;
 
-            Task.Run(() => LoadApplies());
+            Applies = new ObservableCollection<Apply>();
+        }
+
+        public override Task InitializeAsync(params object[] navigationData)
+        {
+            _playerId = navigationData[0] as int? ?? 0;
+            return LoadApplies();
         }
 
         private async Task LoadApplies()
@@ -54,12 +49,12 @@ namespace Sveit.ViewModels
 
         public async Task ApplyCommandExecute(Apply apply)
         {
-            await _navigation.PushModalAsync(new Views.ApplyPage(_requestService, apply));
+            await NavigationService.NavigateToAsync<ApplyViewModel>(apply);
         }
         
         public async Task UpdateApplyCommandExecute(Apply apply)
         {
-            await _navigation.PushModalAsync(new Views.ApplyRegisterPage(_requestService, apply.Vacancy, apply.ApplyId));
+            await NavigationService.NavigateToAsync<ApplyRegisterViewModel>(apply.Vacancy, apply.ApplyId);
         }
     }
 }

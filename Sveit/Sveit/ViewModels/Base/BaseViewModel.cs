@@ -36,7 +36,7 @@ namespace Sveit.Base.ViewModels
             NavigationService = Locator.Instance.Resolve<INavigationService>();
         }
 
-        public virtual Task InitializeAsync(object navigationData) => Task.FromResult(false);
+        public virtual Task InitializeAsync(params object[] navigationData) => Task.FromResult(false);
 
         
     }

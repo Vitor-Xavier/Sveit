@@ -40,7 +40,7 @@ namespace Sveit.Services.Navigation
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel => InternalNavigateToAsync(typeof(TViewModel), null);
 
-        public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel => InternalNavigateToAsync(typeof(TViewModel), parameter);
+        public Task NavigateToAsync<TViewModel>(params object[] parameters) where TViewModel : BaseViewModel => InternalNavigateToAsync(typeof(TViewModel), parameters);
 
         public Task NavigateToAsync(Type viewModelType) => InternalNavigateToAsync(viewModelType, null);
 
@@ -70,9 +70,9 @@ namespace Sveit.Services.Navigation
             return Task.FromResult(true);
         }
 
-        protected virtual async Task InternalNavigateToAsync(Type viewModelType, object parameter)
+        protected virtual async Task InternalNavigateToAsync(Type viewModelType, params object[] parameters)
         {
-            var page = CreateAndBindPage(viewModelType, parameter);
+            var page = CreateAndBindPage(viewModelType);
 
             if (page is MasterDetailMainPage)
             {
@@ -115,7 +115,7 @@ namespace Sveit.Services.Navigation
                 }
             }
 
-            await (page.BindingContext as BaseViewModel).InitializeAsync(parameter);
+            await (page.BindingContext as BaseViewModel).InitializeAsync(parameters);
         }
 
         protected Type GetPageTypeForViewModel(Type viewModelType)
@@ -128,7 +128,7 @@ namespace Sveit.Services.Navigation
             return mappings[viewModelType];
         }
 
-        protected Page CreateAndBindPage(Type viewModelType, object parameter)
+        protected Page CreateAndBindPage(Type viewModelType)
         {
             var pageType = GetPageTypeForViewModel(viewModelType);
 
@@ -139,7 +139,6 @@ namespace Sveit.Services.Navigation
 
             var page = Activator.CreateInstance(pageType) as Page;
             var viewModel = Locator.Instance.Resolve(viewModelType) as BaseViewModel;
-            //var viewModel = Locator.Instance.Resolve(viewModelType, new Autofac.NamedParameter("", parameter)) as BaseViewModel;
             page.BindingContext = viewModel;
 
             return page;

@@ -13,10 +13,9 @@ namespace Sveit.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AppliesPlayerPage : ContentPage
     {
-        public AppliesPlayerPage(IRequestService requestService, int playerId)
+        public AppliesPlayerPage()
         {
             InitializeComponent();
-            BindingContext = new ViewModels.AppliesPlayerViewModel(Navigation, requestService, playerId);
         }
 
     }

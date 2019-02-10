@@ -2,7 +2,6 @@
 using Sveit.Extensions;
 using Sveit.Models;
 using Sveit.Services.Game;
-using Sveit.Services.Requests;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -11,11 +10,7 @@ namespace Sveit.ViewModels
 {
     public class GamesViewModel : BaseViewModel
     {
-        private readonly INavigation _navigation;
-
         private readonly IGameService _gameService;
-
-        private readonly IRequestService _requestService;
 
         private int position = 0;
 
@@ -34,8 +29,9 @@ namespace Sveit.ViewModels
             _gameService = gameService;
 
             Games = new ObservableCollection<Game>();
-            Task.Run(() => LoadGames());
         }
+
+        public override Task InitializeAsync(params object[] navigationData) => LoadGames();
 
         private async Task LoadGames()
         {
@@ -56,7 +52,6 @@ namespace Sveit.ViewModels
         public async Task GameCommandExecute(Game game)
         {
             await NavigationService.NavigateToAsync<GameViewModel>(game);
-            //await _navigation.PushAsync(new Views.GamePage(_requestService, game));
         }
     }
 }

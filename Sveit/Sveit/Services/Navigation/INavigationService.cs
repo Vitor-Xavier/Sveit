@@ -10,7 +10,7 @@ namespace Sveit.Services.Navigation
 
         Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel;
 
-        Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel;
+        Task NavigateToAsync<TViewModel>(params object[] parameter) where TViewModel : BaseViewModel;
 
         Task NavigateToAsync(Type viewModelType);
 

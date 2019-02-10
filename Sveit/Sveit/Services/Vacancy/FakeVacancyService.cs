@@ -48,6 +48,8 @@ namespace Sveit.Services.Vacancy
                     TeamId = 10,
                     Name = "To do",
                     GamePlatform = gamePlatform,
+                    GamePlatform_GameId = gamePlatform.GameId,
+                    GamePlatform_PlatformId = gamePlatform.PlatformId,
                     IconSource = "https://image.moboplay.com/images/apk/725/com.musSharApp.myToDoList_icon.png"
                 },
                 MinAge = 16,
@@ -91,14 +93,28 @@ namespace Sveit.Services.Vacancy
             yield return new Models.Vacancy
             {
                 Title = "Vaga tanque",
-                Team = new Models.Team { Name = "Tc Esports", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" },
+                Team = new Models.Team
+                {
+                    Name = "Tc Esports",
+                    GamePlatform = gamePlatform,
+                    GamePlatform_GameId = gamePlatform.GameId,
+                    GamePlatform_PlatformId = gamePlatform.PlatformId,
+                    IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png"
+                },
                 VacancyId = 2,
                 Description = "vaga...."
             };
             yield return new Models.Vacancy
             {
                 Title = "Vaga dps",
-                Team = new Models.Team { Name = "Tc Esports", GamePlatform = gamePlatform, IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png" },
+                Team = new Models.Team
+                {
+                    Name = "Tc Esports",
+                    GamePlatform = gamePlatform,
+                    GamePlatform_GameId = gamePlatform.GameId,
+                    GamePlatform_PlatformId = gamePlatform.PlatformId,
+                    IconSource = "http://esportsobserver.com/wp-content/uploads/2015/09/Tt-eSPORTS-logo.png"
+                },
                 VacancyId = 3,
                 Description = "vaga...."
             };
@@ -119,14 +135,28 @@ namespace Sveit.Services.Vacancy
             yield return new Models.Vacancy
             {
                 Title = "Vaga suporte",
-                Team = new Models.Team { Name = "Commander eSports2", GamePlatform = gamePlatform1, IconSource = "https://static-cdn.jtvnw.net/jtv_user_pictures/flawedbot-profile_image-815076ff68773420-300x300.jpeg" },
+                Team = new Models.Team
+                {
+                    Name = "Commander eSports2",
+                    GamePlatform = gamePlatform1,
+                    GamePlatform_GameId = gamePlatform1.GameId,
+                    GamePlatform_PlatformId = gamePlatform1.PlatformId,
+                    IconSource = "https://static-cdn.jtvnw.net/jtv_user_pictures/flawedbot-profile_image-815076ff68773420-300x300.jpeg"
+                },
                 VacancyId = 6,
                 Description = "vaga...."
             };
             yield return new Models.Vacancy
             {
                 Title = "Vaga suporte",
-                Team = new Models.Team { Name = "Commander eSports2", GamePlatform = gamePlatform1, IconSource = "https://static-cdn.jtvnw.net/jtv_user_pictures/flawedbot-profile_image-815076ff68773420-300x300.jpeg" },
+                Team = new Models.Team
+                {
+                    Name = "Commander eSports2",
+                    GamePlatform = gamePlatform1,
+                    GamePlatform_GameId = gamePlatform1.GameId,
+                    GamePlatform_PlatformId = gamePlatform1.PlatformId,
+                    IconSource = "https://static-cdn.jtvnw.net/jtv_user_pictures/flawedbot-profile_image-815076ff68773420-300x300.jpeg"
+                },
                 VacancyId = 7,
                 Description = "vaga...."
             };

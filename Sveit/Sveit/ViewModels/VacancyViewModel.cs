@@ -2,9 +2,7 @@
 using Sveit.Controls;
 using Sveit.Extensions;
 using Sveit.Models;
-using Sveit.Services.Requests;
 using Sveit.Services.Team;
-using Sveit.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,10 +12,6 @@ namespace Sveit.ViewModels
 {
     public class VacancyViewModel : BaseViewModel
     {
-        private readonly INavigation _navigation;
-
-        private readonly IRequestService _requestService;
-
         private readonly ITeamService _teamService;
 
         private Vacancy vacancy;
@@ -28,19 +22,19 @@ namespace Sveit.ViewModels
             set { vacancy = value; OnPropertyChanged(); }
         }
 
-        public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute);
-
         public ObservableCollection<Player> Members { get; set; }
 
-        public VacancyViewModel(INavigation navigation, IRequestService requestService, Vacancy vacancy)
+        public IAsyncCommand ApplyCommand => new AsyncCommand(ApplyCommandExecute);
+
+        public VacancyViewModel(ITeamService teamService)
         {
-            Vacancy = vacancy;
-            _navigation = navigation;
-            _requestService = requestService;
-            if (AppSettings.ApiStatus)
-                _teamService = new TeamService(_requestService);
-            else
-                _teamService = new FakeTeamService();
+            _teamService = teamService;
+        }
+
+        public override Task InitializeAsync(params object[] navigationData)
+        {
+            Vacancy = navigationData[0] as Vacancy;
+            return base.InitializeAsync(navigationData);
         }
 
         public async Task ApplyCommandExecute()
@@ -50,7 +44,8 @@ namespace Sveit.ViewModels
                 DependencyService.Get<IMessage>().ShortAlert(AppResources.ApplyFailed);
                 return;
             }
-            await _navigation.PushModalAsync(new ApplyRegisterPage(_requestService, Vacancy));
+            await NavigationService.NavigateToAsync<ApplyRegisterViewModel>(Vacancy);
+            //await _navigation.PushModalAsync(new ApplyRegisterPage(_requestService, Vacancy));
         }
 
         public async Task<bool> ApplyCommandCanExecute()
@@ -58,9 +53,7 @@ namespace Sveit.ViewModels
             if (App.LoggedPlayer == null) return false;
 
             var members = await _teamService.GetPlayers(Vacancy.TeamId);
-            if (members.Any(p => p.PlayerId == App.LoggedPlayer.PlayerId))
-                return false;
-            return true;
+            return members.Any(p => p.PlayerId == App.LoggedPlayer.PlayerId);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Sveit.Services.Team
 {
-    interface ITeamService
+    public interface ITeamService
     {
         Task<Models.Team> GetById(int teamId);
 

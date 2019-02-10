@@ -23,7 +23,8 @@ namespace Sveit.ViewModels
             this.menuViewModel = menuViewModel;
         }
 
-        public override Task InitializeAsync(object navigationData) => Task.WhenAll
+        public override Task InitializeAsync(params object[] navigationData) => 
+            Task.WhenAll
                 (
 
                     NavigationService.NavigateToAsync<HomeViewModel>()

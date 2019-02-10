@@ -23,13 +23,17 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Vacancy> VacancyCommand => new AsyncCommand<Vacancy>(VacancyCommandExecute);
 
-        public GameViewModel(IVacancyService vacancyService, Game game)
+        public GameViewModel(IVacancyService vacancyService)
         {
             _vacancyService = vacancyService;
-            Game = game;
 
             Vacancies = new ObservableCollection<Vacancy>();
-            Task.Run(() => LoadVacancies());
+        }
+
+        public override Task InitializeAsync(params object[] navigationData)
+        {
+            Game = navigationData[0] as Game;
+            return LoadVacancies();
         }
 
         private async Task LoadVacancies()
@@ -47,7 +51,6 @@ namespace Sveit.ViewModels
         public async Task VacancyCommandExecute(Vacancy vacancy)
         {
             await NavigationService.NavigateToAsync<VacancyViewModel>(vacancy);
-            //await _navigation.PushModalAsync(new Views.VacancyPage(_requestService, vacancy));
         }
     }
 }

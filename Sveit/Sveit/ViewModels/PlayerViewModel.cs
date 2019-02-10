@@ -5,8 +5,6 @@ using Sveit.Models;
 using Sveit.Services.Comment;
 using Sveit.Services.Login;
 using Sveit.Services.Player;
-using Sveit.Services.Requests;
-using Sveit.Views;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -15,13 +13,11 @@ namespace Sveit.ViewModels
 {
     public class PlayerViewModel : BaseViewModel
     {
-        private readonly IRequestService _requestService;
-
         private readonly IPlayerService _playerService;
 
         private readonly ICommentService _commentService;
 
-        private readonly int _playerId;
+        private int _playerId;
 
         private bool isCurrentPlayer;
 
@@ -93,27 +89,21 @@ namespace Sveit.ViewModels
 
         public IAsyncCommand<Comment> UpdateCommentCommand => new AsyncCommand<Comment>(UpdateCommentCommandExecute);
 
-        public PlayerViewModel(IRequestService requestService, int? playerId = null)
+        public PlayerViewModel(IPlayerService playerService, ICommentService commentService)
         {
-            _requestService = requestService;
+            _commentService = commentService;
+            _playerService = playerService;
+
             Skills = new ObservableCollection<Skill>();
             Teams = new ObservableCollection<Team>();
             Comments = new ObservableCollection<Comment>();
+        }
 
-            if (AppSettings.ApiStatus)
-            {
-                _playerService = new PlayerService(requestService);
-                _commentService = new CommentService(requestService);
-            }
-            else
-            {
-                _playerService = new FakePlayerService();
-                _commentService = new FakeCommentService();
-            }
-
-            _playerId = playerId ?? App.LoggedPlayer.PlayerId;
+        public override Task InitializeAsync(params object[] navigationData)
+        {
+            _playerId = navigationData[0] as int? ?? App.LoggedPlayer.PlayerId;
             IsCurrentPlayer = _playerId == App.LoggedPlayer.PlayerId;
-            Task.Run(() => ProfileCommandExecute());
+            return ProfileCommandExecute();
         }
 
         private async Task ProfileCommandExecute()
@@ -150,8 +140,9 @@ namespace Sveit.ViewModels
                 bool result = await _playerService.DeletePlayerAsync(Player.PlayerId);
                 if (result)
                 {
-                    var loginService = new LoginService(_requestService);
+                    var loginService = Base.Locator.Instance.Resolve<ILoginService>();
                     loginService.LogOut();
+                    await NavigationService.NavigateToAsync<MasterDetailMainViewModel>();
                     //App.Current.MainPage = new MasterDetailMainPage(_requestService);
                 }
                 else
@@ -178,13 +169,12 @@ namespace Sveit.ViewModels
         private async Task AppliesCommandExecute()
         {
             await NavigationService.NavigateToAsync<AppliesPlayerViewModel>(_playerId);
-            //await _navigation.PushAsync(new AppliesPlayerPage(_requestService, _playerId));
         }
 
         public async Task TeamCommandExecute(Team team)
         {
             bool isOwner = Player.PlayerId == team.OwnerId;
-            await NavigationService.NavigateToAsync<TeamViewModel>(team.TeamId);
+            await NavigationService.NavigateToAsync<TeamViewModel>(team.TeamId, isOwner);
             //TODO: t
             //await _navigation.PushAsync(new TeamPage(_requestService, team.TeamId, isOwner));
         }

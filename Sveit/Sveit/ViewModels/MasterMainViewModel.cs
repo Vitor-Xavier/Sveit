@@ -76,6 +76,12 @@ namespace Sveit.ViewModels
 
         public async Task ItemSelected(MasterMenuItem menuItem)
         {
+            if (menuItem.Id == 6)
+            {
+                if (_loginService.LogOut())
+                    await NavigationService.NavigateToAsync<MasterDetailMainViewModel>();
+                return;
+            }
             await NavigationService.NavigateToAsync(menuItem.TargetType, menuItem);
         }
     }

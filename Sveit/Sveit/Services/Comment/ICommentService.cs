@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Sveit.Services.Comment
 {
-    interface ICommentService
+    public interface ICommentService
     {
         Task<Models.Comment> GetById(int commentId);
 

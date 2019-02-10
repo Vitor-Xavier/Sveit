@@ -21,7 +21,7 @@ namespace Sveit.ViewModels
 
         private readonly ITeamService _teamService;
 
-        private readonly int _teamId;
+        private int _teamId;
 
         private bool isOwner;
 
@@ -85,20 +85,28 @@ namespace Sveit.ViewModels
             }
         }
 
-        public TeamViewModel(INavigation navigation, IRequestService requestService, int teamId, bool isOwner)
+        public TeamViewModel(ITeamService teamService)
         {
-            IsOwner = isOwner;
-            _navigation = navigation;
-            _requestService = requestService;
-            _teamId = teamId;
-            if (AppSettings.ApiStatus)
-                _teamService = new TeamService(requestService);
-            else
-                _teamService = new FakeTeamService();
+            //IsOwner = isOwner;
+            //_navigation = navigation;
+            //_requestService = requestService;
+            //_teamId = teamId;
+            _teamService = teamService;
+            //if (AppSettings.ApiStatus)
+            //    _teamService = new TeamService(requestService);
+            //else
+            //    _teamService = new FakeTeamService();
             Members = new ObservableCollection<Player>();
 
-            Task.Run(() => DescriptionCommandExecute());
+            //Task.Run(() => DescriptionCommandExecute());
         }
+
+        public override Task InitializeAsync(params object[] navigationData) => Task.WhenAll
+            (
+                Task.FromResult(_teamId = navigationData[0] as int? ?? 0),
+                Task.FromResult(IsOwner = navigationData[1] as bool? ?? false),
+                DescriptionCommandExecute()
+            );
 
         private async Task DescriptionCommandExecute()
         {
@@ -116,7 +124,7 @@ namespace Sveit.ViewModels
 
         private async Task VacanciesCommandExecute()
         {
-            await _navigation.PushAsync(new VacanciesTeamPage(_requestService, _teamId));
+            await _navigation.PushAsync(new VacanciesTeamPage(_requestService, Team.TeamId));
         }
 
         private async Task ContactsCommandExecute()
